@@ -576,6 +576,33 @@
         transform: translateY(0);
       }
     }
+
+    /* Mobile nav layering */
+    #audit {
+      position: relative;
+      z-index: 1;
+    }
+
+    #mobileMenu.hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 767px) {
+      #mobileMenu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        padding-top: .25rem;
+        background: inherit;
+        backdrop-filter: blur(18px);
+        z-index: 55;
+      }
+
+      #hero {
+        padding-top: 7rem;
+      }
+    }
   </style>
 
   <!-- Vercel Speed Insights -->
