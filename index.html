@@ -458,6 +458,19 @@
       transform: translateY(0);
     }
 
+    /* ── Crimson accent ── */
+    .crimson {
+      color: #DC143C;
+    }
+
+    .dark .crimson {
+      color: #ff3355;
+    }
+
+    .crimson-glow {
+      text-shadow: 0 0 20px rgba(220, 20, 60, 0.4);
+    }
+
     /* ── Glow pulse (kept as subtle shadow) ── */
     .glow-pulse {
       box-shadow: 0 4px 24px rgba(0,0,0,.08);
@@ -521,9 +534,9 @@
     class="relative min-h-screen flex flex-col items-center justify-center pt-20 pb-16 px-5 overflow-hidden">
     <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none" aria-hidden="true">
 
-      <!-- Glow orb -->
-      <div class="absolute w-96 h-96 rounded-full opacity-[0.07] dark:opacity-[0.12]"
-        style="background:radial-gradient(circle,#00D4FF,transparent 65%);"></div>
+      <!-- Crimson glow orb -->
+      <div class="absolute rounded-full pointer-events-none"
+        style="width:700px;height:700px;background:radial-gradient(circle,rgba(220,20,60,0.18),transparent 65%);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
     </div>
 
     <div class="relative z-10 max-w-4xl mx-auto text-center">
@@ -536,7 +549,7 @@
       <!-- Headline -->
       <h1 class="font-display font-800 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl leading-[1.08] tracking-tight mb-6">
         <span id="heroLineOne">Launch Your Website</span><br />
-        <span id="heroLineTwo" class="gradient-text">In Days.</span>
+        <span id="heroLineTwo" class="crimson crimson-glow">In Days.</span>
       </h1>
       <!-- Sub -->
       <p class="text-base sm:text-lg lg:text-xl muted max-w-2xl mx-auto leading-relaxed mb-10">
@@ -546,8 +559,8 @@
       <!-- Audit tool -->
       <div id="audit" class="glass rounded-2xl p-5 sm:p-6 max-w-2xl mx-auto glow-pulse">
         <p class="text-xs uppercase tracking-widest section-label font-display font-700 mb-3">
-          <span data-en="Free Instant Website Audit" data-bg="Безплатна бърза проверка на сайта ти">Free Instant Website
-            Audit</span>
+          <span data-en="Free Instant Website Audit" data-bg="Безплатна бърза проверка на сайта ти">Free Instant
+            <span class="crimson">Website Audit</span></span>
         </p>
         <div class="flex flex-col sm:flex-row gap-3 min-w-0">
           <input id="urlInput" type="url" placeholder="https://yourwebsite.com"
@@ -1210,15 +1223,13 @@
     <div class="max-w-6xl mx-auto">
       <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
         <div class="flex items-center gap-2.5">
-          <div class="relative w-7 h-7">
-            <div class="absolute inset-0 rounded-full border-2 neon-border opacity-60"></div>
-            <div
-              class="absolute top-1/2 left-1/2 w-1.5 h-1.5 rounded-full bg-sonar-blue -translate-x-1/2 -translate-y-1/2">
-            </div>
+          <div class="w-7 h-7 rounded-md flex items-center justify-center font-display font-700 text-xs"
+            style="background:#000; color:#fff;">
+            t
           </div>
           <div>
-            <span class="font-display font-700 tracking-tight neon-text">tanev<span
-                class="dark:text-white text-gray-700">.design</span></span>
+            <span class="font-display font-700 tracking-tight" style="letter-spacing:-0.03em">tanev<span
+                class="crimson">.design</span></span>
             <p class="text-[11px] muted" data-en="by Stoyan Tanev" data-bg="от Стоян Танев">by Stoyan Tanev</p>
           </div>
         </div>
