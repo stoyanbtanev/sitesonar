@@ -34,8 +34,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet" />
 
   <script>
@@ -89,7 +88,7 @@
     }
 
     .dark .neon-glow {
-      box-shadow: 0 2px 16px rgba(255,255,255,.08);
+      box-shadow: 0 2px 16px rgba(255, 255, 255, .08);
     }
 
     .dark .card-bg {
@@ -108,7 +107,7 @@
     }
 
     .dark .tag-bg {
-      background: rgba(255,255,255,.06);
+      background: rgba(255, 255, 255, .06);
       color: #e0e0e0;
       border: 1px solid #2a2a2a;
     }
@@ -120,7 +119,7 @@
     }
 
     .dark .info-bg {
-      background: rgba(255,255,255,.05);
+      background: rgba(255, 255, 255, .05);
       border: 1px solid #2a2a2a;
       color: #d0d0d0;
     }
@@ -181,7 +180,7 @@
     }
 
     .dark .stat-card {
-      background: rgba(255,255,255,.03);
+      background: rgba(255, 255, 255, .03);
     }
 
     /* ── LIGHT ── */
@@ -205,13 +204,13 @@
     }
 
     html:not(.dark) .neon-glow {
-      box-shadow: 0 2px 16px rgba(0,0,0,.06);
+      box-shadow: 0 2px 16px rgba(0, 0, 0, .06);
     }
 
     html:not(.dark) .card-bg {
       background: #ffffff;
       border: 1px solid #e8e8e8;
-      box-shadow: 0 2px 12px rgba(0,0,0,.04);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, .04);
     }
 
     html:not(.dark) .nav-bg {
@@ -289,7 +288,7 @@
     html:not(.dark) .pricing-highlight {
       background: #ffffff;
       border: 1.5px solid #000000;
-      box-shadow: 0 8px 40px rgba(0,0,0,.08);
+      box-shadow: 0 8px 40px rgba(0, 0, 0, .08);
     }
 
     html:not(.dark) .badge-popular {
@@ -313,17 +312,24 @@
       left: 0;
       right: 0;
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(0,0,0,.12), transparent);
+      background: linear-gradient(90deg, transparent, rgba(0, 0, 0, .12), transparent);
       animation: scan 1.6s linear infinite;
     }
 
     .dark .scan-line {
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .12), transparent);
     }
 
     @keyframes scan {
-      from { top: 0; opacity: 1; }
-      to   { top: 100%; opacity: .2; }
+      from {
+        top: 0;
+        opacity: 1;
+      }
+
+      to {
+        top: 100%;
+        opacity: .2;
+      }
     }
 
     /* ── Progress bars ── */
@@ -396,11 +402,11 @@
     }
 
     .dark .url-input:focus {
-      box-shadow: 0 0 0 2px rgba(255,255,255,.25);
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, .25);
     }
 
     html:not(.dark) .url-input:focus {
-      box-shadow: 0 0 0 2px rgba(0,0,0,.2);
+      box-shadow: 0 0 0 2px rgba(0, 0, 0, .2);
     }
 
     .pricing-card {
@@ -409,11 +415,11 @@
 
     .pricing-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(0,0,0,.08);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, .08);
     }
 
     .dark .pricing-card:hover {
-      box-shadow: 0 12px 32px rgba(0,0,0,.4);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, .4);
     }
 
     .gradient-text {
@@ -433,18 +439,21 @@
     .card-shine::before {
       content: '';
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0);
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0);
       transition: background .25s ease;
       pointer-events: none;
     }
 
     .card-shine:hover::before {
-      background: rgba(0,0,0,.02);
+      background: rgba(0, 0, 0, .02);
     }
 
     .dark .card-shine:hover::before {
-      background: rgba(255,255,255,.02);
+      background: rgba(255, 255, 255, .02);
     }
 
     /* ── Stagger entrance for sections ── */
@@ -471,7 +480,7 @@
     .crimson-glow {
       text-shadow: 0 0 20px rgba(220, 20, 60, 0.4);
     }
-    
+
     /* ── Creative Gradient ── */
     .creative-gradient {
       background: linear-gradient(135deg, #DC143C, #8b5cf6, #3b82f6);
@@ -481,6 +490,7 @@
       -webkit-text-fill-color: transparent;
       animation: textGradient 6s ease infinite;
     }
+
     .dark .creative-gradient {
       background: linear-gradient(135deg, #ff3355, #a78bfa, #60a5fa);
       background-size: 200% auto;
@@ -488,19 +498,28 @@
       background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
     @keyframes textGradient {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
     }
 
     /* ── Glow pulse (kept as subtle shadow) ── */
     .glow-pulse {
-      box-shadow: 0 4px 24px rgba(0,0,0,.08);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, .08);
     }
 
     .dark .glow-pulse {
-      box-shadow: 0 4px 24px rgba(0,0,0,.4);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, .4);
     }
 
     /* ── Chat & Cookies ── */
@@ -508,27 +527,38 @@
       transform: translateY(150%);
       transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     }
+
     #cookieBar.show {
       transform: translateY(0);
     }
-    
+
     #chatBotBox {
       transform: translateY(20px) scale(0.95);
       opacity: 0;
       pointer-events: none;
       transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
     }
+
     #chatBotBox.show {
       transform: translateY(0) scale(1);
       opacity: 1;
       pointer-events: auto;
     }
+
     .chat-msg {
       animation: fadeIn 0.3s ease forwards;
     }
+
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(5px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(5px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
@@ -586,13 +616,15 @@
 
     <div class="relative z-10 max-w-4xl mx-auto text-center">
       <!-- Headline -->
-      <h1 class="font-display font-800 text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[1.05] tracking-tight mb-6" style="letter-spacing:-0.04em">
+      <h1 class="font-display font-800 text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[1.05] tracking-tight mb-6"
+        style="letter-spacing:-0.04em">
         <span id="heroLineOne">Your <span class="creative-gradient">vision.</span></span><br />
         <span id="heroLineTwo" class="crimson">Brought to life.</span>
       </h1>
       <!-- Sub -->
       <p class="text-base sm:text-lg muted max-w-md mx-auto leading-relaxed mb-10">
-        <span id="heroSubcopy">I build beautiful, fast websites that help your business grow—without the agency price tag.</span>
+        <span id="heroSubcopy">I build beautiful, fast websites that help your business grow—without the agency price
+          tag.</span>
       </p>
       <!-- Audit tool -->
       <div id="audit" class="glass rounded-2xl p-5 sm:p-6 max-w-2xl mx-auto glow-pulse">
@@ -798,11 +830,24 @@
   <section id="why-website" class="py-24 px-5">
     <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
       <div class="flex-1 section-fade">
-        <p class="text-xs uppercase tracking-widest section-label font-display font-700 mb-3" data-en="The Reality" data-bg="Реалността"><span class="crimson">The</span> Reality</p>
-        <h2 class="font-display font-800 text-3xl sm:text-4xl dark:text-white text-gray-900 mb-6" data-en="Your business needs a digital home." data-bg="Бизнесът ти има нужда от дигитален дом.">Your business needs a <span class="crimson">digital home.</span></h2>
+        <p class="text-xs uppercase tracking-widest section-label font-display font-700 mb-3" data-en="The Reality"
+          data-bg="Реалността"><span class="crimson">The</span> Reality</p>
+        <h2 class="font-display font-800 text-3xl sm:text-4xl dark:text-white text-gray-900 mb-6"
+          data-en="Your business needs a digital home." data-bg="Бизнесът ти има нужда от дигитален дом.">Your business
+          needs a <span class="crimson">digital home.</span></h2>
         <div class="space-y-4">
-          <p class="muted text-sm leading-relaxed" data-en="Social media pages are great, but you don't own them. Algorithms change, accounts get banned, and organic reach drops. A website is the only piece of digital real estate you fully control." data-bg="Социалните мрежи са супер, но ти не ги притежаваш. Алгоритмите се променят, профилите се блокират, а органичният обхват пада. Сайтът е единственото твое 'дигитално имущество', което контролираш.">Social media pages are great, but you <span class="crimson font-medium">don't own them</span>. Algorithms change, accounts get banned, and organic reach drops. A website is the only piece of digital real estate you <span class="crimson font-medium">fully control</span>.</p>
-          <p class="muted text-sm leading-relaxed" data-en="When people search for a service, they trust businesses that look professional. A clean, fast website builds instant credibility and turns passing interest into paying clients 24/7." data-bg="Когато хората търсят услуга, те се доверяват на бизнеси, които изглеждат професионално. Изчистен и бърз сайт създава моментално доверие и превръща обикновения интерес в реални клиенти по всяко време на денонощието.">When people search for a service, they trust businesses that look professional. A clean, fast website builds <span class="crimson font-medium">instant credibility</span> and turns passing interest into <span class="crimson font-medium">paying clients 24/7</span>.</p>
+          <p class="muted text-sm leading-relaxed"
+            data-en="Social media pages are great, but you don't own them. Algorithms change, accounts get banned, and organic reach drops. A website is the only piece of digital real estate you fully control."
+            data-bg="Социалните мрежи са супер, но ти не ги притежаваш. Алгоритмите се променят, профилите се блокират, а органичният обхват пада. Сайтът е единственото твое 'дигитално имущество', което контролираш.">
+            Social media pages are great, but you <span class="crimson font-medium">don't own them</span>. Algorithms
+            change, accounts get banned, and organic reach drops. A website is the only piece of digital real estate you
+            <span class="crimson font-medium">fully control</span>.</p>
+          <p class="muted text-sm leading-relaxed"
+            data-en="When people search for a service, they trust businesses that look professional. A clean, fast website builds instant credibility and turns passing interest into paying clients 24/7."
+            data-bg="Когато хората търсят услуга, те се доверяват на бизнеси, които изглеждат професионално. Изчистен и бърз сайт създава моментално доверие и превръща обикновения интерес в реални клиенти по всяко време на денонощието.">
+            When people search for a service, they trust businesses that look professional. A clean, fast website builds
+            <span class="crimson font-medium">instant credibility</span> and turns passing interest into <span
+              class="crimson font-medium">paying clients 24/7</span>.</p>
         </div>
       </div>
       <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4 section-fade" style="transition-delay: .2s">
@@ -810,15 +855,23 @@
           <div class="w-12 h-12 rounded-xl tag-bg flex items-center justify-center mb-4">
             <i class="fas fa-lock crimson crimson-glow text-xl"></i>
           </div>
-          <h4 class="font-display font-700 dark:text-white text-gray-900 mb-2 text-sm" data-en="Total Control" data-bg="Пълен контрол"><span class="crimson">Total</span> Control</h4>
-          <p class="muted text-xs leading-relaxed" data-en="No algorithm dictates who sees your content. You set the rules." data-bg="Никакъв алгоритъм не решава кой вижда съдържанието ти. Ти определяш правилата."><span class="crimson font-medium">No algorithm</span> dictates who sees your content. You set the rules.</p>
+          <h4 class="font-display font-700 dark:text-white text-gray-900 mb-2 text-sm" data-en="Total Control"
+            data-bg="Пълен контрол"><span class="crimson">Total</span> Control</h4>
+          <p class="muted text-xs leading-relaxed"
+            data-en="No algorithm dictates who sees your content. You set the rules."
+            data-bg="Никакъв алгоритъм не решава кой вижда съдържанието ти. Ти определяш правилата."><span
+              class="crimson font-medium">No algorithm</span> dictates who sees your content. You set the rules.</p>
         </div>
         <div class="card-bg p-6 rounded-2xl pricing-card card-shine">
           <div class="w-12 h-12 rounded-xl tag-bg flex items-center justify-center mb-4">
             <i class="fas fa-chart-line crimson crimson-glow text-xl"></i>
           </div>
-          <h4 class="font-display font-700 dark:text-white text-gray-900 mb-2 text-sm" data-en="24/7 Sales" data-bg="Продажби 24/7"><span class="crimson">24/7</span> Sales</h4>
-          <p class="muted text-xs leading-relaxed" data-en="Your site answers questions and collects leads while you sleep." data-bg="Сайтът ти отговаря на въпроси и събира запитвания, докато спиш.">Your site answers questions and <span class="crimson font-medium">collects leads</span> while you sleep.</p>
+          <h4 class="font-display font-700 dark:text-white text-gray-900 mb-2 text-sm" data-en="24/7 Sales"
+            data-bg="Продажби 24/7"><span class="crimson">24/7</span> Sales</h4>
+          <p class="muted text-xs leading-relaxed"
+            data-en="Your site answers questions and collects leads while you sleep."
+            data-bg="Сайтът ти отговаря на въпроси и събира запитвания, докато спиш.">Your site answers questions and
+            <span class="crimson font-medium">collects leads</span> while you sleep.</p>
         </div>
       </div>
     </div>
@@ -831,7 +884,10 @@
         <p class="text-xs uppercase tracking-widest section-label font-display font-700 mb-3" data-en="Why Work With Me"
           data-bg="Защо точно аз"><span class="crimson">Why</span> Work With Me</p>
         <h2 class="font-display font-800 text-3xl sm:text-4xl dark:text-white text-gray-900"
-          data-en="Hi, I'm Stoyan. I build websites that actually work for you." data-bg="Здрасти, аз съм Стоян. Правя сайтове, които реално работят за теб.">Hi, I'm <span class="crimson">Stoyan</span>. I build websites that <span class="crimson">actually work</span> for you.</h2>
+          data-en="Hi, I'm Stoyan. I build websites that actually work for you."
+          data-bg="Здрасти, аз съм Стоян. Правя сайтове, които реално работят за теб.">Hi, I'm <span
+            class="crimson">Stoyan</span>. I build websites that <span class="crimson">actually work</span> for you.
+        </h2>
       </div>
 
       <div class="section-fade glass rounded-2xl p-7 sm:p-8 mb-8">
@@ -977,10 +1033,13 @@
         <p class="text-xs uppercase tracking-widest section-label font-display font-700 mb-3" data-en="Packages"
           data-bg="Пакети"><span class="crimson">Packages</span></p>
         <h2 class="font-display font-800 text-3xl sm:text-4xl dark:text-white text-gray-900"
-          data-en="Clear pricing. No surprises." data-bg="Ясни цени, без неприятни изненади">Clear pricing. <span class="crimson">No surprises.</span></h2>
+          data-en="Clear pricing. No surprises." data-bg="Ясни цени, без неприятни изненади">Clear pricing. <span
+            class="crimson">No surprises.</span></h2>
         <p class="muted text-sm mt-3 max-w-lg mx-auto"
           data-en="You shouldn't have to guess what your website will cost. Pick a package that fits your needs, and let's get started."
-          data-bg="Не трябва да гадаеш колко ще струва сайтът ти. Избери пакет, който ти пасва, и започваме.">You shouldn't have to guess what your website will cost. Pick a package that fits your needs, and let's get started.</p>
+          data-bg="Не трябва да гадаеш колко ще струва сайтът ти. Избери пакет, който ти пасва, и започваме.">You
+          shouldn't have to guess what your website will cost. Pick a package that fits your needs, and let's get
+          started.</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
@@ -1191,11 +1250,13 @@
       <p class="text-xs uppercase tracking-widest section-label font-display font-700 mb-3" data-en="Ready to start?"
         data-bg="Готов да започнем?"><span class="crimson">Ready</span> to start?</p>
       <h2 class="font-display font-800 text-3xl sm:text-4xl dark:text-white text-gray-900 mb-4"
-        data-en="Let's build something beautiful together." data-bg="Нека създадем нещо красиво заедно.">Let's build something <span class="crimson">beautiful</span> together.
+        data-en="Let's build something beautiful together." data-bg="Нека създадем нещо красиво заедно.">Let's build
+        something <span class="crimson">beautiful</span> together.
       </h2>
       <p class="muted text-sm max-w-xl mx-auto mb-10 leading-relaxed"
         data-en="I'd love to hear about your ideas. Drop me a message and I'll get back to you today."
-        data-bg="Ще се радвам да чуя за идеите ти. Пиши ми и ще ти отговоря още днес.">I'd love to hear about your ideas. Drop me a message and I'll get back to you today.</p>
+        data-bg="Ще се радвам да чуя за идеите ти. Пиши ми и ще ти отговоря още днес.">I'd love to hear about your
+        ideas. Drop me a message and I'll get back to you today.</p>
 
       <div class="glass rounded-2xl p-7 sm:p-8 text-left">
         <form id="contactForm" action="https://formsubmit.co/stoyanbtanev@gmail.com"
@@ -1284,17 +1345,26 @@
   </section>
 
   <!-- ═══ COOKIE BAR ═══ -->
-  <div id="cookieBar" class="fixed bottom-4 left-4 right-4 md:left-auto md:w-96 z-[60] card-bg rounded-2xl p-5 border neon-border shadow-xl">
+  <div id="cookieBar"
+    class="fixed bottom-4 left-4 right-4 md:left-auto md:w-96 z-[60] card-bg rounded-2xl p-5 border neon-border shadow-xl">
     <div class="flex items-start gap-4">
       <div class="w-10 h-10 rounded-full tag-bg flex items-center justify-center flex-shrink-0">
         <i class="fas fa-cookie-bite neon-text"></i>
       </div>
       <div>
-        <p class="font-display font-700 text-sm mb-1 dark:text-white text-gray-900" data-en="We value your privacy" data-bg="Ние ценим вашата поверителност">We value your privacy</p>
-        <p class="text-[11px] muted mb-4 leading-relaxed" data-en="We use cookies to enhance your browsing experience and analyze our traffic." data-bg="Използваме бисквитки, за да подобрим преживяването ви и да анализираме трафика.">We use cookies to enhance your browsing experience and analyze our traffic.</p>
+        <p class="font-display font-700 text-sm mb-1 dark:text-white text-gray-900" data-en="We value your privacy"
+          data-bg="Ние ценим вашата поверителност">We value your privacy</p>
+        <p class="text-[11px] muted mb-4 leading-relaxed"
+          data-en="We use cookies to enhance your browsing experience and analyze our traffic."
+          data-bg="Използваме бисквитки, за да подобрим преживяването ви и да анализираме трафика.">We use cookies to
+          enhance your browsing experience and analyze our traffic.</p>
         <div class="flex gap-2">
-          <button onclick="acceptCookies()" class="cta-primary flex-1 py-2 text-xs font-display font-700 rounded-lg transition-all hover:scale-[1.03] active:scale-[.98]" data-en="Accept All" data-bg="Приемам">Accept All</button>
-          <button onclick="declineCookies()" class="tag-bg flex-1 py-2 text-xs font-display font-700 rounded-lg transition-all hover:scale-[1.03] active:scale-[.98]" data-en="Decline" data-bg="Отказвам">Decline</button>
+          <button onclick="acceptCookies()"
+            class="cta-primary flex-1 py-2 text-xs font-display font-700 rounded-lg transition-all hover:scale-[1.03] active:scale-[.98]"
+            data-en="Accept All" data-bg="Приемам">Accept All</button>
+          <button onclick="declineCookies()"
+            class="tag-bg flex-1 py-2 text-xs font-display font-700 rounded-lg transition-all hover:scale-[1.03] active:scale-[.98]"
+            data-en="Decline" data-bg="Отказвам">Decline</button>
         </div>
       </div>
     </div>
@@ -1303,36 +1373,50 @@
   <!-- ═══ CHAT BOT ═══ -->
   <div id="chatBotWrapper" class="fixed bottom-4 right-4 z-[70] flex flex-col items-end gap-3 pointer-events-none">
     <!-- Chat Window -->
-    <div id="chatBotBox" class="w-[calc(100vw-2rem)] sm:w-80 h-[26rem] card-bg rounded-2xl border neon-border shadow-2xl flex flex-col overflow-hidden origin-bottom-right">
+    <div id="chatBotBox"
+      class="w-[calc(100vw-2rem)] sm:w-80 h-[26rem] card-bg rounded-2xl border neon-border shadow-2xl flex flex-col overflow-hidden origin-bottom-right">
       <!-- Header -->
       <div class="nav-bg p-4 border-b divider flex items-center justify-between">
         <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-full bg-black dark:bg-white text-white dark:text-black flex items-center justify-center font-display font-700 text-xs shadow-sm">AI</div>
+          <div
+            class="w-8 h-8 rounded-full bg-black dark:bg-white text-white dark:text-black flex items-center justify-center font-display font-700 text-xs shadow-sm">
+            AI</div>
           <div>
-            <p class="font-display font-700 text-sm leading-none dark:text-white text-gray-900" data-en="tanev.design AI" data-bg="tanev.design AI">tanev.design <span class="creative-gradient font-800">AI</span></p>
-            <p class="text-[10px] text-green-500 font-medium mt-1 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span><span data-en="Online" data-bg="На линия">Online</span></p>
+            <p class="font-display font-700 text-sm leading-none dark:text-white text-gray-900"
+              data-en="tanev.design AI" data-bg="tanev.design AI">tanev.design <span
+                class="creative-gradient font-800">AI</span></p>
+            <p class="text-[10px] text-green-500 font-medium mt-1 flex items-center gap-1.5"><span
+                class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span><span data-en="Online"
+                data-bg="На линия">Online</span></p>
           </div>
         </div>
-        <button onclick="toggleChat()" class="w-8 h-8 rounded-full tag-bg flex items-center justify-center hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors pointer-events-auto">
+        <button onclick="toggleChat()"
+          class="w-8 h-8 rounded-full tag-bg flex items-center justify-center hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors pointer-events-auto">
           <i class="fas fa-times text-xs"></i>
         </button>
       </div>
       <!-- Messages -->
-      <div id="chatMsgs" class="flex-1 overflow-y-auto p-4 flex flex-col gap-3 text-sm bg-gray-50 dark:bg-sonar-dark pointer-events-auto">
+      <div id="chatMsgs"
+        class="flex-1 overflow-y-auto p-4 flex flex-col gap-3 text-sm bg-gray-50 dark:bg-sonar-dark pointer-events-auto">
         <!-- JS will populate -->
       </div>
       <!-- Input -->
       <div class="p-3 border-t divider card-bg pointer-events-auto">
         <form id="chatForm" onsubmit="handleChatSubmit(event)" class="relative">
-          <input type="text" id="chatInput" placeholder="Ask me anything..." data-placeholder-en="Ask me anything..." data-placeholder-bg="Попитай ме нещо..." class="w-full bg-transparent border neon-border rounded-xl pl-4 pr-10 py-3 text-xs transition-all url-input" autocomplete="off" />
-          <button type="submit" class="absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg tag-bg flex items-center justify-center hover:cursor-pointer transition-colors active:scale-95">
+          <input type="text" id="chatInput" placeholder="Ask me anything..." data-placeholder-en="Ask me anything..."
+            data-placeholder-bg="Попитай ме нещо..."
+            class="w-full bg-transparent border neon-border rounded-xl pl-4 pr-10 py-3 text-xs transition-all url-input"
+            autocomplete="off" />
+          <button type="submit"
+            class="absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg tag-bg flex items-center justify-center hover:cursor-pointer transition-colors active:scale-95">
             <i class="fas fa-paper-plane text-xs neon-text"></i>
           </button>
         </form>
       </div>
     </div>
     <!-- Chat Toggle Button -->
-    <button id="chatToggleBtn" onclick="toggleChat()" class="w-14 h-14 rounded-full cta-primary shadow-2xl flex items-center justify-center transition-transform hover:scale-105 active:scale-95 pointer-events-auto">
+    <button id="chatToggleBtn" onclick="toggleChat()"
+      class="w-14 h-14 rounded-full cta-primary shadow-2xl flex items-center justify-center transition-transform hover:scale-105 active:scale-95 pointer-events-auto">
       <i id="chatToggleIcon" class="fas fa-comment-dots text-xl"></i>
     </button>
   </div>
@@ -1572,11 +1656,13 @@
       localStorage.setItem('ss-lang', currentLang);
       applyLanguage();
       if (lastAuditState) renderAudit(lastAuditState);
-      
+
       // Reset chatbot language if it's open
       if (chatInitialized) {
         chatMsgs.innerHTML = '';
+        chatHistory = [];
         appendMessage(chatLocales[currentLang].greeting, 'ai');
+        chatHistory.push({ role: "model", parts: [{ text: chatLocales[currentLang].greeting }] });
       }
     }
 
@@ -2128,27 +2214,20 @@
 
     const chatLocales = {
       en: {
-        greeting: "Hi there! I'm the tanev.design AI assistant. How can I help you today?",
-        fallback: "I'm a simple bot, so I might not understand everything. For detailed inquiries, please use the contact form or email Stoyan directly!",
-        answers: {
-          price: "My pricing starts at €200 for a Quick Launch page. Full redesigns start at €500. You can check the Pricing section above for more details!",
-          time: "Projects usually take between 3 to 10 days depending on the scope. A standard landing page is typically ready in just 3 days!",
-          contact: "You can reach Stoyan at stoyanbtanev@gmail.com, via the contact form, or connect on LinkedIn/GitHub via the links below.",
-          portfolio: "Stoyan has built many fast, modern websites. To see some recent work, please use the contact form to reach out!"
-        }
+        greeting: "Hi there! I'm the tanev.design AI assistant. How can I help you today? Are you thinking about a brand new website or an update to an existing one?"
       },
       bg: {
-        greeting: "Здравейте! Аз съм AI асистентът на tanev.design. С какво мога да ви помогна днес?",
-        fallback: "Аз съм опростен бот и може да не разбера всичко. За конкретни въпроси, моля използвайте контактната форма или пишете на Стоян!",
-        answers: {
-          price: "Цените на Стоян започват от €200 за базов сайт. Цялостен редизайн започва от €500. Разгледайте секция 'Цени' за повече информация!",
-          time: "Проектите обикновено отнемат между 3 и 10 дни. Обикновена лендинг страница може да бъде готова само за 3 дни!",
-          contact: "Може да се свържете със Стоян на stoyanbtanev@gmail.com или чрез контактната форма по-долу.",
-          portfolio: "Стоян е изработил много красиви и бързи сайтове. Пишете му през контактната форма, за да ви покаже скорошни портфолио проекти!"
-        }
+        greeting: "Здравейте! Аз съм AI асистентът на tanev.design. С какво мога да ви помогна днес? Обмисляте чисто нов сайт или редизайн на съществуващ?"
       }
     };
 
+    // ── GEMINI API SETUP ──
+    // Get a FREE API key from: https://aistudio.google.com/
+    // IMPORTANT: In a real production strictly speaking you should proxy this through a worker. 
+    // Here we use the direct client connection on the free tier. Set HTTP referrer restrictions in AI studio keys so nobody else can use it.
+    const GEMINI_API_KEY = "AIzaSyCYHFD2NckQz58P8CWwImHwRyrqyncn5sc";
+
+    let chatHistory = [];
     let chatOpen = false;
     let chatInitialized = false;
     const chatBotBox = document.getElementById('chatBotBox');
@@ -2163,6 +2242,8 @@
         chatToggleIcon.className = 'fas fa-chevron-down text-xl';
         if (!chatInitialized) {
           appendMessage(chatLocales[currentLang].greeting, 'ai');
+          // Start tracking history so the model knows what it said first
+          chatHistory.push({ role: "model", parts: [{ text: chatLocales[currentLang].greeting }] });
           chatInitialized = true;
         }
         setTimeout(() => chatInput.focus(), 300);
@@ -2174,42 +2255,75 @@
 
     function appendMessage(text, sender) {
       const el = document.createElement('div');
-      el.className = `chat-msg max-w-[85%] rounded-2xl px-4 py-2.5 text-[13px] leading-relaxed shadow-sm ${
-        sender === 'ai' 
-          ? 'card-bg self-start rounded-tl-none border neon-border' 
+      el.className = `chat-msg max-w-[85%] rounded-2xl px-4 py-2.5 text-[13px] leading-relaxed shadow-sm ${sender === 'ai'
+          ? 'card-bg self-start rounded-tl-none border neon-border'
           : 'bg-black text-white dark:bg-white dark:text-black self-end rounded-tr-none'
-      }`;
+        }`;
       el.textContent = text;
       chatMsgs.appendChild(el);
       chatMsgs.scrollTop = chatMsgs.scrollHeight;
     }
 
-    function handleChatSubmit(e) {
+    async function handleChatSubmit(e) {
       e.preventDefault();
       const val = chatInput.value.trim();
       if (!val) return;
-      
+
       appendMessage(val, 'user');
       chatInput.value = '';
-      
-      // Simulate think time
-      setTimeout(() => {
-        const lowerVal = val.toLowerCase();
-        const locale = chatLocales[currentLang];
-        let response = locale.fallback;
-        
-        if (lowerVal.includes('price') || lowerVal.includes('cost') || lowerVal.includes('цена') || lowerVal.includes('цени')) {
-          response = locale.answers.price;
-        } else if (lowerVal.includes('time') || lowerVal.includes('long') || lowerVal.includes('време') || lowerVal.includes('дни') || lowerVal.includes('day')) {
-          response = locale.answers.time;
-        } else if (lowerVal.includes('contact') || lowerVal.includes('email') || lowerVal.includes('контакт') || lowerVal.includes('връзка')) {
-          response = locale.answers.contact;
-        } else if (lowerVal.includes('portfolio') || lowerVal.includes('work') || lowerVal.includes('портфолио') || lowerVal.includes('сайтове') || lowerVal.includes('project')) {
-          response = locale.answers.portfolio;
+
+      const loadingId = 'loading-' + Date.now();
+      const loadingEl = document.createElement('div');
+      loadingEl.id = loadingId;
+      loadingEl.className = 'chat-msg max-w-[85%] rounded-2xl px-4 py-2.5 text-[13px] leading-relaxed shadow-sm card-bg self-start rounded-tl-none border neon-border text-gray-500 italic';
+      loadingEl.textContent = currentLang === 'en' ? 'Thinking...' : 'Мисля...';
+      chatMsgs.appendChild(loadingEl);
+      chatMsgs.scrollTop = chatMsgs.scrollHeight;
+
+      chatHistory.push({ role: "user", parts: [{ text: val }] });
+
+      if (GEMINI_API_KEY === "YOUR_GEMINI_API_KEY_HERE" || !GEMINI_API_KEY) {
+        document.getElementById(loadingId).remove();
+        const fallback = currentLang === 'en'
+          ? "Please add your free Gemini API Key (from aistudio.google.com) in the `index.html` file right where it says `YOUR_GEMINI_API_KEY_HERE` to enable my AI brain!"
+          : "Моля, добавете своя безплатен Gemini API ключ (от aistudio.google.com) в `index.html` файла на мястото на `YOUR_GEMINI_API_KEY_HERE`, за да активирате моя AI мозък!";
+        appendMessage(fallback, 'ai');
+        chatHistory.pop();
+        return;
+      }
+
+      try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            systemInstruction: {
+              parts: [{ text: "You are the AI Assistant for tanev.design, an independent web developer named Stoyan Tanev. Your job is to answer visitor questions and convince them to hire Stoyan. Emphasize his advantages: lightning-fast websites (90+ PageSpeed), no bloated agency overhead (better prices, direct communication), mobile-first designs, and fast delivery speeds (3-10 days). Be incredibly polite, conversational, and concise. Reply in the same language the user speaks (English or Bulgarian). Periodically suggest they use the contact form at the bottom of the page or email stoyanbtanev@gmail.com. Never invent fake prices; his prices start at €200 for a landing page and €500 for a redesign. Keep your responses short (1-3 sentences max)." }]
+            },
+            contents: chatHistory
+          })
+        });
+
+        const data = await response.json();
+        document.getElementById(loadingId).remove();
+
+        if (data.error) {
+          console.error("Gemini API Error:", data.error);
+          appendMessage(currentLang === 'en' ? "Oops, I'm having trouble connecting right now." : "Опа, възникна проблем с връзката.", 'ai');
+          chatHistory.pop();
+          return;
         }
-        
-        appendMessage(response, 'ai');
-      }, 700);
+
+        const replyText = data.candidates[0].content.parts[0].text;
+        appendMessage(replyText, 'ai');
+        chatHistory.push({ role: "model", parts: [{ text: replyText }] });
+
+      } catch (err) {
+        console.error(err);
+        document.getElementById(loadingId).remove();
+        appendMessage(currentLang === 'en' ? "Network error. Please try again." : "Мрежова грешка. Опитайте отново.", 'ai');
+        chatHistory.pop();
+      }
     }
 
     /* Cookies */
