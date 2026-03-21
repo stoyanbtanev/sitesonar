@@ -436,6 +436,7 @@
       top: 0; left: 0; right: 0; bottom: 0;
       background: rgba(0,0,0,0);
       transition: background .25s ease;
+      pointer-events: none;
     }
 
     .card-shine:hover::before {
@@ -478,6 +479,34 @@
 
     .dark .glow-pulse {
       box-shadow: 0 4px 24px rgba(0,0,0,.4);
+    }
+
+    /* ── Chat & Cookies ── */
+    #cookieBar {
+      transform: translateY(150%);
+      transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    #cookieBar.show {
+      transform: translateY(0);
+    }
+    
+    #chatBotBox {
+      transform: translateY(20px) scale(0.95);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    #chatBotBox.show {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .chat-msg {
+      animation: fadeIn 0.3s ease forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -1232,6 +1261,60 @@
     </div>
   </section>
 
+  <!-- ═══ COOKIE BAR ═══ -->
+  <div id="cookieBar" class="fixed bottom-4 left-4 right-4 md:left-auto md:w-96 z-[60] card-bg rounded-2xl p-5 border neon-border shadow-xl">
+    <div class="flex items-start gap-4">
+      <div class="w-10 h-10 rounded-full tag-bg flex items-center justify-center flex-shrink-0">
+        <i class="fas fa-cookie-bite neon-text"></i>
+      </div>
+      <div>
+        <p class="font-display font-700 text-sm mb-1 dark:text-white text-gray-900" data-en="We value your privacy" data-bg="Ние ценим вашата поверителност">We value your privacy</p>
+        <p class="text-[11px] muted mb-4 leading-relaxed" data-en="We use cookies to enhance your browsing experience and analyze our traffic." data-bg="Използваме бисквитки, за да подобрим преживяването ви и да анализираме трафика.">We use cookies to enhance your browsing experience and analyze our traffic.</p>
+        <div class="flex gap-2">
+          <button onclick="acceptCookies()" class="cta-primary flex-1 py-2 text-xs font-display font-700 rounded-lg transition-all hover:scale-[1.03] active:scale-[.98]" data-en="Accept All" data-bg="Приемам">Accept All</button>
+          <button onclick="declineCookies()" class="tag-bg flex-1 py-2 text-xs font-display font-700 rounded-lg transition-all hover:scale-[1.03] active:scale-[.98]" data-en="Decline" data-bg="Отказвам">Decline</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ CHAT BOT ═══ -->
+  <div id="chatBotWrapper" class="fixed bottom-4 right-4 z-[70] flex flex-col items-end gap-3 pointer-events-none">
+    <!-- Chat Window -->
+    <div id="chatBotBox" class="w-[calc(100vw-2rem)] sm:w-80 h-[26rem] card-bg rounded-2xl border neon-border shadow-2xl flex flex-col overflow-hidden origin-bottom-right">
+      <!-- Header -->
+      <div class="nav-bg p-4 border-b divider flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-full bg-black dark:bg-white text-white dark:text-black flex items-center justify-center font-display font-700 text-xs shadow-sm">AI</div>
+          <div>
+            <p class="font-display font-700 text-sm leading-none dark:text-white text-gray-900" data-en="tanev.design AI" data-bg="tanev.design AI">tanev.design AI</p>
+            <p class="text-[10px] text-green-500 font-medium mt-1 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span><span data-en="Online" data-bg="На линия">Online</span></p>
+          </div>
+        </div>
+        <button onclick="toggleChat()" class="w-8 h-8 rounded-full tag-bg flex items-center justify-center hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors pointer-events-auto">
+          <i class="fas fa-times text-xs"></i>
+        </button>
+      </div>
+      <!-- Messages -->
+      <div id="chatMsgs" class="flex-1 overflow-y-auto p-4 flex flex-col gap-3 text-sm bg-gray-50 dark:bg-sonar-dark pointer-events-auto">
+        <!-- JS will populate -->
+      </div>
+      <!-- Input -->
+      <div class="p-3 border-t divider card-bg pointer-events-auto">
+        <form id="chatForm" onsubmit="handleChatSubmit(event)" class="relative">
+          <input type="text" id="chatInput" placeholder="Ask me anything..." data-placeholder-en="Ask me anything..." data-placeholder-bg="Попитай ме нещо..." class="w-full bg-transparent border neon-border rounded-xl pl-4 pr-10 py-3 text-xs transition-all url-input" autocomplete="off" />
+          <button type="submit" class="absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg tag-bg flex items-center justify-center hover:cursor-pointer transition-colors active:scale-95">
+            <i class="fas fa-paper-plane text-xs neon-text"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+    <!-- Chat Toggle Button -->
+    <button id="chatToggleBtn" onclick="toggleChat()" class="w-14 h-14 rounded-full cta-primary shadow-2xl flex items-center justify-center transition-transform hover:scale-105 active:scale-95 pointer-events-auto">
+      <i id="chatToggleIcon" class="fas fa-comment-dots text-xl"></i>
+    </button>
+  </div>
+
   <!-- ═══ FOOTER ═══ -->
   <footer class="footer-bg py-10 px-5">
     <div class="max-w-6xl mx-auto">
@@ -1467,6 +1550,12 @@
       localStorage.setItem('ss-lang', currentLang);
       applyLanguage();
       if (lastAuditState) renderAudit(lastAuditState);
+      
+      // Reset chatbot language if it's open
+      if (chatInitialized) {
+        chatMsgs.innerHTML = '';
+        appendMessage(chatLocales[currentLang].greeting, 'ai');
+      }
     }
 
     function clamp(value, min, max) {
@@ -2014,6 +2103,108 @@
         }, 2500);
       }
     });
+
+    const chatLocales = {
+      en: {
+        greeting: "Hi there! I'm the tanev.design AI assistant. How can I help you today?",
+        fallback: "I'm a simple bot, so I might not understand everything. For detailed inquiries, please use the contact form or email Stoyan directly!",
+        answers: {
+          price: "My pricing starts at €200 for a Quick Launch page. Full redesigns start at €500. You can check the Pricing section above for more details!",
+          time: "Projects usually take between 3 to 10 days depending on the scope. A standard landing page is typically ready in just 3 days!",
+          contact: "You can reach Stoyan at stoyanbtanev@gmail.com, via the contact form, or connect on LinkedIn/GitHub via the links below.",
+          portfolio: "Stoyan has built many fast, modern websites. To see some recent work, please use the contact form to reach out!"
+        }
+      },
+      bg: {
+        greeting: "Здравейте! Аз съм AI асистентът на tanev.design. С какво мога да ви помогна днес?",
+        fallback: "Аз съм опростен бот и може да не разбера всичко. За конкретни въпроси, моля използвайте контактната форма или пишете на Стоян!",
+        answers: {
+          price: "Цените на Стоян започват от €200 за базов сайт. Цялостен редизайн започва от €500. Разгледайте секция 'Цени' за повече информация!",
+          time: "Проектите обикновено отнемат между 3 и 10 дни. Обикновена лендинг страница може да бъде готова само за 3 дни!",
+          contact: "Може да се свържете със Стоян на stoyanbtanev@gmail.com или чрез контактната форма по-долу.",
+          portfolio: "Стоян е изработил много красиви и бързи сайтове. Пишете му през контактната форма, за да ви покаже скорошни портфолио проекти!"
+        }
+      }
+    };
+
+    let chatOpen = false;
+    let chatInitialized = false;
+    const chatBotBox = document.getElementById('chatBotBox');
+    const chatToggleIcon = document.getElementById('chatToggleIcon');
+    const chatMsgs = document.getElementById('chatMsgs');
+    const chatInput = document.getElementById('chatInput');
+
+    function toggleChat() {
+      chatOpen = !chatOpen;
+      if (chatOpen) {
+        chatBotBox.classList.add('show');
+        chatToggleIcon.className = 'fas fa-chevron-down text-xl';
+        if (!chatInitialized) {
+          appendMessage(chatLocales[currentLang].greeting, 'ai');
+          chatInitialized = true;
+        }
+        setTimeout(() => chatInput.focus(), 300);
+      } else {
+        chatBotBox.classList.remove('show');
+        chatToggleIcon.className = 'fas fa-comment-dots text-xl';
+      }
+    }
+
+    function appendMessage(text, sender) {
+      const el = document.createElement('div');
+      el.className = `chat-msg max-w-[85%] rounded-2xl px-4 py-2.5 text-[13px] leading-relaxed shadow-sm ${
+        sender === 'ai' 
+          ? 'card-bg self-start rounded-tl-none border neon-border' 
+          : 'bg-black text-white dark:bg-white dark:text-black self-end rounded-tr-none'
+      }`;
+      el.textContent = text;
+      chatMsgs.appendChild(el);
+      chatMsgs.scrollTop = chatMsgs.scrollHeight;
+    }
+
+    function handleChatSubmit(e) {
+      e.preventDefault();
+      const val = chatInput.value.trim();
+      if (!val) return;
+      
+      appendMessage(val, 'user');
+      chatInput.value = '';
+      
+      // Simulate think time
+      setTimeout(() => {
+        const lowerVal = val.toLowerCase();
+        const locale = chatLocales[currentLang];
+        let response = locale.fallback;
+        
+        if (lowerVal.includes('price') || lowerVal.includes('cost') || lowerVal.includes('цена') || lowerVal.includes('цени')) {
+          response = locale.answers.price;
+        } else if (lowerVal.includes('time') || lowerVal.includes('long') || lowerVal.includes('време') || lowerVal.includes('дни') || lowerVal.includes('day')) {
+          response = locale.answers.time;
+        } else if (lowerVal.includes('contact') || lowerVal.includes('email') || lowerVal.includes('контакт') || lowerVal.includes('връзка')) {
+          response = locale.answers.contact;
+        } else if (lowerVal.includes('portfolio') || lowerVal.includes('work') || lowerVal.includes('портфолио') || lowerVal.includes('сайтове') || lowerVal.includes('project')) {
+          response = locale.answers.portfolio;
+        }
+        
+        appendMessage(response, 'ai');
+      }, 700);
+    }
+
+    /* Cookies */
+    const cookieBar = document.getElementById('cookieBar');
+    if (!localStorage.getItem('ss-cookie-consent')) {
+      setTimeout(() => cookieBar.classList.add('show'), 2000);
+    }
+
+    function acceptCookies() {
+      localStorage.setItem('ss-cookie-consent', 'accepted');
+      cookieBar.classList.remove('show');
+    }
+
+    function declineCookies() {
+      localStorage.setItem('ss-cookie-consent', 'declined');
+      cookieBar.classList.remove('show');
+    }
 
     applyLanguage();
   </script>
