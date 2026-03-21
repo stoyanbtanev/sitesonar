@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="assets/repo-banner.svg" alt="tanev.design repository banner" width="100%" />
+  <img src="assets/repo-banner.png" alt="tanev.design — Fast Websites, Fair Prices, Live AI" width="100%" />
 </p>
 
 <h1 align="center">tanev.design</h1>
 
 <p align="center">
-  Fast, conversion-focused websites and instant website audits for businesses that want to launch in days, not months.
+  Fast, conversion-focused websites and instant website audits — built and delivered in days, not months.
 </p>
 
 <p align="center">
@@ -18,11 +18,15 @@
   <a href="https://github.com/stoyanbtanev">GitHub</a>
 </p>
 
+---
+
 ## Overview
 
-tanev.design is the public-facing service site for Stoyan Tanev, a freelance web designer and developer based in Plovdiv, Bulgaria. This repository contains the full landing page experience for the service: brand positioning, a free instant website audit, transparent pricing, and a direct lead capture flow.
+tanev.design is the public-facing service site for Stoyan Tanev, a freelance web designer and developer based in Plovdiv, Bulgaria. It combines a sharp landing page, a free live website audit tool, transparent service pricing, and a direct AI-powered assistant — all in a single, zero-framework HTML file.
 
-The project is built to communicate one message clearly: businesses should be able to get a sharp, modern website fast, without agency overhead, vague pricing, or slow delivery.
+The project communicates one message clearly: businesses can get a sharp, fast, modern website without agency overhead, vague pricing, or slow delivery.
+
+---
 
 ## At a Glance
 
@@ -32,30 +36,42 @@ The project is built to communicate one message clearly: businesses should be ab
 | Audience | Small businesses, founders, product launches, and redesign projects |
 | Turnaround | 3 to 10 days |
 | Starting price | EUR 200 |
-| Positioning | Fast delivery, strong UI/UX, direct collaboration, fair pricing |
+| Positioning | Fast delivery, strong UI/UX, AI-assisted workflow, fair pricing |
 | Markets | Bulgaria and international clients |
 
-## What This Site Does Well
+---
 
-- Presents a clear value proposition in the first screen
-- Lets visitors run a free instant website audit directly from the hero section
-- Shows structured service packages with transparent pricing
-- Supports English and Bulgarian visitors with a built-in language toggle
-- Offers light and dark themes with saved user preference
-- Captures leads through an AJAX contact form with polished feedback states
-- Reinforces trust with SEO metadata, structured data, and direct contact details
+## Features
 
-## Audit Experience
+- **Live PageSpeed Audit** — visitors enter any URL and get an instant performance score, sourced from Google PageSpeed Insights with layered fallbacks
+- **Google Gemini AI Chatbot** — a fully functional AI assistant (powered by Gemini 2.5 Flash) embedded directly in the site, deployed via a secure Vercel serverless proxy to protect the API key
+- **Animated Ambient Background** — a GPU-composited CSS orb animation for an elevated dark-mode feel with zero main-thread overhead
+- **Language Toggle** — full English and Bulgarian i18n baked in, with `localStorage` persistence across reloads
+- **Dark / Light Mode** — saved user preference, applied before first paint to prevent any flash
+- **AJAX Contact Form** — FormSubmit-powered with polished loading, success, and error feedback states
+- **Crimson Brand Identity** — signature crimson red accent woven throughout the typography, navbar logo, footer logo, and favicon
 
-One of the strongest differentiators in this project is the audit flow. Instead of showing a static promise, tanev.design gives visitors immediate value by analyzing their site and using the result as a natural lead-in to a quote.
+---
 
-The audit engine is layered for resilience:
+## AI Chatbot Architecture
 
-- Live audit via Google PageSpeed Insights when available
-- Public crawl-based estimate as a secondary fallback
-- Deterministic baseline scoring if external services are unavailable
+The chatbot is built to never expose the API key to the browser. All requests proxy through a Vercel serverless function.
 
-That keeps the experience responsive while staying honest about the source of the results.
+```
+Browser (index.html)
+  └── POST /api/chat  (sanitized history)
+        └── Vercel Serverless Function (api/chat.js)
+              └── Google Gemini API  (gemini-2.5-flash)
+                    └── AI response streamed back
+```
+
+The server function also handles the Gemini API requirement that conversation history must start with a user message, so the greeting logic works correctly on first open.
+
+---
+
+## Audit Engine
+
+The website audit is layered for resilience — it always shows a result, regardless of external API availability.
 
 ```mermaid
 flowchart LR
@@ -71,51 +87,68 @@ flowchart LR
   H --> I[Quote and contact CTA]
 ```
 
+---
+
 ## Service Packages
 
 | Package | Price | Best for | Includes |
 | --- | --- | --- | --- |
 | Quick Launch | EUR 200 | Events, launches, simple campaigns | 1 landing page, mobile-first design, basic SEO, contact form, 3-day delivery |
-| Landing Page Pro | EUR 250 | Conversion-focused landing pages | 1 to 3 pages, premium motion, analytics, A/B test readiness, 5-day delivery |
-| Website Revamp | EUR 500 | Rebuilding an existing website | Up to 5 pages, full redesign and rebuild, 90+ PageSpeed target, advanced SEO, 7-day delivery |
-| New Website Build | EUR 800 | Full custom business websites | Up to 10 pages, custom design system, e-commerce ready foundation, support window, 10-day delivery |
+| Landing Page Pro | EUR 250 | Conversion-focused landing pages | 1–3 pages, premium motion, analytics, A/B test readiness, 5-day delivery |
+| Website Revamp | EUR 500 | Rebuilding an existing site | Up to 5 pages, full redesign, 90+ PageSpeed target, advanced SEO, 7-day delivery |
+| New Website Build | EUR 800 | Full custom business websites | Up to 10 pages, custom design system, e-commerce ready, support window, 10-day delivery |
 
-## Why The Repo Feels Professional
+---
 
-- The project has a distinct brand voice instead of generic freelancer copy
-- The landing page combines marketing, qualification, and lead generation in one flow
-- Pricing is explicit, which reduces friction and signals confidence
-- The codebase stays lightweight by using a single static entry point without framework overhead
-- Design polish, motion, and SEO details support the premium-but-accessible positioning
+## Performance
+
+The site is built for real PageSpeed scores, not just aesthetics.
+
+- **Desktop: 100 / 100** Performance
+- **Mobile: 71 → 85+ Performance** after render-blocking resource elimination
+- Tailwind CSS and Font Awesome load synchronously (required above the fold — no FOUC)
+- Google Fonts load asynchronously via `media="print"` swap pattern
+- Background animations use `translateZ(0)` + `will-change: transform` for full GPU compositing
+- Respects `prefers-reduced-motion` for accessibility
+
+---
 
 ## Technology
 
-- HTML5 for the complete page structure
-- Tailwind CSS via CDN for styling and layout
-- Vanilla JavaScript for UI logic, language switching, theming, animations, and audit rendering
-- Font Awesome for icons
-- Google Fonts for typography
-- Google PageSpeed Insights API for live audit data
-- `r.jina.ai` fallback for crawl-based audit estimation
-- FormSubmit AJAX endpoint for contact form delivery
-- Schema.org JSON-LD for structured metadata
+- HTML5 — complete single-file page
+- Tailwind CSS via CDN — utility-first styling
+- Vanilla JavaScript — UI logic, i18n, theming, audit rendering, chat
+- Google Gemini API (`gemini-2.5-flash`) — AI chatbot
+- Vercel Serverless Functions — secure API proxy
+- Google PageSpeed Insights API — live audit data
+- `r.jina.ai` — crawl-based audit fallback
+- Font Awesome — icons
+- Google Fonts (Inter) — typography
+- FormSubmit — AJAX contact form
+- Schema.org JSON-LD — structured metadata
+
+---
 
 ## Repository Structure
 
 ```text
 .
-|-- assets/
-|   `-- repo-banner.svg
-|-- index.html
-|-- README.md
-|-- .editorconfig
-|-- .gitattributes
-`-- .gitignore
+├── api/
+│   └── chat.js          ← Vercel serverless function (Gemini AI proxy)
+├── assets/
+│   └── repo-banner.png  ← Repository preview image
+├── index.html           ← Complete single-file website
+├── README.md
+├── .editorconfig
+├── .gitattributes
+└── .gitignore
 ```
+
+---
 
 ## Contact
 
-tanev.design is built and operated by Stoyan Tanev.
+Built and operated by **Stoyan Tanev**.
 
 - Website: https://tanev.design
 - Email: stoyanbtanev@gmail.com
