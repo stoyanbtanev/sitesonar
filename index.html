@@ -693,10 +693,7 @@
           class="font-display text-xs font-700 px-3 py-1.5 rounded-full tag-bg transition-all duration-200 hover:scale-105 active:scale-95 tracking-widest">
           <span id="langLabel">EN</span>
         </button>
-        <button onclick="toggleTheme()" aria-label="Toggle theme" class="flex items-center gap-2 group">
-          <span class="text-base transition-all duration-300 muted">
-            <i id="themeIcon" class="fas fa-moon"></i>
-          </span>
+        <button onclick="toggleTheme()" aria-label="Toggle theme" class="flex items-center group">
           <div class="toggle-track">
             <div class="toggle-thumb"></div>
           </div>
@@ -1704,8 +1701,6 @@
       const html = document.documentElement;
       if (savedTheme === 'light') {
         html.classList.remove('dark');
-        const icon = document.getElementById('themeIcon');
-        if (icon) icon.className = 'fas fa-sun';
       }
       if (savedLang && savedLang !== 'en') {
         currentLang = savedLang;
@@ -1715,14 +1710,11 @@
     /* Theme */
     function toggleTheme() {
       const html = document.documentElement;
-      const icon = document.getElementById('themeIcon');
       if (html.classList.contains('dark')) {
         html.classList.remove('dark');
-        icon.className = 'fas fa-sun';
         localStorage.setItem('ss-theme', 'light');
       } else {
         html.classList.add('dark');
-        icon.className = 'fas fa-moon';
         localStorage.setItem('ss-theme', 'dark');
       }
     }
