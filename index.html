@@ -1,12 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <script>
-  // Inline: apply saved theme before first paint to avoid flash
-  try {
-    var t = localStorage.getItem('ss-theme');
-    if (t === 'light') document.documentElement.classList.remove('dark');
-    else document.documentElement.classList.add('dark');
-  } catch (e) { }
+  // Force dark mode
+  document.documentElement.classList.add('dark');
 </script>
 
 <head>
@@ -44,12 +40,12 @@
 
   <!-- Google Fonts: non-blocking with font-display=swap -->
   <link rel="preload" as="style"
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
     media="print" onload="this.media='all'" />
   <noscript>
     <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" />
   </noscript>
 
   <script>
@@ -57,8 +53,12 @@
       darkMode: 'class',
       theme: {
         extend: {
-          fontFamily: { display: ['Inter', 'sans-serif'], body: ['Inter', 'sans-serif'] },
-          colors: { sonar: { blue: '#000000', glow: '#333333', purple: '#555555', dark: '#0a0a0a', card: '#ffffff', border: '#e8e8e8' } }
+          fontFamily: { display: ['Space Grotesk', 'sans-serif'], body: ['Space Grotesk', 'sans-serif'] },
+          fontWeight: { '600': '600', '700': '700', '800': '800' },
+          colors: {
+            sonar: { dark: '#09090B', card: '#111113', border: '#3F3F46' },
+            kt: { bg: '#09090B', fg: '#FAFAFA', accent: '#DFE104', border: '#3F3F46', muted: '#71717A' }
+          }
         }
       }
     };
@@ -88,30 +88,30 @@
     }
 
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Space Grotesk', sans-serif;
       transition: background-color .35s ease, color .35s ease;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* ── DARK ── */
+    /* ── DARK (KT tokens) ── */
     .dark body {
-      background-color: #0a0a0a;
-      color: #f0f0f0;
+      background-color: #09090B;
+      color: #FAFAFA;
     }
 
     .dark .glass {
-      background: rgba(20, 20, 20, 0.9);
+      background: rgba(17, 17, 19, 0.95);
       backdrop-filter: blur(18px);
-      border: 1px solid #2a2a2a;
+      border: 2px solid #3F3F46;
     }
 
     .dark .neon-text {
-      color: #ffffff;
+      color: #DFE104;
     }
 
     .dark .neon-border {
-      border-color: #333333;
+      border-color: #3F3F46;
     }
 
     .dark .neon-glow {
@@ -119,217 +119,107 @@
     }
 
     .dark .card-bg {
-      background: #141414;
-      border: 1px solid #2a2a2a;
+      background: #111113;
+      border: 2px solid #3F3F46;
     }
 
     .dark .nav-bg {
-      background: rgba(10, 10, 10, 0.92);
-      border-bottom: 1px solid #1e1e1e;
+      background: rgba(9, 9, 11, 0.96);
+      border-bottom: 2px solid #3F3F46;
     }
 
     .dark .footer-bg {
-      background: #0a0a0a;
-      border-top: 1px solid #1e1e1e;
+      background: #09090B;
+      border-top: 2px solid #3F3F46;
+    }
+
+    .dark .section-alt {
+      background: #0d0d0f;
     }
 
     .dark .tag-bg {
-      background: rgba(255, 255, 255, .06);
-      color: #e0e0e0;
-      border: 1px solid #2a2a2a;
+      background: rgba(223, 225, 4, 0.08);
+      color: #DFE104;
+      border: 2px solid #3F3F46;
     }
 
     .dark .warn-bg {
-      background: rgba(239, 68, 68, .1);
-      border: 1px solid rgba(239, 68, 68, .25);
+      background: rgba(239, 68, 68, .08);
+      border: 2px solid rgba(239, 68, 68, .3);
       color: #FCA5A5;
     }
 
     .dark .info-bg {
-      background: rgba(255, 255, 255, .05);
-      border: 1px solid #2a2a2a;
-      color: #d0d0d0;
+      background: rgba(223, 225, 4, 0.05);
+      border: 2px solid #3F3F46;
+      color: #A1A1AA;
     }
 
     .dark .cta-primary {
-      background: #ffffff;
-      color: #000000;
-      font-weight: 600;
+      background: #DFE104;
+      color: #09090B;
+      font-weight: 700;
       box-shadow: none;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
     }
 
     .dark .cta-secondary {
-      border: 1px solid #333333;
-      color: #e0e0e0;
+      border: 2px solid #3F3F46;
+      color: #FAFAFA;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
     }
 
     .dark .section-label {
-      color: #a3a3a3;
+      color: #DFE104;
     }
 
     .dark .muted {
-      color: #a3a3a3;
+      color: #71717A;
     }
 
     .dark .progress-track {
-      background: #222222;
+      background: #27272A;
     }
 
     .dark .progress-fill-blue {
-      background: #4a9eff;
+      background: #60a5fa;
     }
 
     .dark .progress-fill-green {
-      background: #22c55e;
+      background: #4ade80;
     }
 
     .dark .progress-fill-yellow {
-      background: #eab308;
+      background: #DFE104;
     }
 
     .dark .progress-fill-red {
-      background: #ef4444;
+      background: #f87171;
     }
 
     .dark .divider {
-      border-color: #1e1e1e;
+      border-color: #3F3F46;
     }
 
     .dark .pricing-highlight {
-      background: #141414;
-      border: 1.5px solid #ffffff;
-      box-shadow: 0 0 0 0 transparent;
+      background: #111113;
+      border: 2px solid #DFE104;
+      box-shadow: none;
     }
 
     .dark .badge-popular {
-      background: #ffffff;
-      color: #000000;
+      background: #DFE104;
+      color: #09090B;
     }
 
     .dark .stat-card {
-      background: rgba(255, 255, 255, .03);
+      background: #111113;
+      border: 2px solid #3F3F46;
     }
 
-    /* ── LIGHT ── */
-    html:not(.dark) body {
-      background-color: #ffffff;
-      color: #000000;
-    }
 
-    html:not(.dark) .glass {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(18px);
-      border: 1px solid #e8e8e8;
-    }
-
-    html:not(.dark) .neon-text {
-      color: #000000;
-    }
-
-    html:not(.dark) .neon-border {
-      border-color: #000000;
-    }
-
-    html:not(.dark) .neon-glow {
-      box-shadow: none;
-    }
-
-    html:not(.dark) .card-bg {
-      background: #ffffff;
-      border: 1px solid #e8e8e8;
-      box-shadow: none;
-    }
-
-    html:not(.dark) .nav-bg {
-      background: rgba(255, 255, 255, 0.95);
-      border-bottom: 1px solid #e8e8e8;
-    }
-
-    html:not(.dark) .footer-bg {
-      background: #f9f9f9;
-      border-top: 1px solid #e8e8e8;
-    }
-
-    html:not(.dark) .tag-bg {
-      background: #f0f0f0;
-      color: #333333;
-      border: 1px solid #e0e0e0;
-    }
-
-    html:not(.dark) .warn-bg {
-      background: #FEF2F2;
-      border: 1px solid #FECACA;
-      color: #B91C1C;
-    }
-
-    html:not(.dark) .info-bg {
-      background: #f5f5f5;
-      border: 1px solid #e0e0e0;
-      color: #333333;
-    }
-
-    html:not(.dark) .cta-primary {
-      background: #000000;
-      color: #ffffff;
-      font-weight: 600;
-      box-shadow: none;
-    }
-
-    html:not(.dark) .cta-secondary {
-      border: 1px solid #000000;
-      color: #000000;
-    }
-
-    html:not(.dark) .section-label {
-      color: #4b5563;
-    }
-
-    html:not(.dark) .muted {
-      color: #6b7280;
-    }
-
-    html:not(.dark) .progress-track {
-      background: #f0f0f0;
-    }
-
-    html:not(.dark) .progress-fill-blue {
-      background: #2563eb;
-    }
-
-    html:not(.dark) .progress-fill-green {
-      background: #16a34a;
-    }
-
-    html:not(.dark) .progress-fill-yellow {
-      background: #ca8a04;
-    }
-
-    html:not(.dark) .progress-fill-red {
-      background: #dc2626;
-    }
-
-    html:not(.dark) .divider {
-      border-color: #e8e8e8;
-    }
-
-    html:not(.dark) .pricing-highlight {
-      background: #ffffff;
-      border: 1.5px solid #000000;
-      box-shadow: none;
-    }
-
-    html:not(.dark) .badge-popular {
-      background: #000000;
-      color: #ffffff;
-    }
-
-    html:not(.dark) .section-alt {
-      background: #f9f9f9;
-    }
-
-    html:not(.dark) .stat-card {
-      background: #f7f7f7;
-    }
 
 
 
@@ -397,16 +287,13 @@
       background: #ffffff;
     }
 
-    html:not(.dark) .toggle-thumb {
-      background: #000000;
-      left: 2px;
-    }
+
 
     /* ── Misc ── */
     .font-display {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Space Grotesk', sans-serif;
       font-weight: 700;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.02em;
     }
 
     .section-fade {
@@ -453,10 +340,7 @@
       box-shadow: none;
     }
 
-    html:not(.dark) .url-input:focus {
-      border-color: #000000;
-      box-shadow: none;
-    }
+
 
     .pricing-card {
       transition: transform 0.25s ease, border-color 0.25s ease;
@@ -505,14 +389,16 @@
       background: rgba(255, 255, 255, .02);
     }
 
-    /* ── Crimson accent ── */
+    /* ── Accent / crimson (KT: acid yellow) ── */
     .crimson {
-      color: #DC143C;
+      color: #DFE104;
     }
 
     .dark .crimson {
-      color: #ff3355;
+      color: #DFE104;
     }
+
+
 
     .crimson-glow {
       text-shadow: none;
@@ -524,29 +410,82 @@
       box-shadow: none !important;
     }
 
-    /* ── Creative Gradient ── */
+    /* ── Creative Gradient (KT: acid yellow solid) ── */
     .creative-gradient {
-      background: linear-gradient(135deg, #DC143C, #8b5cf6, #3b82f6);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: textGradient 6s ease infinite;
+      color: #DFE104;
     }
 
-    .dark .creative-gradient {
-      background: linear-gradient(135deg, #ff3355, #a78bfa, #60a5fa);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
+
+
+    /* ── KT: Marquee ── */
+    .kt-marquee-wrap {
+      overflow: hidden;
+      display: flex;
+      width: 100%;
+      position: relative;
     }
 
-    @keyframes textGradient {
-      0%   { background-position: 0% 50%; }
-      50%  { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    .kt-marquee {
+      display: flex;
+      gap: 0;
+      white-space: nowrap;
+      animation: marqueeScroll 28s linear infinite;
+      will-change: transform;
+      flex-shrink: 0;
     }
+
+    .kt-marquee-rev {
+      animation-direction: reverse;
+    }
+
+    @keyframes marqueeScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .kt-marquee { animation: none; }
+    }
+
+    /* ── KT: Brutalist card hover inversion ── */
+    .kt-card {
+      border: 2px solid #3F3F46;
+      background: #111113;
+      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+      cursor: default;
+    }
+
+    .kt-card:hover {
+      background: #DFE104;
+      border-color: #DFE104;
+      color: #09090B;
+    }
+
+    .kt-card:hover .muted,
+    .kt-card:hover .kt-card-title,
+    .kt-card:hover .kt-card-icon,
+    .kt-card:hover h3,
+    .kt-card:hover p,
+    .kt-card:hover i {
+      color: #09090B !important;
+    }
+
+
+
+    /* ── KT: Section heading style ── */
+    .kt-section-tag {
+      display: inline-block;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #DFE104;
+      border: 2px solid #3F3F46;
+      padding: 0.25rem 0.75rem;
+    }
+
+
 
     /* ═════════════════════════════════════════════
        PREMIUM EFFECTS — GPU compositor only
@@ -554,86 +493,46 @@
        Zero layout reflow. prefers-reduced-motion safe.
     ═════════════════════════════════════════════ */
 
-    /* ── Scroll Progress Bar ── */
+    /* ── Scroll Progress Bar (KT: acid yellow) ── */
     #scroll-progress {
       position: fixed;
       top: 0; left: 0;
       height: 2px;
       width: 0%;
-      background: linear-gradient(90deg, #DC143C 0%, #a78bfa 50%, #DC143C 100%);
-      background-size: 200% auto;
+      background: #DFE104;
       z-index: 9999;
-      animation: progressShift 4s linear infinite;
       will-change: width;
       pointer-events: none;
     }
 
-    @keyframes progressShift {
-      0%   { background-position: 0% 50%; }
-      100% { background-position: 200% 50%; }
-    }
-
-    /* ── CTA Button Shimmer ── */
+    /* ── CTA Button ── */
     .cta-primary {
       position: relative;
       overflow: hidden;
+      border-radius: 0 !important;
     }
 
-    .cta-primary::after {
-      content: '';
-      position: absolute;
-      inset: 0 auto 0 -120%;
-      width: 60%;
-      background: linear-gradient(100deg, transparent 20%, rgba(255,255,255,0.28) 50%, transparent 80%);
-      transform: skewX(-15deg);
-      pointer-events: none;
-      will-change: left;
-    }
-
-    .cta-primary:hover::after {
-      animation: shimmerSlide 0.55s ease forwards;
-    }
-
-    @keyframes shimmerSlide {
-      from { left: -120%; }
-      to   { left: 160%; }
-    }
-
-    .dark .cta-primary::after {
-      background: linear-gradient(100deg, transparent 20%, rgba(0,0,0,0.12) 50%, transparent 80%);
+    .cta-secondary {
+      border-radius: 0 !important;
     }
 
     /* ── Card Border Accent on Hover ── */
     .card-bg {
-      transition: border-color 0.25s ease, transform 0.25s ease;
+      transition: border-color 0.2s ease;
     }
 
-    .dark .card-bg:hover  { border-color: #3f3f3f; }
-    html:not(.dark) .card-bg:hover { border-color: #c8c8c8; }
+    .dark .card-bg:hover  { border-color: #52525B; }
 
-    /* ── Pricing Highlight Accent Ring on Hover ── */
+
+    /* ── Pricing Highlight (KT: no pseudo ring, clean border) ── */
     .pricing-highlight {
       position: relative;
     }
 
-    .pricing-highlight::before {
-      content: '';
-      position: absolute;
-      inset: -1.5px;
-      border-radius: inherit;
-      background: linear-gradient(135deg, rgba(220,20,60,0.45) 0%, transparent 45%, rgba(167,139,250,0.35) 100%);
-      z-index: -1;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      pointer-events: none;
-    }
-
-    .pricing-highlight:hover::before { opacity: 1; }
-
-    /* ── Input Focus Pulse Ring ── */
+    /* ── Input Focus Pulse Ring (KT: accent yellow) ── */
     @keyframes focusPulse {
-      0%   { box-shadow: 0 0 0 0   rgba(220,20,60,0.35); }
-      100% { box-shadow: 0 0 0 4px rgba(220,20,60,0); }
+      0%   { box-shadow: 0 0 0 0   rgba(223,225,4,0.35); }
+      100% { box-shadow: 0 0 0 4px rgba(223,225,4,0); }
     }
 
     .url-input:focus {
@@ -643,17 +542,19 @@
     /* ── Badge Breathe ── */
     @keyframes badgeBreathe {
       0%, 100% { transform: translateX(-50%) scale(1); }
-      50%       { transform: translateX(-50%) scale(1.05); }
+      50%       { transform: translateX(-50%) scale(1.04); }
     }
 
     .badge-popular {
       animation: badgeBreathe 3.5s ease-in-out infinite;
       will-change: transform;
+      border-radius: 0 !important;
     }
 
-    /* ── Tag Pill Hover Float ── */
+    /* ── Tag Pill ── */
     .tag-bg {
       transition: transform 0.2s ease, background-color 0.2s ease;
+      border-radius: 0 !important;
     }
 
     .tag-bg:hover { transform: translateY(-1px); }
@@ -665,7 +566,7 @@
 
     @keyframes iconPulse {
       0%   { transform: scale(1) rotate(0deg); }
-      50%  { transform: scale(1.3) rotate(-12deg); }
+      50%  { transform: scale(1.25) rotate(-10deg); }
       100% { transform: scale(1) rotate(0deg); }
     }
 
@@ -713,9 +614,7 @@
       border-bottom-color: #222222;
     }
 
-    html:not(.dark) #navbar.scrolled {
-      background: rgba(255,255,255,0.98);
-    }
+
 
     /* ── Staggered section entrance ── */
     @keyframes cardSlideUp {
@@ -743,7 +642,6 @@
         transition-duration: 0.01ms !important;
       }
       #scroll-progress { display: none; }
-      .cta-primary::after { display: none; }
     }
     /* ── Chat & Cookies ── */
     #cookieBar {
@@ -841,44 +739,18 @@
       z-index: 0;
     }
 
-    /* ── Hero dot grid ── */
+    /* ── Hero dot grid (KT: sharper, higher contrast) ── */
     .hero-grid {
       position: absolute; inset: 0;
-      background-image: radial-gradient(circle, rgba(255,255,255,0.045) 1px, transparent 1px);
-      background-size: 28px 28px;
-      -webkit-mask-image: radial-gradient(ellipse 85% 70% at 50% 40%, black 20%, transparent 100%);
-      mask-image: radial-gradient(ellipse 85% 70% at 50% 40%, black 20%, transparent 100%);
+      background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
+      background-size: 32px 32px;
       pointer-events: none;
       z-index: 0;
     }
-    html:not(.dark) .hero-grid {
-      background-image: radial-gradient(circle, rgba(0,0,0,0.055) 1px, transparent 1px);
-    }
 
-    /* ── Hero background orbs ── */
-    .hero-orb { position: absolute; border-radius: 50%; pointer-events: none; z-index: 0; }
-    .hero-orb-1 {
-      width: 700px; height: 700px; top: -20%; left: -15%;
-      background: radial-gradient(circle at center, rgba(220,20,60,0.1) 0%, transparent 65%);
-      animation: orbDrift1 20s ease-in-out infinite;
-      will-change: transform;
-    }
-    .hero-orb-2 {
-      width: 600px; height: 600px; bottom: -15%; right: -10%;
-      background: radial-gradient(circle at center, rgba(139,92,246,0.09) 0%, transparent 65%);
-      animation: orbDrift2 26s ease-in-out infinite;
-      will-change: transform;
-    }
-    @keyframes orbDrift1 {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      33%       { transform: translate(50px, -40px) scale(1.04); }
-      66%       { transform: translate(-30px, 30px) scale(0.97); }
-    }
-    @keyframes orbDrift2 {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      40%       { transform: translate(-60px, -50px) scale(1.06); }
-      70%       { transform: translate(40px, 20px) scale(0.96); }
-    }
+
+    /* ── Hero background orbs (KT: removed, use grid only) ── */
+    .hero-orb { display: none; }
 
     /* ── Hero entrance stagger ── */
     @keyframes heroIn {
@@ -898,23 +770,26 @@
     /* Prevent 300ms tap delay on the audit tool */
     #urlInput, #auditButton { touch-action: manipulation; }
 
-    /* ── Icon accent wrappers ── */
-    .icon-wrap-red    { background: rgba(220,20,60,0.1);  }
-    .icon-wrap-violet { background: rgba(139,92,246,0.1); }
-    .icon-wrap-blue   { background: rgba(59,130,246,0.1); }
-    .dark .icon-wrap-red    { background: rgba(255,51,85,0.13);   }
-    .dark .icon-wrap-violet { background: rgba(167,139,250,0.13); }
-    .dark .icon-wrap-blue   { background: rgba(96,165,250,0.13);  }
+    /* ── Icon accent wrappers (KT: yellow accent) ── */
+    .icon-wrap-red    { background: rgba(223,225,4,0.12); border: 2px solid #3F3F46; }
+    .icon-wrap-violet { background: rgba(223,225,4,0.08); border: 2px solid #3F3F46; }
+    .icon-wrap-blue   { background: rgba(223,225,4,0.08); border: 2px solid #3F3F46; }
+    .dark .icon-wrap-red    { background: rgba(223,225,4,0.10); }
+    .dark .icon-wrap-violet { background: rgba(223,225,4,0.07); }
+    .dark .icon-wrap-blue   { background: rgba(223,225,4,0.07); }
 
-    .text-violet { color: #7c3aed; }
-    .dark .text-violet { color: #a78bfa; }
-    .text-sky { color: #2563eb; }
-    .dark .text-sky { color: #60a5fa; }
 
-    /* ── Template device toggle ── */
-    .device-btn { transition: background .2s, color .2s, transform .15s; }
-    .device-btn.active { background: #DC143C !important; color: #fff !important; }
-    .dark .device-btn.active { background: #ff3355 !important; color: #fff !important; }
+    .text-violet { color: #DFE104; }
+    .dark .text-violet { color: #DFE104; }
+
+    .text-sky { color: #DFE104; }
+    .dark .text-sky { color: #DFE104; }
+
+
+    /* ── Template device toggle (KT) ── */
+    .device-btn { transition: background .2s, color .2s, border-color .2s; border-radius: 0 !important; }
+    .device-btn.active { background: #DFE104 !important; color: #09090B !important; border-color: #DFE104 !important; }
+
 
     .tpl-card { transition: max-width .4s cubic-bezier(.22,1,.36,1); max-width: 100%; }
     .tpl-preview { transition: height .4s cubic-bezier(.22,1,.36,1), border-radius .3s ease; height: 430px; border-radius: 0; overflow-y: hidden; }
@@ -948,45 +823,31 @@
   <!-- ═══ NAVBAR ═══ -->
   <nav id="navbar" class="nav-bg fixed top-0 left-0 right-0 z-50 backdrop-blur-xl transition-all duration-300">
     <div class="max-w-7xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-4">
-      <a href="#" class="flex items-center gap-2.5 group flex-shrink-0" aria-label="tanev.design Home">
+      <a href="#" class="flex items-center gap-3 flex-shrink-0" aria-label="tanev.design Home">
         <div
-          class="w-8 h-8 rounded-lg flex items-center justify-center font-display font-700 text-sm tracking-tight bg-black text-white dark:bg-white dark:text-black transition-colors duration-300">
+          class="w-8 h-8 flex items-center justify-center font-display font-700 text-sm bg-black text-white dark:bg-white dark:text-black transition-colors duration-300">
           t
         </div>
-        <span class="font-display font-800 text-xl tracking-tight" style="letter-spacing:-0.03em">tanev<span
+        <span class="font-display font-700 text-base uppercase tracking-widest dark:text-white">tanev<span
             class="crimson">.design</span></span>
       </a>
       <div class="hidden md:flex items-center gap-8">
-        <a href="#services" class="text-sm font-medium muted hover:neon-text transition-colors duration-200"
-          data-en="About Me" data-bg="Кой съм аз">About Me</a>
-        <a href="#templates" class="text-sm font-medium muted hover:neon-text transition-colors duration-200"
-          data-en="Templates" data-bg="Примери">Templates</a>
-        <a href="#pricing" class="text-sm font-medium muted hover:neon-text transition-colors duration-200"
-          data-en="Pricing" data-bg="Цени">Pricing</a>
-        <a href="#contact" class="text-sm font-medium muted hover:neon-text transition-colors duration-200"
-          data-en="Contact" data-bg="Пиши ми">Contact</a>
+        <a href="#services" class="text-[11px] font-700 uppercase tracking-widest muted hover:neon-text transition-colors duration-200">About Me</a>
+        <a href="#templates" class="text-[11px] font-700 uppercase tracking-widest muted hover:neon-text transition-colors duration-200">Templates</a>
+        <a href="#pricing" class="text-[11px] font-700 uppercase tracking-widest muted hover:neon-text transition-colors duration-200">Pricing</a>
+        <a href="#contact" class="text-[11px] font-700 uppercase tracking-widest muted hover:neon-text transition-colors duration-200">Contact</a>
       </div>
       <div class="flex items-center gap-3">
-        <button id="langToggle" onclick="toggleLang()"
-          class="font-display text-xs font-700 px-3 py-1.5 rounded-full tag-bg transition-all duration-200 hover:scale-105 active:scale-95 tracking-widest">
-          <span id="langLabel">EN</span>
-        </button>
-        <button onclick="toggleTheme()" aria-label="Toggle theme" class="flex items-center group">
-          <div class="toggle-track">
-            <div class="toggle-thumb"></div>
-          </div>
-        </button>
-        <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg neon-text"
-          aria-label="Toggle menu">
+        <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="md:hidden p-2 neon-text" aria-label="Toggle menu">
           <i class="fas fa-bars text-lg"></i>
         </button>
       </div>
     </div>
-    <div id="mobileMenu" class="hidden md:hidden px-5 pb-4 flex flex-col gap-3 border-t divider">
-      <a href="#services" class="py-2 text-sm font-medium muted" data-en="About Me" data-bg="Кой съм аз">About Me</a>
-      <a href="#templates" class="py-2 text-sm font-medium muted" data-en="Templates" data-bg="Примери">Templates</a>
-      <a href="#pricing" class="py-2 text-sm font-medium muted" data-en="Pricing" data-bg="Цени">Pricing</a>
-      <a href="#contact" class="py-2 text-sm font-medium muted" data-en="Contact" data-bg="Пиши ми">Contact</a>
+    <div id="mobileMenu" class="hidden md:hidden px-5 pb-4 flex flex-col gap-1 border-t divider">
+      <a href="#services" class="py-2.5 text-[11px] font-700 uppercase tracking-widest muted border-b divider">About Me</a>
+      <a href="#templates" class="py-2.5 text-[11px] font-700 uppercase tracking-widest muted border-b divider">Templates</a>
+      <a href="#pricing" class="py-2.5 text-[11px] font-700 uppercase tracking-widest muted border-b divider">Pricing</a>
+      <a href="#contact" class="py-2.5 text-[11px] font-700 uppercase tracking-widest muted">Contact</a>
     </div>
   </nav>
 
@@ -994,49 +855,46 @@
   <section id="hero" class="relative min-h-screen flex flex-col items-center justify-center pt-20 pb-16 px-5">
     <div class="hero-bg-clip" aria-hidden="true">
       <div class="hero-grid"></div>
-      <div class="hero-orb hero-orb-1"></div>
-      <div class="hero-orb hero-orb-2"></div>
     </div>
 
-    <div class="relative z-10 max-w-4xl mx-auto text-center">
+    <div class="relative z-10 w-full max-w-5xl mx-auto text-center">
+      <!-- Eyebrow -->
+      <div class="hero-line-1 mb-6 flex justify-center">
+        <span class="kt-section-tag">Freelance Web Design &amp; Dev</span>
+      </div>
       <!-- Headline -->
-      <h1 class="font-display font-800 text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[1.05] tracking-tight mb-6"
-        style="letter-spacing:-0.04em">
-        <span id="heroLineOne" class="hero-line-1">Your <span class="creative-gradient">vision.</span></span><br />
-        <span id="heroLineTwo" class="crimson hero-line-2">Brought to life.</span>
+      <h1 class="font-display font-700 leading-[0.95] uppercase mb-8"
+        style="font-size: clamp(3.2rem, 10vw, 8rem); letter-spacing:-0.03em">
+        <span id="heroLineOne" class="hero-line-1 block dark:text-white text-gray-900">Your <span class="crimson">vision.</span></span>
+        <span id="heroLineTwo" class="hero-line-2 block dark:text-white text-gray-900">Brought to life.</span>
       </h1>
       <!-- Sub -->
-      <p class="text-base sm:text-lg muted max-w-md mx-auto leading-relaxed mb-10 hero-sub">
-        <span id="heroSubcopy">I build beautiful, fast websites that help your business grow—without the agency price
-          tag.</span>
+      <p class="text-base sm:text-lg muted max-w-lg mx-auto leading-relaxed mb-10 hero-sub">
+        <span id="heroSubcopy">Good-looking, fast websites for small businesses — without the agency price tag.</span>
       </p>
       <!-- Audit tool -->
-      <div id="audit" class="glass rounded-2xl p-5 sm:p-6 max-w-2xl mx-auto hero-audit">
-        <p class="text-xs uppercase tracking-widest section-label font-display font-700 mb-3">
-          <span data-en="Free Instant Website Audit" data-bg="Безплатна бърза проверка на сайта ти">Free Instant
-            <span class="crimson">Website Audit</span></span>
+      <div id="audit" class="glass p-5 sm:p-6 max-w-2xl mx-auto hero-audit" style="border-radius:0">
+        <p class="text-[10px] uppercase tracking-[0.18em] section-label font-display font-700 mb-3">
+          Free Instant <span class="crimson">Website Audit</span>
         </p>
         <div class="flex flex-col sm:flex-row gap-3 min-w-0 items-stretch">
           <div id="urlInputWrap" class="url-input-wrap flex-1 min-w-0">
             <label for="urlInput" class="sr-only">Website URL</label>
-            <input id="urlInput" type="url" placeholder="https://yourwebsite.com"
-              data-placeholder-en="https://yourwebsite.com" data-placeholder-bg="https://твоятсайт.com" inputmode="url"
+            <input id="urlInput" type="url" placeholder="https://yourwebsite.com" inputmode="url"
               autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go"
-              class="url-input flex-1 min-w-0 bg-transparent border neon-border rounded-xl px-4 py-3.5 text-sm transition-all" />
+              class="url-input flex-1 min-w-0 bg-transparent border neon-border px-4 py-3.5 text-sm transition-all" style="border-radius:0" />
           </div>
           <button id="auditButton" onclick="runAudit()"
-            class="cta-primary rounded-xl px-6 py-3.5 text-sm font-display font-700 tracking-wide transition-all duration-200 hover:scale-[1.03] active:scale-[.98] flex items-center gap-2 justify-center flex-shrink-0">
+            class="cta-primary px-6 py-3.5 text-[11px] font-display font-700 tracking-widest uppercase transition-all duration-200 active:scale-[.98] flex items-center gap-2 justify-center flex-shrink-0">
             <i class="fas fa-satellite-dish text-sm"></i>
-            <span id="auditButtonLabel" data-en="Run Free Audit" data-bg="Провери безплатно">Run Free Audit</span>
+            <span id="auditButtonLabel">Run Free Audit</span>
           </button>
         </div>
         <p class="text-xs muted mt-2.5 text-left">
           <i class="fas fa-lock text-[10px] mr-1"></i>
-          <span data-en="No account needed. Results in seconds."
-            data-bg="Без регистрация. Резултатът идва за секунди.">No account needed. Results in seconds.</span>
+          <span>No account needed. Results in seconds.</span>
         </p>
       </div>
-      <!-- scroll indicator removed -->
     </div>
   </section>
 
@@ -1044,17 +902,14 @@
   <section id="auditPanel" class="hidden px-5 pb-24">
     <div class="max-w-3xl mx-auto">
       <!-- Scanning -->
-      <div id="scanningState" class="glass rounded-2xl overflow-hidden p-8 text-center">
+      <div id="scanningState" class="glass overflow-hidden p-8 text-center" style="border-radius:0">
         <div
-          class="relative w-32 h-32 mx-auto mb-6 rounded-2xl overflow-hidden card-bg flex items-center justify-center">
+          class="relative w-32 h-32 mx-auto mb-6 overflow-hidden card-bg flex items-center justify-center" style="border-radius:0">
           <div class="scan-line"></div>
           <div class="neon-text font-display font-700 text-2xl z-10">td</div>
         </div>
-        <p class="font-display font-700 text-xl neon-text mb-2" data-en="Scanning your website..."
-          data-bg="Проверяваме сайта ти...">Scanning your website...</p>
-        <p class="muted text-sm" data-en="Checking speed, mobile UX, SEO, and security signals."
-          data-bg="Гледаме скоростта, мобилното усещане, SEO-то и сигурността.">Checking speed, mobile UX, SEO, and
-          security signals.</p>
+        <p class="font-display font-700 text-xl uppercase tracking-wide neon-text mb-2">Scanning your website...</p>
+        <p class="muted text-sm">Checking speed, mobile UX, SEO, and security signals.</p>
         <div class="flex justify-center gap-1.5 mt-5">
           <span class="w-2 h-2 rounded-full bg-sonar-blue animate-bounce" style="animation-delay:0s"></span>
           <span class="w-2 h-2 rounded-full bg-sonar-blue animate-bounce" style="animation-delay:.15s"></span>
@@ -1064,26 +919,24 @@
 
       <!-- Results -->
       <div id="resultsState" class="hidden">
-        <div class="glass rounded-2xl p-6 sm:p-8">
+        <div class="glass p-6 sm:p-8" style="border-radius:0">
           <div class="flex items-start justify-between gap-4 mb-6">
             <div>
-              <p class="text-xs uppercase tracking-widest section-label font-display font-700 mb-1">
-                <span data-en="Audit Report" data-bg="Одит на сайта">Audit Report</span>
-              </p>
-              <h2 id="resultsHeadline" class="font-display font-800 text-2xl sm:text-3xl dark:text-white text-gray-900">
+              <span class="kt-section-tag mb-2 inline-block">Audit Report</span>
+              <h2 id="resultsHeadline" class="font-display font-700 uppercase text-2xl sm:text-3xl dark:text-white text-gray-900 leading-tight mt-2">
                 Your Website Needs Help</h2>
               <p id="auditUrl" class="muted text-sm mt-1"></p>
               <p id="auditMeta" class="muted text-xs mt-2"></p>
             </div>
             <div class="flex-shrink-0 text-right">
-              <div id="overallScore" class="font-display font-800 text-4xl text-red-400">42</div>
-              <p class="text-xs muted" data-en="Overall Score" data-bg="Общ резултат">Overall Score</p>
+              <div id="overallScore" class="font-display font-700 text-4xl text-red-400">42</div>
+              <p class="text-xs muted">Overall Score</p>
             </div>
           </div>
 
           <!-- Rings -->
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-            <div class="card-bg rounded-xl p-4 text-center">
+            <div class="card-bg p-4 text-center" style="border-radius:0">
               <div class="relative w-20 h-20 mx-auto mb-2">
                 <svg viewBox="0 0 36 36" class="w-20 h-20 -rotate-90">
                   <circle cx="18" cy="18" r="15.9" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="2.5" />
@@ -1093,11 +946,10 @@
                 <span id="score-speed"
                   class="absolute inset-0 flex items-center justify-center font-display font-700 text-base text-red-400">32</span>
               </div>
-              <p class="text-xs font-600 dark:text-white text-gray-800" data-en="Load Speed" data-bg="Зареждане">Load
-                Speed</p>
+              <p class="text-xs font-600 dark:text-white text-gray-800">Load Speed</p>
               <p id="status-speed" class="text-[10px] muted">Poor</p>
             </div>
-            <div class="card-bg rounded-xl p-4 text-center">
+            <div class="card-bg p-4 text-center" style="border-radius:0">
               <div class="relative w-20 h-20 mx-auto mb-2">
                 <svg viewBox="0 0 36 36" class="w-20 h-20 -rotate-90">
                   <circle cx="18" cy="18" r="15.9" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="2.5" />
@@ -1107,11 +959,10 @@
                 <span id="score-mobile"
                   class="absolute inset-0 flex items-center justify-center font-display font-700 text-base text-yellow-400">58</span>
               </div>
-              <p class="text-xs font-600 dark:text-white text-gray-800" data-en="Mobile UX" data-bg="Мобилен UX">Mobile
-                UX</p>
+              <p class="text-xs font-600 dark:text-white text-gray-800">Mobile UX</p>
               <p id="status-mobile" class="text-[10px] muted">Needs Work</p>
             </div>
-            <div class="card-bg rounded-xl p-4 text-center">
+            <div class="card-bg p-4 text-center" style="border-radius:0">
               <div class="relative w-20 h-20 mx-auto mb-2">
                 <svg viewBox="0 0 36 36" class="w-20 h-20 -rotate-90">
                   <circle cx="18" cy="18" r="15.9" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="2.5" />
@@ -1124,7 +975,7 @@
               <p class="text-xs font-600 dark:text-white text-gray-800">SEO</p>
               <p id="status-seo" class="text-[10px] muted">Average</p>
             </div>
-            <div class="card-bg rounded-xl p-4 text-center">
+            <div class="card-bg p-4 text-center" style="border-radius:0">
               <div class="relative w-20 h-20 mx-auto mb-2">
                 <svg viewBox="0 0 36 36" class="w-20 h-20 -rotate-90">
                   <circle cx="18" cy="18" r="15.9" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="2.5" />
@@ -1134,8 +985,7 @@
                 <span id="score-security"
                   class="absolute inset-0 flex items-center justify-center font-display font-700 text-base text-green-400">78</span>
               </div>
-              <p class="text-xs font-600 dark:text-white text-gray-800" data-en="Security" data-bg="Сигурност">Security
-              </p>
+              <p class="text-xs font-600 dark:text-white text-gray-800">Security</p>
               <p id="status-security" class="text-[10px] text-green-400">Good</p>
             </div>
           </div>
@@ -1185,7 +1035,7 @@
           </div>
 
           <!-- Warning -->
-          <div id="insightBox" class="warn-bg rounded-xl p-4 mb-6 flex gap-3 items-start">
+          <div id="insightBox" class="warn-bg p-4 mb-6 flex gap-3 items-start" style="border-radius:0">
             <i class="fas fa-triangle-exclamation mt-0.5 flex-shrink-0"></i>
             <div>
               <p id="insightTitle" class="font-display font-700 text-sm mb-0.5">Warning: Slow load time is costing you
@@ -1196,16 +1046,15 @@
           </div>
 
           <!-- CTA -->
-          <div class="card-bg rounded-xl p-5 flex flex-col sm:flex-row gap-4 items-center justify-between">
+          <div class="card-bg p-5 flex flex-col sm:flex-row gap-4 items-center justify-between" style="border-radius:0">
             <div>
-              <p id="ctaTitle" class="font-display font-700 dark:text-white text-gray-900 mb-1">I can fix this — fast.
-              </p>
+              <p id="ctaTitle" class="font-display font-700 uppercase dark:text-white text-gray-900 mb-1">I can fix this — fast.</p>
               <p id="ctaBody" class="text-sm muted">I can rebuild your site in days, not months, with transparent
                 pricing.</p>
             </div>
             <a href="#pricing"
-              class="cta-primary rounded-xl px-6 py-3 text-sm font-display font-700 whitespace-nowrap transition-all duration-200 hover:scale-[1.03] active:scale-[.98] flex items-center gap-2">
-              <span data-en="Get a Quote" data-bg="Виж цените">Get a Quote</span>
+              class="cta-primary px-6 py-3 text-[11px] font-display font-700 uppercase tracking-widest whitespace-nowrap transition-all duration-200 active:scale-[.98] flex items-center gap-2">
+              <span>Get a Quote</span>
               <i class="fas fa-arrow-right text-xs"></i>
             </a>
           </div>
@@ -1214,214 +1063,182 @@
     </div>
   </section>
 
-  <!-- ═══ STATS STRIP ═══ -->
-  <section class="py-10 px-5 border-t border-b divider section-fade">
-    <div class="max-w-3xl mx-auto flex items-center justify-around text-center gap-4">
-      <div>
-        <div class="font-display font-800 text-3xl sm:text-4xl crimson leading-none">3–10</div>
-        <div class="text-[10px] sm:text-xs muted uppercase tracking-widest font-600 mt-2" data-en="Days to Launch" data-bg="Дни до пускане">Days to Launch</div>
-      </div>
-      <div class="h-10 w-px opacity-10" style="background:currentColor"></div>
-      <div>
-        <div class="font-display font-800 text-3xl sm:text-4xl crimson leading-none">€200</div>
-        <div class="text-[10px] sm:text-xs muted uppercase tracking-widest font-600 mt-2" data-en="Starting Price" data-bg="Начална цена">Starting Price</div>
-      </div>
-      <div class="h-10 w-px opacity-10" style="background:currentColor"></div>
-      <div>
-        <div class="font-display font-800 text-3xl sm:text-4xl crimson leading-none">90+</div>
-        <div class="text-[10px] sm:text-xs muted uppercase tracking-widest font-600 mt-2" data-en="PageSpeed Score" data-bg="PageSpeed резултат">PageSpeed Score</div>
+  <!-- ═══ STATS STRIP (KT: infinite marquee) ═══ -->
+  <section class="border-t border-b divider overflow-hidden py-5">
+    <div class="kt-marquee-wrap">
+      <div class="kt-marquee" aria-hidden="true">
+        <span class="flex items-center gap-0">
+          <span class="inline-flex items-baseline gap-3 px-10 border-r divider">
+            <span class="font-display font-700 uppercase" style="font-size:clamp(2rem,5vw,3.5rem);letter-spacing:-0.03em" aria-label="3 to 10">3–10</span>
+            <span class="text-[10px] uppercase tracking-widest muted font-700">Days to Launch</span>
+          </span>
+          <span class="inline-flex items-baseline gap-3 px-10 border-r divider">
+            <span class="font-display font-700 crimson uppercase" style="font-size:clamp(2rem,5vw,3.5rem);letter-spacing:-0.03em">€200</span>
+            <span class="text-[10px] uppercase tracking-widest muted font-700">Starting Price</span>
+          </span>
+          <span class="inline-flex items-baseline gap-3 px-10 border-r divider">
+            <span class="font-display font-700 uppercase" style="font-size:clamp(2rem,5vw,3.5rem);letter-spacing:-0.03em">90+</span>
+            <span class="text-[10px] uppercase tracking-widest muted font-700">PageSpeed Score</span>
+          </span>
+          <span class="inline-flex items-baseline gap-3 px-10 border-r divider">
+            <span class="font-display font-700 crimson uppercase" style="font-size:clamp(2rem,5vw,3.5rem);letter-spacing:-0.03em">100%</span>
+            <span class="text-[10px] uppercase tracking-widest muted font-700">Custom Built</span>
+          </span>
+          <span class="inline-flex items-baseline gap-3 px-10 border-r divider">
+            <span class="font-display font-700 uppercase" style="font-size:clamp(2rem,5vw,3.5rem);letter-spacing:-0.03em">3–10</span>
+            <span class="text-[10px] uppercase tracking-widest muted font-700">Days to Launch</span>
+          </span>
+          <span class="inline-flex items-baseline gap-3 px-10 border-r divider">
+            <span class="font-display font-700 crimson uppercase" style="font-size:clamp(2rem,5vw,3.5rem);letter-spacing:-0.03em">€200</span>
+            <span class="text-[10px] uppercase tracking-widest muted font-700">Starting Price</span>
+          </span>
+          <span class="inline-flex items-baseline gap-3 px-10 border-r divider">
+            <span class="font-display font-700 uppercase" style="font-size:clamp(2rem,5vw,3.5rem);letter-spacing:-0.03em">90+</span>
+            <span class="text-[10px] uppercase tracking-widest muted font-700">PageSpeed Score</span>
+          </span>
+          <span class="inline-flex items-baseline gap-3 px-10 border-r divider">
+            <span class="font-display font-700 crimson uppercase" style="font-size:clamp(2rem,5vw,3.5rem);letter-spacing:-0.03em">100%</span>
+            <span class="text-[10px] uppercase tracking-widest muted font-700">Custom Built</span>
+          </span>
+        </span>
       </div>
     </div>
   </section>
 
-  <!-- ═══ WHY A WEBSITE ═══ -->
+  <!-- ═══ WHY A WEBSITE (KT) ═══ -->
   <section id="why-website" class="py-24 px-5">
-    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-16 items-start">
       <div class="flex-1 section-fade">
-        <p class="text-xs uppercase tracking-widest section-label font-display font-700 mb-3" data-en="The Reality"
-          data-bg="Реалността"><span class="crimson">The</span> Reality</p>
-        <h2 class="font-display font-800 text-3xl sm:text-4xl dark:text-white text-gray-900 mb-6"
-          data-en="Your business deserves more than a social media page." data-bg="Бизнесът ти заслужава повече от страница в социалните мрежи.">Your business
-          deserves more than a <span class="crimson">social media page.</span></h2>
-        <div class="space-y-4">
-          <p class="muted text-sm leading-relaxed"
-            data-en="Instagram and Facebook are rented land. Algorithms shift, accounts get restricted, and reach keeps shrinking. A website is the only digital asset you truly own — and the only one that works for you around the clock."
-            data-bg="Instagram и Facebook са наета земя. Алгоритмите се менят, акаунти се ограничават, обхватът пада. Сайтът е единственият дигитален актив, който наистина е твой — и единственият, който работи за теб денонощно.">
-            Instagram and Facebook are <span class="crimson font-medium">rented land</span>. Algorithms shift, accounts get restricted, and reach keeps shrinking. A website is the only digital asset you
-            <span class="crimson font-medium">truly own</span>.
+        <span class="kt-section-tag mb-6 inline-block">The Reality</span>
+        <h2 class="font-display font-700 uppercase leading-[0.95] dark:text-white text-gray-900 mb-8"
+          style="font-size:clamp(2rem,5vw,3.5rem);letter-spacing:-0.03em">Your business<br/>deserves more than a <span class="crimson">social media<br/>page.</span></h2>
+        <div class="space-y-4 border-l-2 border-l-[#3F3F46] pl-6">
+          <p class="muted text-sm leading-relaxed">
+            Instagram and Facebook are <strong class="dark:text-white text-gray-900">rented land</strong>. Algorithms shift, accounts get restricted, and reach keeps shrinking. A website is the only digital asset you <strong class="dark:text-white text-gray-900">truly own</strong>.
           </p>
-          <p class="muted text-sm leading-relaxed"
-            data-en="When someone searches for a service, they skip businesses without a site. A fast, professional website builds trust in seconds and turns curiosity into revenue — day and night."
-            data-bg="Когато някой потърси услуга, подминава бизнеси без сайт. Бързият, професионален сайт гради доверие за секунди и превръща любопитството в приход — денем и нощем.">
-            When someone searches for a service, they skip businesses without a site. A fast, professional website builds
-            <span class="crimson font-medium">trust in seconds</span> and turns curiosity into <span
-              class="crimson font-medium">revenue — day and night</span>.
+          <p class="muted text-sm leading-relaxed">
+            When someone searches, they skip businesses without a site. A fast, professional website builds <strong class="dark:text-white text-gray-900">trust in seconds</strong> and turns curiosity into <strong class="dark:text-white text-gray-900">revenue — day and night</strong>.
           </p>
         </div>
       </div>
-      <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4 section-fade" style="transition-delay: .2s">
-        <div class="card-bg p-6 rounded-2xl pricing-card card-shine">
-          <div class="w-12 h-12 rounded-xl tag-bg flex items-center justify-center mb-4">
-            <i class="fas fa-lock crimson crimson-glow text-xl"></i>
+      <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4 section-fade" style="transition-delay:.2s">
+        <div class="kt-card p-6">
+          <div class="w-12 h-12 icon-wrap-red flex items-center justify-center mb-4">
+            <i class="fas fa-lock crimson text-xl"></i>
           </div>
-          <h4 class="font-display font-700 dark:text-white text-gray-900 mb-2 text-sm" data-en="Total Control"
-            data-bg="Пълен контрол"><span class="crimson">Total</span> Control</h4>
-          <p class="muted text-xs leading-relaxed"
-            data-en="No algorithm decides who sees you. Your content, your audience, your rules."
-            data-bg="Никой алгоритъм не решава кой те вижда. Твоето съдържание, твоята аудитория, твоите правила."><span class="crimson font-medium">No
-              algorithm</span> decides who sees you. Your content, your audience, your rules.</p>
+          <h4 class="font-display font-700 uppercase tracking-wide dark:text-white text-gray-900 mb-2 text-sm">Total Control</h4>
+          <p class="muted text-xs leading-relaxed">No algorithm decides who sees you. Your content, your audience, your rules.</p>
         </div>
-        <div class="card-bg p-6 rounded-2xl pricing-card card-shine">
-          <div class="w-12 h-12 rounded-xl tag-bg flex items-center justify-center mb-4">
-            <i class="fas fa-chart-line crimson crimson-glow text-xl"></i>
+        <div class="kt-card p-6">
+          <div class="w-12 h-12 icon-wrap-violet flex items-center justify-center mb-4">
+            <i class="fas fa-chart-line crimson text-xl"></i>
           </div>
-          <h4 class="font-display font-700 dark:text-white text-gray-900 mb-2 text-sm" data-en="24/7 Sales"
-            data-bg="Продажби 24/7"><span class="crimson">24/7</span> Sales</h4>
-          <p class="muted text-xs leading-relaxed"
-            data-en="Your site fields questions, captures leads, and closes deals — while you sleep."
-            data-bg="Сайтът ти отговаря на въпроси, събира запитвания и затваря сделки — докато спиш.">Your site fields questions,
-            <span class="crimson font-medium">captures leads</span>, and closes deals — while you sleep.
-          </p>
+          <h4 class="font-display font-700 uppercase tracking-wide dark:text-white text-gray-900 mb-2 text-sm">24/7 Sales</h4>
+          <p class="muted text-xs leading-relaxed">Your site fields questions, captures leads, and closes deals — while you sleep.</p>
+        </div>
+        <div class="kt-card p-6 sm:col-span-2">
+          <div class="w-12 h-12 icon-wrap-blue flex items-center justify-center mb-4">
+            <i class="fas fa-globe text-sky text-xl"></i>
+          </div>
+          <h4 class="font-display font-700 uppercase tracking-wide dark:text-white text-gray-900 mb-2 text-sm">Found on Google</h4>
+          <p class="muted text-xs leading-relaxed">A properly built site gets indexed, ranked, and visited — social media pages don't.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══ WHY US ═══ -->
-  <section id="services" class="py-24 px-5 dark:bg-transparent section-alt">
+  <!-- ═══ WHY US / SERVICES (KT) ═══ -->
+  <section id="services" class="py-24 px-5 section-alt">
     <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-16 section-fade">
-        <p class="text-xs uppercase tracking-widest section-label font-display font-700 mb-3" data-en="Why Work With Me"
-          data-bg="Защо точно аз"><span class="crimson">Why</span> Work With Me</p>
-        <h2 class="font-display font-800 text-3xl sm:text-4xl dark:text-white text-gray-900"
-          data-en="Hi, I'm Stoyan. I make websites that do their job."
-          data-bg="Здрасти, аз съм Стоян. Правя сайтове, които си вършат работата.">Hi, I'm <span
-            class="crimson">Stoyan</span>. I make websites that <span class="crimson">do their job</span>.
-        </h2>
+      <div class="mb-16 section-fade">
+        <span class="kt-section-tag mb-6 inline-block">Why Work With Me</span>
+        <h2 class="font-display font-700 uppercase leading-[0.95] dark:text-white text-gray-900"
+          style="font-size:clamp(2.2rem,5.5vw,4rem);letter-spacing:-0.03em">Hi, I'm <span class="crimson">Stoyan.</span><br/>I make websites<br/>that do their job.</h2>
       </div>
 
-      <div class="section-fade glass rounded-2xl p-7 sm:p-8 mb-8">
+      <div class="section-fade glass p-7 sm:p-8 mb-8" style="border-radius:0">
         <div class="grid lg:grid-cols-[1.2fr_.8fr] gap-8 items-start">
           <div>
-            <p class="text-xs uppercase tracking-widest section-label font-display font-700 mb-3"
-              data-en="Meet Stoyan Tanev" data-bg="Здравей, аз съм Стоян">Meet Stoyan Tanev</p>
-            <h3 class="font-display font-800 text-2xl sm:text-3xl dark:text-white text-gray-900 mb-4"
-              data-en="I've been into design since 2008. Now I turn that into websites."
-              data-bg="Интересувам се от дизайн от 2008. Сега го превръщам в сайтове.">I've been into design since 2008. Now I turn that into websites.</h3>
-            <p class="muted text-sm leading-relaxed mb-4"
-              data-en="My journey with design started in 2008 through Adobe Photoshop. Over the years, exploring photo edits and compositions naturally evolved into a strong eye for visual balance. That deep-rooted sense for design forms the foundation of my work today."
-              data-bg="Интересът ми към дизайна започна през 2008 година чрез Adobe Photoshop. С времето експериментите с композиции и обработки естествено изградиха усета ми за визуална хармония. Днес именно този усет е в основата на всеки уебсайт, по който работя.">
+            <span class="kt-section-tag mb-4 inline-block">Meet Stoyan Tanev</span>
+            <h3 class="font-display font-700 uppercase text-xl sm:text-2xl dark:text-white text-gray-900 mb-4 mt-4 leading-tight">I've been into design since 2008.<br/>Now I turn that into websites.</h3>
+            <p class="muted text-sm leading-relaxed mb-4">
               My journey with design started in 2008 through Adobe Photoshop. Over the years, exploring photo edits and compositions naturally evolved into a strong eye for visual balance. That deep-rooted sense for design forms the foundation of my work today.</p>
-            <p class="muted text-sm leading-relaxed"
-              data-en="Later on, my background resolving complex hardware issues taught me the importance of precision. Today, I apply that same exacting standard to web development—ensuring every site is not only beautiful, but structurally sound and highly effective for your business."
-              data-bg="Опитът ми с разрешаване на сложни хардуерни проблеми ме научи на безкомпромисна прецизност. Днес прилагам същия строг стандарт в уеб дизайна — старая се всеки сайт да бъде не просто красив, но и технически стабилен и наистина ефективен за бизнеса ти.">
+            <p class="muted text-sm leading-relaxed">
               Later on, my background resolving complex hardware issues taught me the importance of precision. Today, I apply that same exacting standard to web development—ensuring every site is not only beautiful, but structurally sound and highly effective for your business.</p>
-            <div class="flex flex-wrap gap-3 mt-6">
+            <div class="flex flex-wrap gap-2 mt-6">
               <a href="https://www.linkedin.com/in/stoyan-tanev-a732603b8/" target="_blank" rel="noopener noreferrer"
-                class="tag-bg rounded-full px-4 py-2 text-xs font-600 flex items-center gap-2 transition-all duration-200 hover:scale-[1.02]">
-                <i class="fab fa-linkedin-in"></i>
-                <span>LinkedIn</span>
+                class="tag-bg px-4 py-2 text-xs font-700 uppercase tracking-wide flex items-center gap-2 transition-colors hover:neon-text">
+                <i class="fab fa-linkedin-in"></i><span>LinkedIn</span>
               </a>
               <a href="https://github.com/stoyanbtanev" target="_blank" rel="noopener noreferrer"
-                class="tag-bg rounded-full px-4 py-2 text-xs font-600 flex items-center gap-2 transition-all duration-200 hover:scale-[1.02]">
-                <i class="fab fa-github"></i>
-                <span>GitHub</span>
+                class="tag-bg px-4 py-2 text-xs font-700 uppercase tracking-wide flex items-center gap-2 transition-colors hover:neon-text">
+                <i class="fab fa-github"></i><span>GitHub</span>
               </a>
               <a href="mailto:stoyanbtanev@gmail.com"
-                class="tag-bg rounded-full px-4 py-2 text-xs font-600 flex items-center gap-2 transition-all duration-200 hover:scale-[1.02]">
-                <i class="fas fa-envelope"></i>
-                <span>stoyanbtanev@gmail.com</span>
+                class="tag-bg px-4 py-2 text-xs font-700 uppercase tracking-wide flex items-center gap-2 transition-colors hover:neon-text">
+                <i class="fas fa-envelope"></i><span>Email</span>
               </a>
               <a href="tel:+359895469386"
-                class="tag-bg rounded-full px-4 py-2 text-xs font-600 flex items-center gap-2 transition-all duration-200 hover:scale-[1.02]">
-                <i class="fas fa-phone"></i>
-                <span>089 546 9386</span>
+                class="tag-bg px-4 py-2 text-xs font-700 uppercase tracking-wide flex items-center gap-2 transition-colors hover:neon-text">
+                <i class="fas fa-phone"></i><span>089 546 9386</span>
               </a>
             </div>
           </div>
-          <div class="card-bg rounded-2xl p-6">
-            <p class="text-xs uppercase tracking-widest section-label font-display font-700 mb-4" data-en="What You Get"
-              data-bg="Какво получаваш"><span class="creative-gradient">What You</span> Get</p>
-            <div class="space-y-4">
+          <div class="card-bg p-6" style="border-radius:0">
+            <span class="kt-section-tag mb-4 inline-block">What You Get</span>
+            <div class="space-y-4 mt-4">
               <div class="flex gap-3 items-start">
-                <i class="fas fa-user-check neon-text mt-0.5"></i>
-                <p class="text-sm muted"
-                  data-en="You work directly with the person designing and building your site, ensuring clear communication and faster revisions."
-                  data-bg="Работиш директно с човека, който изгражда сайта ти, гарантирайки бърза и ясна комуникация без излишни посредници.">You work directly with the person designing and building your site, ensuring clear communication and faster revisions.</p>
+                <i class="fas fa-user-check neon-text mt-0.5 flex-shrink-0"></i>
+                <p class="text-sm muted">You work directly with the person designing and building your site — no middlemen.</p>
               </div>
               <div class="flex gap-3 items-start">
-                <i class="fas fa-lightbulb neon-text mt-0.5"></i>
-                <p class="text-sm muted"
-                  data-en="Every layout and decision is carefully considered to ensure the final product authentically represents your brand."
-                  data-bg="Всяко решение и структура се обмислят внимателно, за да може крайният резултат да представя автентично твоя бранд.">
-                  Every layout and decision is carefully considered to ensure the final product authentically represents your brand.
-                </p>
+                <i class="fas fa-lightbulb neon-text mt-0.5 flex-shrink-0"></i>
+                <p class="text-sm muted">Every layout decision is carefully considered to authentically represent your brand.</p>
               </div>
               <div class="flex gap-3 items-start">
-                <i class="fas fa-palette neon-text mt-0.5"></i>
-                <p class="text-sm muted"
-                  data-en="Extensive ongoing experience with visual design tools translates into modern, high-quality aesthetics."
-                  data-bg="Дългогодишният опит с инструменти за визуален дизайн се превръща в модерна и висококачествена естетика за твоя сайт.">Extensive ongoing experience with visual design tools translates into modern, high-quality aesthetics.</p>
+                <i class="fas fa-palette neon-text mt-0.5 flex-shrink-0"></i>
+                <p class="text-sm muted">16+ years of design experience translates into modern, high-quality aesthetics.</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div
-          class="section-fade card-bg rounded-2xl p-7 group hover:neon-glow transition-all duration-300 pricing-card card-shine"
-          style="transition-delay:.1s">
-          <div
-            class="w-14 h-14 rounded-xl icon-wrap-red flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-0 border-t border-l divider">
+        <div class="section-fade kt-card p-7 border-b border-r divider" style="transition-delay:.1s">
+          <div class="w-14 h-14 icon-wrap-red flex items-center justify-center mb-5">
             <i class="fas fa-bolt text-2xl crimson"></i>
           </div>
-          <h3 class="font-display font-700 text-xl dark:text-white text-gray-900 mb-3" data-en="Lightning Fast Delivery"
-            data-bg="Готово за дни, не за месеци"><span class="crimson">Lightning</span> Fast Delivery</h3>
-          <p class="muted text-sm leading-relaxed"
-            data-en="Projects typically launch within 3 to 10 days. I focus entirely on your build to ensure a swift, seamless turnaround."
-            data-bg="Проектите обикновено се завършват в рамките на 3 до 10 дни. Фокусирам се изцяло върху твоя сайт, за да гарантирам бързо и безпроблемно изпълнение.">
-            Projects typically launch within 3 to 10 days. I focus entirely on your build to ensure a swift, seamless turnaround.</p>
-          <div class="mt-5 flex items-center gap-2 neon-text text-xs font-600 font-display tracking-wide">
-            <i class="fas fa-check-circle text-xs"></i>
-            <span data-en="3-10 day turnaround" data-bg="Готово за 3–10 дни">3-10 day turnaround</span>
+          <h3 class="font-display font-700 uppercase text-lg dark:text-white text-gray-900 mb-3 leading-tight">Lightning Fast<br/>Delivery</h3>
+          <p class="muted text-sm leading-relaxed">
+            Projects typically launch within 3 to 10 days.</p>
+          <div class="mt-5 flex items-center gap-2 neon-text text-[10px] font-700 uppercase tracking-widest">
+            <i class="fas fa-check text-[9px]"></i>
+            <span>3–10 day turnaround</span>
           </div>
         </div>
-        <div
-          class="section-fade card-bg rounded-2xl p-7 group hover:neon-glow transition-all duration-300 pricing-card card-shine"
-          style="transition-delay:.2s">
-          <div
-            class="w-14 h-14 rounded-xl icon-wrap-violet flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+        <div class="section-fade kt-card p-7 border-b border-r divider" style="transition-delay:.2s">
+          <div class="w-14 h-14 icon-wrap-violet flex items-center justify-center mb-5">
             <i class="fas fa-tag text-2xl text-violet"></i>
           </div>
-          <h3 class="font-display font-700 text-xl dark:text-white text-gray-900 mb-3" data-en="Unbeatable Pricing"
-            data-bg="Честни цени, без скрити номера">Unbeatable <span class="crimson">Pricing</span></h3>
-          <p class="muted text-sm leading-relaxed"
-            data-en="Operating independently allows me to offer agency-level quality without overhead markups or hidden costs."
-            data-bg="Оперирайки независимо, предлагам качество на ниво агенция без излишни надценки и скрити такси.">
-            Operating independently allows me to offer agency-level quality without overhead markups or hidden costs.</p>
-          <div class="mt-5 flex items-center gap-2 neon-text text-xs font-600 font-display tracking-wide">
-            <i class="fas fa-check-circle text-xs"></i>
-            <span data-en="Prices from €200" data-bg="От €200 нагоре">Prices from €200</span>
+          <h3 class="font-display font-700 uppercase text-lg dark:text-white text-gray-900 mb-3 leading-tight">Unbeatable<br/>Pricing</h3>
+          <p class="muted text-sm leading-relaxed">
+            Agency-level quality without overhead markups or hidden costs.</p>
+          <div class="mt-5 flex items-center gap-2 neon-text text-[10px] font-700 uppercase tracking-widest">
+            <i class="fas fa-check text-[9px]"></i>
+            <span>From €200</span>
           </div>
         </div>
-        <div
-          class="section-fade card-bg rounded-2xl p-7 group hover:neon-glow transition-all duration-300 pricing-card card-shine"
-          style="transition-delay:.3s">
-          <div
-            class="w-14 h-14 rounded-xl icon-wrap-blue flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+        <div class="section-fade kt-card p-7 border-b border-r divider" style="transition-delay:.3s">
+          <div class="w-14 h-14 icon-wrap-blue flex items-center justify-center mb-5">
             <i class="fas fa-gem text-2xl text-sky"></i>
           </div>
-          <h3 class="font-display font-700 text-xl dark:text-white text-gray-900 mb-3" data-en="Premium Quality"
-            data-bg="Качество без компромиси"><span class="crimson">Premium</span> Quality</h3>
-          <p class="muted text-sm leading-relaxed"
-            data-en="A strong emphasis on clean code ensures your site loads rapidly, looks refined, and functions flawlessly on any device."
-            data-bg="Силният акцент върху чистия код гарантира бързо зареждане, модерна визия и безпроблемна мобилна функционалност.">
-            A strong emphasis on clean code ensures your site loads rapidly, looks refined, and functions flawlessly on any device.
-          </p>
-          <div class="mt-5 flex items-center gap-2 neon-text text-xs font-600 font-display tracking-wide">
-            <i class="fas fa-check-circle text-xs"></i>
-            <span data-en="90+ PageSpeed score guaranteed" data-bg="Гарантирани 90+ точки от PageSpeed">90+ PageSpeed
-              score guaranteed</span>
+          <h3 class="font-display font-700 uppercase text-lg dark:text-white text-gray-900 mb-3 leading-tight">Premium<br/>Quality</h3>
+          <p class="muted text-sm leading-relaxed">
+            Clean code ensures your site loads fast, looks refined, and works flawlessly on any device.</p>
+          <div class="mt-5 flex items-center gap-2 neon-text text-[10px] font-700 uppercase tracking-widest">
+            <i class="fas fa-check text-[9px]"></i>
+            <span>Modern & Responsive</span>
           </div>
         </div>
       </div>
@@ -1432,25 +1249,26 @@
   <!-- ═══ TEMPLATES ═══ -->
   <section id="templates" class="py-24 px-5" data-device="desktop">
     <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-10 section-fade">
-        <p class="text-xs uppercase tracking-widest section-label font-display font-700 mb-3" data-en="Style Directions" data-bg="Примерни стилове"><span class="crimson">Style</span> Directions</p>
-        <h2 class="font-display font-800 text-3xl sm:text-4xl dark:text-white text-gray-900" data-en="A glimpse at what's possible." data-bg="Малко вдъхновение.">A glimpse at what's <span class="crimson">possible.</span></h2>
-        <p class="muted text-sm mt-3 max-w-xl mx-auto" data-en="Every layout below is a style direction I build from scratch — fully adapted to your brand, content, and audience." data-bg="Всеки лейаут по-долу е посока, от която стартирам — изцяло адаптирана към твоя бранд, съдържание и аудитория.">Every layout below is a style direction I build from scratch — fully adapted to your brand, content, and audience.</p>
+      <div class="mb-10 section-fade">
+        <span class="kt-section-tag mb-6 inline-block">Style Directions</span>
+        <h2 class="font-display font-700 uppercase leading-[0.95] dark:text-white text-gray-900 mt-4"
+          style="font-size:clamp(2rem,5vw,3.5rem);letter-spacing:-0.03em">A glimpse at<br/>what's <span class="crimson">possible.</span></h2>
+        <p class="muted text-sm mt-4 max-w-xl">Every layout below is a style direction I build from scratch — fully adapted to your brand, content, and audience.</p>
       </div>
 
       <!-- Device toggle -->
-      <div class="flex flex-wrap justify-center gap-2 mb-10 section-fade" style="transition-delay:.1s">
-        <button onclick="setDevice(this,'desktop')" style="touch-action:manipulation" class="device-btn active tag-bg px-4 py-2 rounded-full text-xs font-display font-700 flex items-center gap-2">
+      <div class="flex flex-wrap gap-0 mb-10 section-fade border divider" style="transition-delay:.1s;display:inline-flex">
+        <button onclick="setDevice(this,'desktop')" style="touch-action:manipulation" class="device-btn active tag-bg px-5 py-2.5 text-[10px] font-700 uppercase tracking-widest flex items-center gap-2 border-r divider">
           <i class="fas fa-desktop text-[10px]"></i>
-          <span data-en="Desktop" data-bg="Десктоп">Desktop</span><span class="hidden sm:inline muted" data-en=" — 1440px" data-bg=" — 1440px"> — 1440px</span>
+          <span>Desktop</span><span class="hidden sm:inline muted"> · 1440px</span>
         </button>
-        <button onclick="setDevice(this,'tablet')" style="touch-action:manipulation" class="device-btn tag-bg px-4 py-2 rounded-full text-xs font-display font-700 flex items-center gap-2">
+        <button onclick="setDevice(this,'tablet')" style="touch-action:manipulation" class="device-btn tag-bg px-5 py-2.5 text-[10px] font-700 uppercase tracking-widest flex items-center gap-2 border-r divider">
           <i class="fas fa-tablet-alt text-[10px]"></i>
-          <span data-en="Tablet" data-bg="Таблет">Tablet</span><span class="hidden sm:inline muted" data-en=" — 768px" data-bg=" — 768px"> — 768px</span>
+          <span>Tablet</span><span class="hidden sm:inline muted"> · 768px</span>
         </button>
-        <button onclick="setDevice(this,'mobile')" style="touch-action:manipulation" class="device-btn tag-bg px-4 py-2 rounded-full text-xs font-display font-700 flex items-center gap-2">
+        <button onclick="setDevice(this,'mobile')" style="touch-action:manipulation" class="device-btn tag-bg px-5 py-2.5 text-[10px] font-700 uppercase tracking-widest flex items-center gap-2">
           <i class="fas fa-mobile-alt text-[10px]"></i>
-          <span data-en="Mobile" data-bg="Мобилен">Mobile</span><span class="hidden sm:inline muted" data-en=" — 390px" data-bg=" — 390px"> — 390px</span>
+          <span>Mobile</span><span class="hidden sm:inline muted"> · 390px</span>
         </button>
       </div>
 
@@ -1458,7 +1276,7 @@
 
         <!-- Template 1: Business / SaaS Landing -->
         <div class="section-fade" style="transition-delay:.05s">
-          <div class="tpl-card card-bg rounded-2xl overflow-hidden pricing-card card-shine flex flex-col">
+          <div class="tpl-card card-bg overflow-hidden flex flex-col" style="border-radius:0">
             <div class="tpl-chrome flex items-center gap-1.5 px-3 py-2.5 border-b divider flex-shrink-0">
               <span class="w-2 h-2 rounded-full flex-shrink-0" style="background:#ff5f56"></span>
               <span class="w-2 h-2 rounded-full flex-shrink-0" style="background:#ffbd2e"></span>
@@ -1525,23 +1343,23 @@
             <div class="tpl-home mx-auto my-2.5 w-24 h-1 rounded-full" style="background:rgba(255,255,255,0.12)"></div>
             <div class="p-5 flex-1 flex flex-col">
               <div class="flex items-start justify-between gap-2 mb-1.5">
-                <h4 class="font-display font-700 text-sm dark:text-white text-gray-900" data-en="Business Landing" data-bg="Бизнес лендинг">Business Landing</h4>
-                <span class="text-[9px] font-display font-700 px-2 py-0.5 rounded-full uppercase tracking-wide flex-shrink-0 crimson" style="background:rgba(220,20,60,0.1)">Dark</span>
+                <h4 class="font-display font-700 text-sm uppercase tracking-wide dark:text-white text-gray-900">Business Landing</h4>
+                <span class="text-[9px] font-700 px-2 py-0.5 uppercase tracking-widest flex-shrink-0 crimson" style="background:rgba(220,20,60,0.1)">Dark</span>
               </div>
-              <p class="text-xs muted mb-3 flex-1" data-en="Split hero with live metrics dashboard, feature cards, avatar social proof, and a stats strip." data-bg="Хироу с дашборд, карти, аватари и лента с метрики.">Split hero with live metrics dashboard, feature cards, avatar social proof, and a stats strip.</p>
+              <p class="text-xs muted mb-3 flex-1">Split hero with live metrics dashboard, feature cards, avatar social proof, and a stats strip.</p>
               <div class="flex flex-wrap gap-1.5 mb-4">
-                <span class="tag-bg text-[10px] px-2 py-0.5 rounded-full muted" data-en="Animated hero" data-bg="Анимиран хироу">Animated hero</span>
-                <span class="tag-bg text-[10px] px-2 py-0.5 rounded-full muted" data-en="Dark mode" data-bg="Тъмна тема">Dark mode</span>
-                <span class="tag-bg text-[10px] px-2 py-0.5 rounded-full muted" data-en="Scroll reveal" data-bg="Скрол ефект">Scroll reveal</span>
+                <span class="tag-bg text-[9px] px-2 py-0.5 muted font-700 uppercase tracking-wide">Animated hero</span>
+                <span class="tag-bg text-[9px] px-2 py-0.5 muted font-700 uppercase tracking-wide">Dark mode</span>
+                <span class="tag-bg text-[9px] px-2 py-0.5 muted font-700 uppercase tracking-wide">Scroll reveal</span>
               </div>
-              <a href="#contact" class="text-xs crimson font-700 font-display hover:underline" data-en="Request this style →" data-bg="Поискай тоя стил →">‪Request this style →</a>
+              <a href="#contact" class="text-xs crimson font-700 font-display hover:underline">Request this style →</a>
             </div>
           </div>
         </div>
 
         <!-- Template 2: Restaurant / Local Business -->
         <div class="section-fade" style="transition-delay:.10s">
-          <div class="tpl-card card-bg rounded-2xl overflow-hidden pricing-card card-shine flex flex-col">
+          <div class="tpl-card card-bg overflow-hidden flex flex-col" style="border-radius:0">
             <div class="tpl-chrome flex items-center gap-1.5 px-3 py-2 border-b divider flex-shrink-0">
               <span class="w-2 h-2 rounded-full flex-shrink-0" style="background:#ff5f56"></span>
               <span class="w-2 h-2 rounded-full flex-shrink-0" style="background:#ffbd2e"></span>
@@ -1609,23 +1427,23 @@
             <div class="tpl-home mx-auto my-2.5 w-24 h-1 rounded-full" style="background:rgba(220,180,80,0.15)"></div>
             <div class="p-5 flex-1 flex flex-col">
               <div class="flex items-start justify-between gap-2 mb-1.5">
-                <h4 class="font-display font-700 text-sm dark:text-white text-gray-900" data-en="Restaurant / Local" data-bg="Ресторант / Местен">Restaurant / Local</h4>
-                <span class="text-[9px] font-display font-700 px-2 py-0.5 rounded-full uppercase tracking-wide flex-shrink-0" style="background:rgba(200,140,20,0.15);color:#c8940a">Warm</span>
+                <h4 class="font-display font-700 text-sm uppercase tracking-wide dark:text-white text-gray-900">Restaurant / Local</h4>
+                <span class="text-[9px] font-700 px-2 py-0.5 uppercase tracking-widest flex-shrink-0" style="background:rgba(200,140,20,0.15);color:#c8940a">Warm</span>
               </div>
-              <p class="text-xs muted mb-3 flex-1" data-en="Full-bleed hero photo, menu items with thumbnails &amp; prices, category tabs, and an hours &amp; location strip." data-bg="Хироу на цял екран, меню с миниатюри и цени, табове и лента с часове.">Full-bleed hero photo, menu items with thumbnails &amp; prices, category tabs, and an hours &amp; location strip.</p>
+              <p class="text-xs muted mb-3 flex-1">Full-bleed hero photo, menu items with thumbnails &amp; prices, category tabs, and an hours &amp; location strip.</p>
               <div class="flex flex-wrap gap-1.5 mb-4">
-                <span class="tag-bg text-[10px] px-2 py-0.5 rounded-full muted" data-en="Menu layout" data-bg="Меню лейаут">Menu layout</span>
-                <span class="tag-bg text-[10px] px-2 py-0.5 rounded-full muted" data-en="Table booking" data-bg="Резервации">Table booking</span>
-                <span class="tag-bg text-[10px] px-2 py-0.5 rounded-full muted" data-en="Warm palette" data-bg="Топли тонове">Warm palette</span>
+                <span class="tag-bg text-[9px] px-2 py-0.5 muted font-700 uppercase tracking-wide">Menu layout</span>
+                <span class="tag-bg text-[9px] px-2 py-0.5 muted font-700 uppercase tracking-wide">Table booking</span>
+                <span class="tag-bg text-[9px] px-2 py-0.5 muted font-700 uppercase tracking-wide">Warm palette</span>
               </div>
-              <a href="#contact" class="text-xs crimson font-700 font-display hover:underline" data-en="Request this style →" data-bg="Поискай тоя стил →">Request this style →</a>
+              <a href="#contact" class="text-xs crimson font-700 font-display hover:underline">Request this style →</a>
             </div>
           </div>
         </div>
 
         <!-- Template 3: Portfolio / Creative -->
         <div class="section-fade" style="transition-delay:.15s">
-          <div class="tpl-card card-bg rounded-2xl overflow-hidden pricing-card card-shine flex flex-col">
+          <div class="tpl-card card-bg overflow-hidden flex flex-col" style="border-radius:0">
             <div class="tpl-chrome flex items-center gap-1.5 px-3 py-2 border-b divider flex-shrink-0">
               <span class="w-2 h-2 rounded-full flex-shrink-0" style="background:#ff5f56"></span>
               <span class="w-2 h-2 rounded-full flex-shrink-0" style="background:#ffbd2e"></span>
@@ -1672,23 +1490,23 @@
             <div class="tpl-home mx-auto my-2.5 w-24 h-1 rounded-full" style="background:rgba(255,255,255,0.12)"></div>
             <div class="p-5 flex-1 flex flex-col">
               <div class="flex items-start justify-between gap-2 mb-1.5">
-                <h4 class="font-display font-700 text-sm dark:text-white text-gray-900" data-en="Portfolio / Creative" data-bg="Портфолио / Творческо">Portfolio / Creative</h4>
-                <span class="text-[9px] font-display font-700 px-2 py-0.5 rounded-full uppercase tracking-wide flex-shrink-0" style="background:rgba(139,92,246,0.12);color:#a78bfa">Bold</span>
+                <h4 class="font-display font-700 text-sm uppercase tracking-wide dark:text-white text-gray-900">Portfolio / Creative</h4>
+                <span class="text-[9px] font-700 px-2 py-0.5 uppercase tracking-widest flex-shrink-0" style="background:rgba(139,92,246,0.12);color:#a78bfa">Bold</span>
               </div>
-              <p class="text-xs muted mb-3 flex-1" data-en="Clean top nav, statement hero with scroll cue, and a mixed work grid with hover reveals." data-bg="Минимална навигация, силен хироу и мрежа от проекти с hover ефекти.">Clean top nav, statement hero with scroll cue, and a mixed work grid with hover reveals.</p>
+              <p class="text-xs muted mb-3 flex-1">Clean top nav, statement hero with scroll cue, and a mixed work grid with hover reveals.</p>
               <div class="flex flex-wrap gap-1.5 mb-4">
-                <span class="tag-bg text-[10px] px-2 py-0.5 rounded-full muted" data-en="Hover reveals" data-bg="Hover ефекти">Hover reveals</span>
-                <span class="tag-bg text-[10px] px-2 py-0.5 rounded-full muted" data-en="Work grid" data-bg="Галерия">Work grid</span>
-                <span class="tag-bg text-[10px] px-2 py-0.5 rounded-full muted" data-en="Minimal nav" data-bg="Минимал">Minimal nav</span>
+                <span class="tag-bg text-[9px] px-2 py-0.5 muted font-700 uppercase tracking-wide">Hover reveals</span>
+                <span class="tag-bg text-[9px] px-2 py-0.5 muted font-700 uppercase tracking-wide">Work grid</span>
+                <span class="tag-bg text-[9px] px-2 py-0.5 muted font-700 uppercase tracking-wide">Minimal nav</span>
               </div>
-              <a href="#contact" class="text-xs crimson font-700 font-display hover:underline" data-en="Request this style →" data-bg="Поискай тоя стил →">Request this style →</a>
+              <a href="#contact" class="text-xs crimson font-700 font-display hover:underline">Request this style →</a>
             </div>
           </div>
         </div>
 
         <!-- Template 4: Local Service / Clean Light -->
         <div class="section-fade" style="transition-delay:.20s">
-          <div class="tpl-card card-bg rounded-2xl overflow-hidden pricing-card card-shine flex flex-col">
+          <div class="tpl-card card-bg overflow-hidden flex flex-col" style="border-radius:0">
             <div class="tpl-chrome flex items-center gap-1.5 px-3 py-2 border-b divider flex-shrink-0">
               <span class="w-2 h-2 rounded-full flex-shrink-0" style="background:#ff5f56"></span>
               <span class="w-2 h-2 rounded-full flex-shrink-0" style="background:#ffbd2e"></span>
@@ -1739,16 +1557,16 @@
             <div class="tpl-home mx-auto my-2.5 w-24 h-1 rounded-full" style="background:rgba(0,0,0,0.08)"></div>
             <div class="p-5 flex-1 flex flex-col">
               <div class="flex items-start justify-between gap-2 mb-1.5">
-                <h4 class="font-display font-700 text-sm dark:text-white text-gray-900" data-en="Service Business" data-bg="Услужен бизнес">Service Business</h4>
-                <span class="text-[9px] font-display font-700 px-2 py-0.5 rounded-full uppercase tracking-wide flex-shrink-0" style="background:rgba(37,99,235,0.1);color:#2563eb">Light</span>
+                <h4 class="font-display font-700 text-sm uppercase tracking-wide dark:text-white text-gray-900">Service Business</h4>
+                <span class="text-[9px] font-700 px-2 py-0.5 uppercase tracking-widest flex-shrink-0" style="background:rgba(37,99,235,0.1);color:#2563eb">Light</span>
               </div>
-              <p class="text-xs muted mb-3 flex-1" data-en="White nav with phone CTA, split hero with photo, 3 service cards, and a 5-star trust strip." data-bg="Бяла навигация, хироу с фото, услуги и лента с оценки.">White nav with phone CTA, split hero with photo, 3 service cards, and a 5-star trust strip.</p>
+              <p class="text-xs muted mb-3 flex-1">White nav with phone CTA, split hero with photo, 3 service cards, and a 5-star trust strip.</p>
               <div class="flex flex-wrap gap-1.5 mb-4">
-                <span class="tag-bg text-[10px] px-2 py-0.5 rounded-full muted" data-en="Light mode" data-bg="Светла тема">Light mode</span>
-                <span class="tag-bg text-[10px] px-2 py-0.5 rounded-full muted" data-en="Trust signals" data-bg="Рейтинг">Trust signals</span>
-                <span class="tag-bg text-[10px] px-2 py-0.5 rounded-full muted" data-en="Service grid" data-bg="Услуги">Service grid</span>
+                <span class="tag-bg text-[9px] px-2 py-0.5 muted font-700 uppercase tracking-wide">Light mode</span>
+                <span class="tag-bg text-[9px] px-2 py-0.5 muted font-700 uppercase tracking-wide">Trust signals</span>
+                <span class="tag-bg text-[9px] px-2 py-0.5 muted font-700 uppercase tracking-wide">Service grid</span>
               </div>
-              <a href="#contact" class="text-xs crimson font-700 font-display hover:underline" data-en="Request this style →" data-bg="Поискай тоя стил →">Request this style →</a>
+              <a href="#contact" class="text-xs crimson font-700 font-display hover:underline">Request this style →</a>
             </div>
           </div>
         </div>
@@ -1757,366 +1575,227 @@
     </div>
   </section>
 
-  <!-- ═══ PRICING ═══ -->
+  <!-- ═══ PRICING (KT) ═══ -->
   <section id="pricing" class="py-24 px-5">
     <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-14 section-fade">
-        <p class="text-xs uppercase tracking-widest section-label font-display font-700 mb-3" data-en="Packages"
-          data-bg="Пакети"><span class="crimson">Packages</span></p>
-        <h2 class="font-display font-800 text-3xl sm:text-4xl dark:text-white text-gray-900"
-          data-en="Clear pricing. No surprises." data-bg="Ясни цени, без неприятни изненади">Clear pricing. <span
-            class="crimson">No surprises.</span></h2>
-        <p class="muted text-sm mt-3 max-w-lg mx-auto"
-          data-en="Straightforward pricing designed to fit your needs. Simply select a package and share your vision. Growth and Pro tiers also include a custom chat widget and a free domain for the first year."
-          data-bg="Ясно структурирани цени, съобразени с твоите нужди. Избери пакет и сподели визията си, а аз ще се погрижа за останалото. Пакетите Growth и Pro включват допълнителен чат уиджет и безплатен домейн за първата година.">Straightforward pricing designed to fit your needs. Simply select a package and share your vision. Growth and Pro tiers also include a custom chat
-          widget and a free domain for the first year.</p>
+      <div class="mb-14 section-fade">
+        <span class="kt-section-tag mb-6 inline-block">Packages</span>
+        <h2 class="font-display font-700 uppercase leading-[0.95] dark:text-white text-gray-900 mt-4"
+          style="font-size:clamp(2rem,5vw,3.5rem);letter-spacing:-0.03em">Clear pricing.<br/><span class="crimson">No surprises.</span></h2>
+        <p class="muted text-sm mt-4 max-w-lg">Straightforward pricing designed to fit your needs. Growth and Pro tiers also include a custom chat widget and a free domain for the first year.</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-0 border-t border-l divider">
 
         <!-- Quick Launch -->
-        <div class="section-fade card-bg rounded-2xl p-6 flex flex-col pricing-card card-shine"
-          style="transition-delay:.1s">
-          <div class="mb-5 min-h-[9rem]">
-            <div
-              class="tag-bg inline-flex rounded-full px-3 py-1 text-[10px] font-display font-700 tracking-widest uppercase mb-3">
-              Starter</div>
-            <h3 class="font-display font-800 text-xl dark:text-white text-gray-900 mb-1" data-en="Quick Launch"
-              data-bg="Бърз старт">Quick Launch</h3>
-            <p class="muted text-xs leading-relaxed"
-              data-en="Ideal for events, MVPs, or putting an idea online this week."
-              data-bg="Идеално за събития, MVP-та или когато идеята трябва да е онлайн тази седмица.">Ideal for
-              events, MVPs, or putting an idea online this week.</p>
+        <div class="section-fade card-bg p-6 flex flex-col border-b border-r divider" style="transition-delay:.1s">
+          <div class="mb-5 flex-1">
+            <div class="tag-bg inline-flex px-3 py-1 text-[9px] font-700 tracking-widest uppercase mb-3">Starter</div>
+            <h3 class="font-display font-700 uppercase text-lg dark:text-white text-gray-900 mb-1 mt-1 leading-tight">Quick Launch</h3>
+            <p class="muted text-xs leading-relaxed mb-5">Ideal for events, MVPs, or putting an idea online this week.</p>
+            <div class="mb-5">
+              <span class="font-display font-700 crimson" style="font-size:clamp(1.8rem,4vw,2.5rem);letter-spacing:-0.03em">€200</span>
+              <span class="muted text-xs ml-1 uppercase tracking-wide">one-time</span>
+            </div>
+            <ul class="space-y-2.5">
+              <li class="flex items-center gap-2 text-xs muted"><i class="fas fa-check neon-text text-[9px] flex-shrink-0"></i><span>1 responsive landing page</span></li>
+              <li class="flex items-center gap-2 text-xs muted"><i class="fas fa-check neon-text text-[9px] flex-shrink-0"></i><span>Mobile-first design</span></li>
+              <li class="flex items-center gap-2 text-xs muted"><i class="fas fa-check neon-text text-[9px] flex-shrink-0"></i><span>Basic SEO setup</span></li>
+              <li class="flex items-center gap-2 text-xs muted"><i class="fas fa-check neon-text text-[9px] flex-shrink-0"></i><span>Contact form</span></li>
+              <li class="flex items-center gap-2 text-xs muted"><i class="fas fa-check neon-text text-[9px] flex-shrink-0"></i><span>3-day delivery</span></li>
+            </ul>
           </div>
-          <div class="mb-5">
-            <span class="font-display font-800 text-3xl crimson">€200</span>
-            <span class="muted text-xs ml-1" data-en="one-time" data-bg="еднократно">one-time</span>
-          </div>
-          <ul class="space-y-2.5 mb-6 flex-1">
-            <li class="flex items-center gap-2 text-xs muted"><i
-                class="fas fa-check neon-text text-[10px] flex-shrink-0"></i>
-              <span data-en="1 responsive landing page" data-bg="1 адаптивна страница">1 responsive landing page</span>
-            </li>
-            <li class="flex items-center gap-2 text-xs muted"><i
-                class="fas fa-check neon-text text-[10px] flex-shrink-0"></i>
-              <span data-en="Mobile-first design" data-bg="Изглежда страхотно на телефон">Mobile-first design</span>
-            </li>
-            <li class="flex items-center gap-2 text-xs muted"><i
-                class="fas fa-check neon-text text-[10px] flex-shrink-0"></i>
-              <span data-en="Basic SEO setup" data-bg="Основно SEO">Basic SEO setup</span>
-            </li>
-            <li class="flex items-center gap-2 text-xs muted"><i
-                class="fas fa-check neon-text text-[10px] flex-shrink-0"></i>
-              <span data-en="Contact form" data-bg="Контактна форма">Contact form</span>
-            </li>
-            <li class="flex items-center gap-2 text-xs muted"><i
-                class="fas fa-check neon-text text-[10px] flex-shrink-0"></i>
-              <span data-en="3-day delivery" data-bg="Готово за 3 дни">3-day delivery</span>
-            </li>
-          </ul>
-          <a href="#contact"
-            class="cta-secondary rounded-xl py-2.5 text-xs font-display font-700 text-center transition-all duration-200 hover:scale-[1.02] active:scale-[.98]"
-            data-en="Get Started" data-bg="Започни">Get Started</a>
+          <a href="#contact" class="cta-secondary py-2.5 text-[10px] font-700 uppercase tracking-widest text-center mt-6 block">Get Started</a>
         </div>
 
         <!-- Landing Page Pro -->
-        <div class="section-fade card-bg rounded-2xl p-6 flex flex-col pricing-card card-shine"
-          style="transition-delay:.15s">
-          <div class="mb-5 min-h-[9rem]">
-            <div
-              class="tag-bg inline-flex rounded-full px-3 py-1 text-[10px] font-display font-700 tracking-widest uppercase mb-3">
-              Popular</div>
-            <h3 class="font-display font-800 text-xl dark:text-white text-gray-900 mb-1" data-en="Landing Page Pro"
-              data-bg="Страница, която продава">Landing Page Pro</h3>
-            <p class="muted text-xs leading-relaxed"
-              data-en="A conversion-focused landing with polished sections, premium animations, and real analytics."
-              data-bg="Лендинг с фокус върху конверсии — изпипани секции, премиум анимации и реална аналитика.">A conversion-focused landing with
-              polished sections, premium animations, and real analytics.</p>
+        <div class="section-fade card-bg p-6 flex flex-col border-b border-r divider" style="transition-delay:.15s">
+          <div class="mb-5 flex-1">
+            <div class="tag-bg inline-flex px-3 py-1 text-[9px] font-700 tracking-widest uppercase mb-3">Popular</div>
+            <h3 class="font-display font-700 uppercase text-lg dark:text-white text-gray-900 mb-1 mt-1 leading-tight">Landing Page Pro</h3>
+            <p class="muted text-xs leading-relaxed mb-5">A conversion-focused landing with polished sections, premium animations, and real analytics.</p>
+            <div class="mb-5">
+              <span class="font-display font-700 crimson" style="font-size:clamp(1.8rem,4vw,2.5rem);letter-spacing:-0.03em">€250</span>
+              <span class="muted text-xs ml-1 uppercase tracking-wide">one-time</span>
+            </div>
+            <ul class="space-y-2.5">
+              <li class="flex items-center gap-2 text-xs muted"><i class="fas fa-check neon-text text-[9px] flex-shrink-0"></i><span>1-3 pages included</span></li>
+              <li class="flex items-center gap-2 text-xs muted"><i class="fas fa-check neon-text text-[9px] flex-shrink-0"></i><span>Premium animations</span></li>
+              <li class="flex items-center gap-2 text-xs muted"><i class="fas fa-check neon-text text-[9px] flex-shrink-0"></i><span>A/B testing ready</span></li>
+              <li class="flex items-center gap-2 text-xs muted"><i class="fas fa-check neon-text text-[9px] flex-shrink-0"></i><span>Analytics integration</span></li>
+              <li class="flex items-center gap-2 text-xs muted"><i class="fas fa-check neon-text text-[9px] flex-shrink-0"></i><span>5-day delivery</span></li>
+            </ul>
           </div>
-          <div class="mb-5">
-            <span class="font-display font-800 text-3xl crimson">€250</span>
-            <span class="muted text-xs ml-1" data-en="one-time" data-bg="еднократно">one-time</span>
-          </div>
-          <ul class="space-y-2.5 mb-6 flex-1">
-            <li class="flex items-center gap-2 text-xs muted"><i
-                class="fas fa-check neon-text text-[10px] flex-shrink-0"></i>
-              <span data-en="1-3 pages included" data-bg="До 3 страници">1-3 pages included</span>
-            </li>
-            <li class="flex items-center gap-2 text-xs muted"><i
-                class="fas fa-check neon-text text-[10px] flex-shrink-0"></i>
-              <span data-en="Premium animations" data-bg="Плавни анимации">Premium animations</span>
-            </li>
-            <li class="flex items-center gap-2 text-xs muted"><i
-                class="fas fa-check neon-text text-[10px] flex-shrink-0"></i>
-              <span data-en="A/B testing ready" data-bg="Подготвено за A/B тестове">A/B testing ready</span>
-            </li>
-            <li class="flex items-center gap-2 text-xs muted"><i
-                class="fas fa-check neon-text text-[10px] flex-shrink-0"></i>
-              <span data-en="Analytics integration" data-bg="Google Analytics вграден">Analytics integration</span>
-            </li>
-            <li class="flex items-center gap-2 text-xs muted"><i
-                class="fas fa-check neon-text text-[10px] flex-shrink-0"></i>
-              <span data-en="5-day delivery" data-bg="Готово за 5 дни">5-day delivery</span>
-            </li>
-          </ul>
-          <a href="#contact"
-            class="cta-primary rounded-xl py-2.5 text-xs font-display font-700 text-center transition-all duration-200 hover:scale-[1.02] active:scale-[.98]"
-            data-en="Get Started" data-bg="Започни">Get Started</a>
+          <a href="#contact" class="cta-primary py-2.5 text-[10px] font-700 uppercase tracking-widest text-center mt-6 block">Get Started</a>
         </div>
 
-        <!-- Website Revamp -->
-        <div class="section-fade relative flex h-full" style="transition-delay:.2s">
-          <div class="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
-            <span
-              class="badge-popular font-display font-700 text-[10px] tracking-widest uppercase px-4 py-1.5 rounded-full whitespace-nowrap"
-              data-en="Best Value" data-bg="Най-изгодно"><span class="creative-gradient">Best</span> Value</span>
+        <!-- Website Revamp — Best Value highlighted -->
+        <div class="section-fade relative flex flex-col border-b border-r divider" style="transition-delay:.2s">
+          <div class="absolute -top-4 left-6 z-10">
+            <span class="badge-popular font-700 text-[9px] tracking-widest uppercase px-4 py-1.5 whitespace-nowrap">Best Value</span>
           </div>
-          <div class="pricing-highlight rounded-2xl p-6 flex flex-col pricing-card card-shine h-full w-full">
-            <div class="mb-5 min-h-[9rem]">
-              <div
-                class="tag-bg inline-flex rounded-full px-3 py-1 text-[10px] font-display font-700 tracking-widest uppercase mb-3">
-                Growth</div>
-              <h3 class="font-display font-800 text-xl dark:text-white text-gray-900 mb-1" data-en="Website Revamp"
-                data-bg="Нов живот за стария сайт">Website Revamp</h3>
-              <p class="muted text-xs leading-relaxed"
-                data-en="Take your current site from outdated to outstanding — faster load, modern design, higher conversions."
-                data-bg="Превърни текущия си сайт от остарял в забележителен — по-бързо зареждане, модерен дизайн, повече конверсии.">Take
-                your current site from outdated to outstanding — faster load, modern design, higher conversions.</p>
+          <div class="pricing-highlight p-6 flex flex-col flex-1" style="border-radius:0">
+            <div class="mb-5 flex-1">
+              <div class="tag-bg inline-flex px-3 py-1 text-[9px] font-700 tracking-widest uppercase mb-3">Growth</div>
+              <h3 class="font-display font-700 uppercase text-lg dark:text-white text-gray-900 mb-1 mt-1 leading-tight">Website Revamp</h3>
+              <p class="muted text-xs leading-relaxed mb-5">Take your current site from outdated to outstanding.</p>
+              <div class="mb-5">
+                <span class="font-display font-700 crimson" style="font-size:clamp(1.8rem,4vw,2.5rem);letter-spacing:-0.03em">€500</span>
+                <span class="muted text-xs ml-1 uppercase tracking-wide">one-time</span>
+              </div>
+              <ul class="space-y-2.5">
+                <li class="flex items-center gap-2 text-xs muted"><i class="fas fa-check neon-text text-[9px] flex-shrink-0"></i><span>Up to 5 pages</span></li>
+                <li class="flex items-center gap-2 text-xs muted"><i class="fas fa-check neon-text text-[9px] flex-shrink-0"></i><span>Full redesign + rebuild</span></li>
+                <li class="flex items-center gap-2 text-xs muted"><i class="fas fa-check neon-text text-[9px] flex-shrink-0"></i><span>90+ PageSpeed score</span></li>
+                <li class="flex items-center gap-2 text-xs muted"><i class="fas fa-check neon-text text-[9px] flex-shrink-0"></i><span>Advanced SEO + analytics</span></li>
+                <li class="flex items-center gap-2 text-xs muted"><i class="fas fa-check neon-text text-[9px] flex-shrink-0"></i><span>7-day delivery</span></li>
+                <li class="flex items-center gap-2 text-xs muted"><i class="fas fa-check neon-text text-[9px] flex-shrink-0"></i><span>Free chat widget</span></li>
+                <li class="flex items-center gap-2 text-xs muted"><i class="fas fa-check neon-text text-[9px] flex-shrink-0"></i><span>Free domain 1st year</span></li>
+              </ul>
             </div>
-            <div class="mb-5">
-              <span class="font-display font-800 text-3xl crimson">€500</span>
-              <span class="muted text-xs ml-1" data-en="one-time" data-bg="еднократно">one-time</span>
-            </div>
-            <ul class="space-y-2.5 mb-6 flex-1">
-              <li class="flex items-center gap-2 text-xs muted"><i
-                  class="fas fa-check neon-text text-[10px] flex-shrink-0"></i>
-                <span data-en="Up to 5 pages" data-bg="До 5 страници">Up to 5 pages</span>
-              </li>
-              <li class="flex items-center gap-2 text-xs muted"><i
-                  class="fas fa-check neon-text text-[10px] flex-shrink-0"></i>
-                <span data-en="Full redesign + rebuild" data-bg="Изцяло нов дизайн и код">Full redesign + rebuild</span>
-              </li>
-              <li class="flex items-center gap-2 text-xs muted"><i
-                  class="fas fa-check neon-text text-[10px] flex-shrink-0"></i>
-                <span data-en="90+ PageSpeed score" data-bg="90+ точки в PageSpeed">90+ PageSpeed score</span>
-              </li>
-              <li class="flex items-center gap-2 text-xs muted"><i
-                  class="fas fa-check neon-text text-[10px] flex-shrink-0"></i>
-                <span data-en="Advanced SEO + analytics" data-bg="Сериозно SEO + аналитика">Advanced SEO +
-                  analytics</span>
-              </li>
-              <li class="flex items-center gap-2 text-xs muted"><i
-                  class="fas fa-check neon-text text-[10px] flex-shrink-0"></i>
-                <span data-en="7-day delivery" data-bg="Готово за 7 дни">7-day delivery</span>
-              </li>
-              <li class="flex items-center gap-2 text-xs muted"><i
-                  class="fas fa-check neon-text text-[10px] flex-shrink-0"></i>
-                <span data-en="Free custom chat widget integration"
-                  data-bg="Интеграция на 24/7 чат уиджет">Free custom chat widget integration</span>
-              </li>
-              <li class="flex items-center gap-2 text-xs muted"><i
-                  class="fas fa-check neon-text text-[10px] flex-shrink-0"></i>
-                <span data-en="Free domain for the first year"
-                  data-bg="Безплатен домейн за първата година">Free domain for the first year</span>
-              </li>
-            </ul>
-            <a href="#contact"
-              class="cta-primary rounded-xl py-2.5 text-xs font-display font-700 text-center transition-all duration-200 hover:scale-[1.02] active:scale-[.98]"
-              data-en="Start Revamp" data-bg="Започни редизайна">Start Revamp</a>
+            <a href="#contact" class="cta-primary py-2.5 text-[10px] font-700 uppercase tracking-widest text-center mt-6 block">Start Revamp</a>
           </div>
         </div>
 
         <!-- New Website Build -->
-        <div class="section-fade card-bg rounded-2xl p-6 flex flex-col pricing-card card-shine"
-          style="transition-delay:.25s">
-          <div class="mb-5 min-h-[9rem]">
-            <div
-              class="tag-bg inline-flex rounded-full px-3 py-1 text-[10px] font-display font-700 tracking-widest uppercase mb-3">
-              Pro</div>
-            <h3 class="font-display font-800 text-xl dark:text-white text-gray-900 mb-1" data-en="New Website Build"
-              data-bg="Чисто нов сайт от нулата">New Website Build</h3>
-            <p class="muted text-xs leading-relaxed"
-              data-en="A fully custom website built from zero — your brand, your structure, your rules. Design, code, launch."
-              data-bg="Изцяло персонализиран сайт от нулата — твоят бранд, твоята структура, твоите правила. Дизайн, код, публикуване.">A fully custom website built from zero —
-              your brand, your structure, your rules. Design, code, launch.</p>
+        <div class="section-fade card-bg p-6 flex flex-col border-b border-r divider" style="transition-delay:.25s">
+          <div class="mb-5 flex-1">
+            <div class="tag-bg inline-flex px-3 py-1 text-[9px] font-700 tracking-widest uppercase mb-3">Pro</div>
+            <h3 class="font-display font-700 uppercase text-lg dark:text-white text-gray-900 mb-1 mt-1 leading-tight">New Website Build</h3>
+            <p class="muted text-xs leading-relaxed mb-5">A fully custom website built from zero — your brand, your rules.</p>
+            <div class="mb-5">
+              <span class="font-display font-700 crimson" style="font-size:clamp(1.8rem,4vw,2.5rem);letter-spacing:-0.03em">€800</span>
+              <span class="muted text-xs ml-1 uppercase tracking-wide">one-time</span>
+            </div>
+            <ul class="space-y-2.5">
+              <li class="flex items-center gap-2 text-xs muted"><i class="fas fa-check neon-text text-[9px] flex-shrink-0"></i><span>Up to 10 pages</span></li>
+              <li class="flex items-center gap-2 text-xs muted"><i class="fas fa-check neon-text text-[9px] flex-shrink-0"></i><span>Custom design system</span></li>
+              <li class="flex items-center gap-2 text-xs muted"><i class="fas fa-check neon-text text-[9px] flex-shrink-0"></i><span>E-commerce ready</span></li>
+              <li class="flex items-center gap-2 text-xs muted"><i class="fas fa-check neon-text text-[9px] flex-shrink-0"></i><span>2 weeks support</span></li>
+              <li class="flex items-center gap-2 text-xs muted"><i class="fas fa-check neon-text text-[9px] flex-shrink-0"></i><span>10-day delivery</span></li>
+              <li class="flex items-center gap-2 text-xs muted"><i class="fas fa-check neon-text text-[9px] flex-shrink-0"></i><span>Free chat widget</span></li>
+              <li class="flex items-center gap-2 text-xs muted"><i class="fas fa-check neon-text text-[9px] flex-shrink-0"></i><span>Free domain 1st year</span></li>
+            </ul>
           </div>
-          <div class="mb-5">
-            <span class="font-display font-800 text-3xl crimson">€800</span>
-            <span class="muted text-xs ml-1" data-en="one-time" data-bg="еднократно">one-time</span>
-          </div>
-          <ul class="space-y-2.5 mb-6 flex-1">
-            <li class="flex items-center gap-2 text-xs muted"><i
-                class="fas fa-check neon-text text-[10px] flex-shrink-0"></i>
-              <span data-en="Up to 10 pages" data-bg="До 10 страници">Up to 10 pages</span>
-            </li>
-            <li class="flex items-center gap-2 text-xs muted"><i
-                class="fas fa-check neon-text text-[10px] flex-shrink-0"></i>
-              <span data-en="Custom design system" data-bg="Уникален дизайн, само за теб">Custom design system</span>
-            </li>
-            <li class="flex items-center gap-2 text-xs muted"><i
-                class="fas fa-check neon-text text-[10px] flex-shrink-0"></i>
-              <span data-en="E-commerce ready" data-bg="Може и с онлайн магазин">E-commerce ready</span>
-            </li>
-            <li class="flex items-center gap-2 text-xs muted"><i
-                class="fas fa-check neon-text text-[10px] flex-shrink-0"></i>
-              <span data-en="2 weeks support" data-bg="2 седмици поддръжка от мен">2 weeks support</span>
-            </li>
-            <li class="flex items-center gap-2 text-xs muted"><i
-                class="fas fa-check neon-text text-[10px] flex-shrink-0"></i>
-              <span data-en="10-day delivery" data-bg="Готово за 10 дни">10-day delivery</span>
-            </li>
-            <li class="flex items-center gap-2 text-xs muted"><i
-                class="fas fa-check neon-text text-[10px] flex-shrink-0"></i>
-              <span data-en="Free custom chat widget integration"
-                data-bg="Интеграция на 24/7 чат уиджет">Free custom chat widget integration</span>
-            </li>
-            <li class="flex items-center gap-2 text-xs muted"><i
-                class="fas fa-check neon-text text-[10px] flex-shrink-0"></i>
-              <span data-en="Free domain for the first year"
-                data-bg="Безплатен домейн за първата година">Free domain for the first year</span>
-            </li>
-          </ul>
-          <a href="#contact"
-            class="cta-secondary rounded-xl py-2.5 text-xs font-display font-700 text-center transition-all duration-200 hover:scale-[1.02] active:scale-[.98]"
-            data-en="Get Started" data-bg="Започни">Get Started</a>
+          <a href="#contact" class="cta-secondary py-2.5 text-[10px] font-700 uppercase tracking-widest text-center mt-6 block">Get Started</a>
         </div>
       </div>
 
       <!-- Guarantee -->
-      <div class="mt-10 text-center section-fade">
-        <div class="inline-flex items-center gap-3 tag-bg rounded-full px-5 py-2.5">
+      <div class="mt-8 section-fade">
+        <div class="inline-flex items-center gap-3 tag-bg px-5 py-2.5">
           <i class="fas fa-shield-check neon-text text-sm"></i>
-          <span class="text-xs font-medium" data-en="If something doesn't look right, I'll fix it. Simple as that."
-            data-bg="Ако нещо не изглежда добре, ще го оправя. Толкова.">If something doesn't look right, I'll fix it. Simple as that.</span>
+          <span class="text-xs font-700 uppercase tracking-wide">If something doesn't look right, I'll fix it. Simple as that.</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══ CONTACT ═══ -->
-  <section id="contact" class="py-24 px-5 dark:bg-transparent section-alt">
-    <div class="max-w-3xl mx-auto text-center section-fade">
-      <p class="text-xs uppercase tracking-widest section-label font-display font-700 mb-3" data-en="Ready to start?"
-        data-bg="Готов да започнем?"><span class="crimson">Ready</span> to start?</p>
-      <h2 class="font-display font-800 text-3xl sm:text-4xl dark:text-white text-gray-900 mb-4"
-        data-en="Let's build something beautiful together." data-bg="Нека създадем нещо красиво заедно.">Let's build
-        something <span class="crimson">beautiful</span> together.
-      </h2>
-      <p class="muted text-sm max-w-xl mx-auto mb-10 leading-relaxed"
-        data-en="Tell me what you're building. I typically reply within a few hours."
-        data-bg="Кажи ми какво строиш. Обикновено отговарям в рамките на няколко часа.">Tell me what you're building. I typically reply within a few hours.</p>
-
-      <div class="glass rounded-2xl p-7 sm:p-8 text-left">
-        <form id="contactForm" action="https://formsubmit.co/stoyanbtanev@gmail.com"
-          data-ajax-endpoint="https://formsubmit.co/ajax/stoyanbtanev@gmail.com" method="POST">
-          <input type="hidden" name="_subject" value="New tanev.design inquiry" />
-          <input type="hidden" name="_template" value="table" />
-          <input type="hidden" id="formNextUrl" name="_next" value="" />
-          <input type="hidden" id="formOriginUrl" name="_url" value="" />
-          <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off" />
-          <div class="grid sm:grid-cols-2 gap-4 mb-4">
-            <div>
-              <label class="text-xs muted uppercase tracking-wide font-600 block mb-2" data-en="Your Name"
-                data-bg="Как се казваш">Your Name</label>
-              <input type="text" name="name" placeholder="John Carter" data-placeholder-en="John Carter"
-                data-placeholder-bg="Иван Петров" required
-                class="url-input w-full bg-transparent border neon-border rounded-xl px-4 py-3 text-sm transition-all" />
-            </div>
-            <div>
-              <label class="text-xs muted uppercase tracking-wide font-600 block mb-2">Email</label>
-              <input type="email" name="email" placeholder="ivan@company.com" required
-                class="url-input w-full bg-transparent border neon-border rounded-xl px-4 py-3 text-sm transition-all" />
-            </div>
-          </div>
-          <div class="mb-4">
-            <label class="text-xs muted uppercase tracking-wide font-600 block mb-2" data-en="Budget Range"
-              data-bg="Какъв бюджет имаш">Budget Range</label>
-            <select name="budget"
-              class="url-input w-full bg-transparent border neon-border rounded-xl px-4 py-3 text-sm transition-all appearance-none cursor-pointer dark:bg-sonar-card">
-              <option value="" data-en="Select your budget" data-bg="Избери ориентировъчен бюджет">Select your budget
-              </option>
-              <option value="200">€200 – €500</option>
-              <option value="500">€500 – €800</option>
-              <option value="800+">€800+</option>
-            </select>
-          </div>
-          <div class="mb-4">
-            <label class="text-xs muted uppercase tracking-wide font-600 block mb-2" data-en="Website URL (optional)"
-              data-bg="Имаш ли вече сайт? (не е задължително)">Website URL (optional)</label>
-            <input type="url" name="website" placeholder="https://yoursite.com"
-              data-placeholder-en="https://yoursite.com" data-placeholder-bg="https://твоясайт.com"
-              class="url-input w-full bg-transparent border neon-border rounded-xl px-4 py-3 text-sm transition-all" />
-          </div>
-          <div class="mb-6">
-            <label class="text-xs muted uppercase tracking-wide font-600 block mb-2"
-              data-en="Describe your project" data-bg="Опиши проекта си">Describe your
-              project</label>
-            <textarea name="message" rows="4" placeholder="I need a fast new website for my business..."
-              data-placeholder-en="I need a fast new website for my business..."
-              data-placeholder-bg="Трябва ми нов, бърз сайт за бизнеса ми..." required
-              class="url-input w-full bg-transparent border neon-border rounded-xl px-4 py-3 text-sm resize-none transition-all"></textarea>
-          </div>
-          <button type="submit"
-            class="cta-primary rounded-xl w-full py-3.5 text-sm font-display font-700 transition-all duration-200 hover:scale-[1.01] active:scale-[.99] flex items-center justify-center gap-2">
-            <i class="fas fa-paper-plane text-sm"></i>
-            <span data-en="Send Message" data-bg="Изпрати">Send Message</span>
-          </button>
-          <p id="formStatus" class="hidden text-sm mt-4 text-center"></p>
-        </form>
+  <!-- ═══ CONTACT (KT) ═══ -->
+  <section id="contact" class="py-24 px-5 section-alt">
+    <div class="max-w-5xl mx-auto">
+      <div class="section-fade mb-12">
+        <span class="kt-section-tag mb-6 inline-block">Ready to start?</span>
+        <h2 class="font-display font-700 uppercase leading-[0.95] dark:text-white text-gray-900 mt-4"
+          style="font-size:clamp(2.2rem,6vw,4.5rem);letter-spacing:-0.03em">Let's build<br/>something <span class="crimson">together.</span></h2>
+        <p class="muted text-sm mt-4 max-w-lg leading-relaxed">Tell me what you're building. I typically reply within a few hours.</p>
       </div>
 
-      <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center text-sm muted">
-        <a href="mailto:stoyanbtanev@gmail.com" class="flex items-center gap-2 hover:neon-text transition-colors">
-          <i class="fas fa-envelope text-xs neon-text"></i> stoyanbtanev@gmail.com
-        </a>
-        <span class="hidden sm:block opacity-30">·</span>
-        <a href="tel:+359895469386" class="flex items-center gap-2 hover:neon-text transition-colors">
-          <i class="fas fa-phone text-xs neon-text"></i> 089 546 9386
-        </a>
-        <span class="hidden sm:block opacity-30">·</span>
-        <a href="https://www.linkedin.com/in/stoyan-tanev-a732603b8/" target="_blank" rel="noopener noreferrer"
-          class="flex items-center gap-2 hover:neon-text transition-colors">
-          <i class="fab fa-linkedin-in text-xs neon-text"></i> LinkedIn
-        </a>
-        <span class="hidden sm:block opacity-30">·</span>
-        <a href="https://github.com/stoyanbtanev" target="_blank" rel="noopener noreferrer"
-          class="flex items-center gap-2 hover:neon-text transition-colors">
-          <i class="fab fa-github text-xs neon-text"></i> GitHub
-        </a>
-        <span class="hidden sm:block opacity-30">·</span>
-        <span class="flex items-center gap-2">
-          <i class="fas fa-map-marker-alt text-xs neon-text"></i>
-          <span data-en="Plovdiv, Bulgaria" data-bg="Пловдив, България">Plovdiv, Bulgaria</span>
-        </span>
+      <div class="grid lg:grid-cols-[1fr_1.4fr] gap-0 border-t border-l divider section-fade">
+        <!-- Contact info column -->
+        <div class="border-b border-r divider p-8 flex flex-col gap-6">
+          <div>
+            <p class="text-[10px] uppercase tracking-widest muted font-700 mb-2">Email</p>
+            <a href="mailto:stoyanbtanev@gmail.com" class="font-display font-700 text-sm dark:text-white text-gray-900 hover:neon-text transition-colors break-all">stoyanbtanev@gmail.com</a>
+          </div>
+          <div>
+            <p class="text-[10px] uppercase tracking-widest muted font-700 mb-2">Phone</p>
+            <a href="tel:+359895469386" class="font-display font-700 text-sm dark:text-white text-gray-900 hover:neon-text transition-colors">089 546 9386</a>
+          </div>
+          <div>
+            <p class="text-[10px] uppercase tracking-widest muted font-700 mb-2">Location</p>
+            <span class="font-display font-700 text-sm dark:text-white text-gray-900">Plovdiv, Bulgaria</span>
+          </div>
+          <div class="flex gap-2 mt-auto">
+            <a href="https://www.linkedin.com/in/stoyan-tanev-a732603b8/" target="_blank" rel="noopener noreferrer" class="tag-bg px-3 py-2 text-[10px] font-700 uppercase tracking-widest flex items-center gap-2 hover:neon-text transition-colors">
+              <i class="fab fa-linkedin-in"></i><span>LinkedIn</span>
+            </a>
+            <a href="https://github.com/stoyanbtanev" target="_blank" rel="noopener noreferrer" class="tag-bg px-3 py-2 text-[10px] font-700 uppercase tracking-widest flex items-center gap-2 hover:neon-text transition-colors">
+              <i class="fab fa-github"></i><span>GitHub</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Form column -->
+        <div class="border-b border-r divider p-8">
+          <form id="contactForm" action="https://formsubmit.co/stoyanbtanev@gmail.com"
+            data-ajax-endpoint="https://formsubmit.co/ajax/stoyanbtanev@gmail.com" method="POST">
+            <input type="hidden" name="_subject" value="New tanev.design inquiry" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" id="formNextUrl" name="_next" value="" />
+            <input type="hidden" id="formOriginUrl" name="_url" value="" />
+            <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off" />
+            <div class="grid sm:grid-cols-2 gap-4 mb-4">
+              <div>
+                <label class="text-[10px] muted uppercase tracking-widest font-700 block mb-2">Your Name</label>
+                <input type="text" name="name" placeholder="John Carter" required
+                  class="url-input w-full bg-transparent border neon-border px-4 py-3 text-sm transition-all" style="border-radius:0" />
+              </div>
+              <div>
+                <label class="text-[10px] muted uppercase tracking-widest font-700 block mb-2">Email</label>
+                <input type="email" name="email" placeholder="ivan@company.com" required
+                  class="url-input w-full bg-transparent border neon-border px-4 py-3 text-sm transition-all" style="border-radius:0" />
+              </div>
+            </div>
+            <div class="mb-4">
+              <label class="text-[10px] muted uppercase tracking-widest font-700 block mb-2">Budget Range</label>
+              <select name="budget"
+                class="url-input w-full bg-transparent border neon-border px-4 py-3 text-sm transition-all appearance-none cursor-pointer dark:bg-sonar-card" style="border-radius:0">
+                <option value="">Select your budget</option>
+                <option value="200">€200 – €500</option>
+                <option value="500">€500 – €800</option>
+                <option value="800+">€800+</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <label class="text-[10px] muted uppercase tracking-widest font-700 block mb-2">Website URL (optional)</label>
+              <input type="url" name="website" placeholder="https://yoursite.com"
+                class="url-input w-full bg-transparent border neon-border px-4 py-3 text-sm transition-all" style="border-radius:0" />
+            </div>
+            <div class="mb-6">
+              <label class="text-[10px] muted uppercase tracking-widest font-700 block mb-2">Describe your project</label>
+              <textarea name="message" rows="4" placeholder="I need a fast new website for my business..." required
+                class="url-input w-full bg-transparent border neon-border px-4 py-3 text-sm resize-none transition-all" style="border-radius:0"></textarea>
+            </div>
+            <button type="submit"
+              class="cta-primary w-full py-3.5 text-[11px] font-display font-700 uppercase tracking-widest transition-all duration-200 active:scale-[.99] flex items-center justify-center gap-2">
+              <i class="fas fa-paper-plane text-sm"></i>
+              <span>Send Message</span>
+            </button>
+            <p id="formStatus" class="hidden text-sm mt-4 text-center"></p>
+          </form>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══ COOKIE BAR ═══ -->
+  <!-- ═══ COOKIE BAR (KT) ═══ -->
   <div id="cookieBar"
-    class="fixed bottom-4 left-4 right-4 md:left-1/2 md:right-auto md:-translate-x-1/2 md:w-[26rem] z-[60] card-bg rounded-2xl p-5 border neon-border shadow-xl">
+    class="fixed bottom-4 left-4 right-4 md:left-1/2 md:right-auto md:-translate-x-1/2 md:w-[26rem] z-[60] card-bg p-5 border neon-border" style="border-radius:0">
     <div class="flex items-start gap-4">
-      <div class="w-10 h-10 rounded-full tag-bg flex items-center justify-center flex-shrink-0">
+      <div class="w-9 h-9 tag-bg flex items-center justify-center flex-shrink-0">
         <i class="fas fa-shield-halved neon-text"></i>
       </div>
       <div>
-        <p class="font-display font-700 text-sm mb-1 dark:text-white text-gray-900"
-          data-en="Cookie &amp; Privacy Consent" data-bg="Бисквитки и поверителност">Cookie &amp; Privacy Consent</p>
-        <p class="text-[11px] muted mb-3 leading-relaxed"
-          data-en="We use essential and analytics cookies to improve your experience. By clicking &#8220;Accept All&#8221;, you consent to our use of cookies in accordance with GDPR. You can withdraw consent at any time."
-          data-bg="Използваме основни и аналитични бисквитки, за да подобрим преживяването ви. С натискане на &#8222;Приемам&#8220; давате съгласие за обработка съгласно GDPR. Можете да оттеглите съгласието си по всяко време.">
-          We use essential and analytics cookies to improve your experience. By clicking &#8220;Accept All&#8221;, you
-          consent to our use of cookies in accordance with GDPR. You can withdraw consent at any time.</p>
-        <p class="text-[10px] muted mb-3"><a href="#" class="underline hover:neon-text transition-colors"
-            data-en="Read our Privacy Policy" data-bg="Прочети Политиката за поверителност">Read our Privacy Policy</a>
-        </p>
+        <p class="font-display font-700 text-xs uppercase tracking-widest mb-1 dark:text-white text-gray-900">Cookie &amp; Privacy Consent</p>
+        <p class="text-[11px] muted mb-3 leading-relaxed">
+          We use essential and analytics cookies to improve your experience. Consent in accordance with GDPR.</p>
+        <p class="text-[10px] muted mb-3"><a href="#" class="underline hover:neon-text transition-colors">Read our Privacy Policy</a></p>
         <div class="flex gap-2">
           <button onclick="acceptCookies()"
-            class="cta-primary flex-1 py-2 text-xs font-display font-700 rounded-lg transition-all hover:scale-[1.03] active:scale-[.98]"
-            data-en="Accept All" data-bg="Приемам">Accept All</button>
+            class="cta-primary flex-1 py-2 text-[10px] font-display font-700 uppercase tracking-widest active:scale-[.98]">Accept All</button>
           <button onclick="declineCookies()"
-            class="tag-bg flex-1 py-2 text-xs font-display font-700 rounded-lg transition-all hover:scale-[1.03] active:scale-[.98]"
-            data-en="Essential Only" data-bg="Само основни">Essential Only</button>
+            class="tag-bg flex-1 py-2 text-[10px] font-display font-700 uppercase tracking-widest active:scale-[.98]">Essential Only</button>
         </div>
       </div>
     </div>
@@ -2126,24 +1805,21 @@
   <div id="chatBotWrapper" class="fixed bottom-4 right-4 z-[70] flex flex-col items-end gap-3 pointer-events-none">
     <!-- Chat Window -->
     <div id="chatBotBox"
-      class="w-[calc(100vw-2rem)] sm:w-80 h-[26rem] card-bg rounded-2xl border neon-border shadow-2xl flex flex-col overflow-hidden origin-bottom-right">
+      class="w-[calc(100vw-2rem)] sm:w-80 h-[26rem] card-bg border neon-border flex flex-col overflow-hidden origin-bottom-right" style="border-radius:0">
       <!-- Header -->
       <div class="nav-bg p-4 border-b divider flex items-center justify-between">
         <div class="flex items-center gap-2.5">
           <div
-            class="w-8 h-8 rounded-full bg-black dark:bg-white text-white dark:text-black flex items-center justify-center font-display font-700 text-xs shadow-sm">
+            class="w-8 h-8 bg-black dark:bg-white text-white dark:text-black flex items-center justify-center font-display font-700 text-xs">
             AI</div>
           <div>
-            <p class="font-display font-700 text-sm leading-none dark:text-white text-gray-900"
-              data-en="tanev.design AI" data-bg="tanev.design AI">tanev.design <span
-                class="creative-gradient font-800">AI</span></p>
+            <p class="font-display font-700 text-sm leading-none dark:text-white text-gray-900">tanev.design <span class="creative-gradient font-700">AI</span></p>
             <p class="text-[10px] text-green-500 font-medium mt-1 flex items-center gap-1.5"><span
-                class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span><span data-en="Online"
-                data-bg="На линия">Online</span></p>
+                class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span><span>Online</span></p>
           </div>
         </div>
         <button onclick="toggleChat()"
-          class="w-8 h-8 rounded-full tag-bg flex items-center justify-center hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors pointer-events-auto">
+          class="w-8 h-8 tag-bg flex items-center justify-center hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors pointer-events-auto" style="border-radius:0">
           <i class="fas fa-times text-xs"></i>
         </button>
       </div>
@@ -2155,12 +1831,11 @@
       <!-- Input -->
       <div class="p-3 border-t divider card-bg pointer-events-auto">
         <form id="chatForm" onsubmit="handleChatSubmit(event)" class="relative">
-          <input type="text" id="chatInput" placeholder="Ask me anything..." data-placeholder-en="Ask me anything..."
-            data-placeholder-bg="Попитай ме нещо..."
-            class="w-full bg-transparent border neon-border rounded-xl pl-4 pr-10 py-3 text-xs transition-all url-input"
+          <input type="text" id="chatInput" placeholder="Ask me anything..."
+            class="w-full bg-transparent border neon-border pl-4 pr-10 py-3 text-xs transition-all url-input" style="border-radius:0"
             autocomplete="off" />
           <button type="submit"
-            class="absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg tag-bg flex items-center justify-center hover:cursor-pointer transition-colors active:scale-95">
+            class="absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 tag-bg flex items-center justify-center hover:cursor-pointer transition-colors active:scale-95" style="border-radius:0">
             <i class="fas fa-paper-plane text-xs neon-text"></i>
           </button>
         </form>
@@ -2168,38 +1843,37 @@
     </div>
     <!-- Chat Toggle Button -->
     <button id="chatToggleBtn" onclick="toggleChat()"
-      class="w-14 h-14 rounded-full cta-primary shadow-2xl flex items-center justify-center transition-transform hover:scale-105 active:scale-95 pointer-events-auto">
+      class="w-14 h-14 cta-primary flex items-center justify-center transition-transform hover:scale-105 active:scale-95 pointer-events-auto" style="border-radius:0">
       <i id="chatToggleIcon" class="fas fa-comment-dots text-xl"></i>
     </button>
   </div>
 
-  <!-- ═══ FOOTER ═══ -->
-  <footer class="footer-bg py-10 px-5">
+  <!-- ═══ FOOTER (KT) ═══ -->
+  <footer class="footer-bg py-12 px-5">
     <div class="max-w-6xl mx-auto">
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
-        <div class="flex items-center gap-2.5">
-          <div
-            class="w-7 h-7 rounded-md flex items-center justify-center font-display font-700 text-xs bg-black text-white dark:bg-white dark:text-black transition-colors duration-300">
-            t
-          </div>
+      <!-- Top: wordmark + nav -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pb-8 border-b divider">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 flex items-center justify-center font-display font-700 text-sm bg-black text-white dark:bg-white dark:text-black transition-colors duration-300">t</div>
           <div>
-            <span class="font-display font-700 tracking-tight" style="letter-spacing:-0.03em">tanev<span
-                class="crimson">.design</span></span>
-            <p class="text-[11px] muted" data-en="by Stoyan Tanev" data-bg="от Стоян Танев">by Stoyan Tanev</p>
+            <span class="font-display font-700 uppercase tracking-widest text-sm dark:text-white text-gray-900">tanev<span class="crimson">.design</span></span>
+            <p class="text-[10px] muted uppercase tracking-widest mt-0.5">by Stoyan Tanev</p>
           </div>
         </div>
-        <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs muted">
-          <a href="#services" class="hover:neon-text transition-colors" data-en="About Me" data-bg="Кой съм аз">About
-            Me</a>
-          <a href="#pricing" class="hover:neon-text transition-colors" data-en="Pricing" data-bg="Цени">Pricing</a>
-          <a href="#contact" class="hover:neon-text transition-colors" data-en="Contact" data-bg="Пиши ми">Contact</a>
-          <a href="#" class="hover:neon-text transition-colors" data-en="Privacy Policy" data-bg="Поверителност">Privacy
-            Policy</a>
+        <div class="flex flex-wrap items-center gap-x-6 gap-y-2">
+          <a href="#services" class="text-[10px] font-700 uppercase tracking-widest muted hover:neon-text transition-colors">About Me</a>
+          <a href="#pricing" class="text-[10px] font-700 uppercase tracking-widest muted hover:neon-text transition-colors">Pricing</a>
+          <a href="#contact" class="text-[10px] font-700 uppercase tracking-widest muted hover:neon-text transition-colors">Contact</a>
+          <a href="#" class="text-[10px] font-700 uppercase tracking-widest muted hover:neon-text transition-colors">Privacy Policy</a>
         </div>
-        <p class="text-xs muted text-center sm:text-right">
+      </div>
+      <!-- Bottom: copyright -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-6">
+        <p class="text-[10px] muted uppercase tracking-widest">
           © <span id="year"></span> Stoyan Tanev.
-          <span data-en="All rights reserved." data-bg="Всички права запазени.">All rights reserved.</span>
+          <span>All rights reserved.</span>
         </p>
+        <p class="text-[10px] muted uppercase tracking-widest">Freelance Web Design &amp; Development</p>
       </div>
     </div>
   </footer>
@@ -2215,11 +1889,10 @@
 
     const heroVariants = [
       {
-        lineOne: { en: 'Your <span class="creative-gradient">vision.</span>', bg: 'Твоята <span class="creative-gradient">идея.</span>' },
-        lineTwo: { en: 'Brought to life.', bg: 'Превърната в реалност.' },
+        lineOne: { en: 'Your <span class="crimson">vision.</span>' },
+        lineTwo: { en: 'Brought to life.' },
         sub: {
-          en: 'Good-looking, fast websites for small businesses — without the agency price tag.',
-          bg: 'Добре изглеждащи, бързи сайтове за малък бизнес — без агенционна цена.'
+          en: 'Good-looking, fast websites for small businesses — without the agency price tag.'
         }
       }
     ];
@@ -2241,7 +1914,7 @@
         headlines: {
           excellent: 'Your site is performing well',
           good: 'Solid base — a few tweaks could take it further',
-          average: 'Real potential here, but it\u2019s leaving performance on the table',
+          average: 'Real potential here, but it’s leaving performance on the table',
           poor: 'This site is actively losing you customers'
         },
         insights: {
@@ -2269,7 +1942,7 @@
         cta: {
           polish: {
             title: 'A targeted polish pass could push this site significantly higher.',
-            body: 'I\u2019d sharpen speed, refine the mobile UX, and tighten SEO — without turning it into a months-long project.'
+            body: 'I’d sharpen speed, refine the mobile UX, and tighten SEO — without turning it into a months-long project.'
           },
           rebuild: {
             title: 'I can rebuild this into something that actually performs.',
@@ -2281,137 +1954,16 @@
         formSent: 'Sent!',
         formSuccess: 'Message sent successfully. I will get back to you soon.',
         formError: 'Something went wrong while sending. Please try again or email me directly.'
-      },
-      bg: {
-        statuses: { excellent: 'Отлично', good: 'Добре', average: 'Средно', needsWork: 'Може по-добре', poor: 'Слабо', critical: 'Критично' },
-        mode: {
-          live: 'Реални данни от PageSpeed • мобилен одит',
-          estimate: 'Бърза оценка • по публични сигнали и съдържание',
-          baseline: 'Бърза оценка • само по URL и домейн'
-        },
-        barTitles: {
-          live: { load: 'Колко бързо зарежда', vitals: 'Core Web Vitals', mobile: 'Как работи на телефон', seo: 'SEO представяне' },
-          estimate: { load: 'Колко бързо отговаря', vitals: 'UX и структура', mobile: 'Мобилна готовност', seo: 'Видимост в Google' }
-        },
-        headlines: {
-          excellent: 'Сайтът ти се представя добре',
-          good: 'Солидна база — няколко корекции могат да го издигнат',
-          average: 'Реален потенциал, но губи позиции по представяне',
-          poor: 'Този сайт активно ти губи клиенти'
-        },
-        insights: {
-          speed: {
-            title: 'Скоростта е най-големият лост за подобрение в момента.',
-            bodyLive: time => `Зарежда се за около ${time} — това е достатъчно, за да отпаднат хората, преди да видят каквото и да е. Ако оправим само скоростта, разликата ще се усети веднага.`,
-            bodyEstimate: 'По сигналите личи, че сайтът не се усеща бърз. Олекотяване на страниците и почистване на ресурсите ще дадат най-бърз ефект.'
-          },
-          mobile: {
-            title: 'Мобилното усещане ти губи посетители.',
-            bodyLive: 'Повечето хора влизат от телефон. Ако на мобилен не е удобно — тях ги губиш, преди въобще да стигнат до офертата ти.',
-            bodyEstimate: 'Изглежда, че мобилната четимост, подредбата и адаптивността имат накъде да растат.'
-          },
-          seo: {
-            title: 'Видимостта в търсачките оставя трафик на масата.',
-            bodyLive: 'По-добри мета тагове, по-ясна структура и по-силни сигнали ще помогнат Google да те намери по-лесно.',
-            bodyEstimate: 'По заглавието, описанието и структурата личи, че видимостта в търсачките може да се вдигне доста.'
-          },
-          security: {
-            title: 'Сигналите за доверие и техническата хигиена се нуждаят от подобрение.',
-            bodyLive: 'HTTPS, чисти практики и по-стегнат технически setup помагат и за класирането, и за доверието на хората.',
-            bodyEstimate: 'Публичните сигнали подсказват, че има какво да се подобри по надеждността и техническата изрядност.'
-          }
-        },
-        cta: {
-          polish: {
-            title: 'Целенасочен полиш може да издигне значително този сайт.',
-            body: 'Ще изостря скоростта, ще подобря мобилния UX и ще стегна SEO-то — без да превръщам проекта в нещо месечно.'
-          },
-          rebuild: {
-            title: 'Мога да превърна това в сайт, който реално работи.',
-            body: 'Фокусиран ребилд може да трансформира скоростта, яснотата и конверсиите — за дни, не за месеци.'
-          }
-        },
-        buttonRunning: 'Работя по одита…',
-        formSending: 'Изпращам…',
-        formSent: 'Готово!',
-        formSuccess: 'Съобщението е изпратено. Ще се чуем скоро.',
-        formError: 'Нещо се обърка. Опитай пак или ми пиши на имейл директно.'
       }
     };
 
-    /* ── Persist theme & lang across reloads ── */
+    /* ── Force dark-mode & english on reload ── */
     (function () {
-      const savedTheme = localStorage.getItem('ss-theme');
-      const savedLang = localStorage.getItem('ss-lang');
-      const html = document.documentElement;
-      if (savedTheme === 'light') {
-        html.classList.remove('dark');
-      }
-      if (savedLang && savedLang !== 'en') {
-        currentLang = savedLang;
-      }
+      document.documentElement.classList.add('dark');
+      currentLang = 'en';
     })();
 
-    /* Theme */
-    function toggleTheme() {
-      const html = document.documentElement;
-      if (html.classList.contains('dark')) {
-        html.classList.remove('dark');
-        localStorage.setItem('ss-theme', 'light');
-      } else {
-        html.classList.add('dark');
-        localStorage.setItem('ss-theme', 'dark');
-      }
-    }
 
-    function getCopy() {
-      return copy[currentLang];
-    }
-
-    function renderHeroVariant() {
-      const variant = heroVariants[currentHeroVariantIndex];
-      if (!variant) return;
-      setText('heroLineOne', variant.lineOne[currentLang]);
-      setText('heroLineTwo', variant.lineTwo[currentLang]);
-      setText('heroSubcopy', variant.sub[currentLang]);
-    }
-
-    function applyLocalizedPlaceholders() {
-      document.querySelectorAll('[data-placeholder-en]').forEach(el => {
-        const value = el.getAttribute(`data-placeholder-${currentLang}`);
-        if (value) el.placeholder = value;
-      });
-    }
-
-    function applyLanguage() {
-      document.getElementById('langLabel').textContent = currentLang.toUpperCase();
-      document.documentElement.lang = currentLang;
-      document.querySelectorAll('[data-en]').forEach(el => {
-        const value = el.getAttribute(`data-${currentLang}`);
-        if (value !== null) el.innerHTML = value;
-      });
-      applyLocalizedPlaceholders();
-      renderHeroVariant();
-      if (auditInFlight) {
-        const auditLabel = document.getElementById('auditButtonLabel');
-        if (auditLabel) auditLabel.textContent = getCopy().buttonRunning;
-      }
-    }
-
-    function toggleLang() {
-      currentLang = currentLang === 'en' ? 'bg' : 'en';
-      localStorage.setItem('ss-lang', currentLang);
-      applyLanguage();
-      if (lastAuditState) renderAudit(lastAuditState);
-
-      // Reset chatbot language if it's open
-      if (chatInitialized) {
-        chatMsgs.innerHTML = '';
-        chatHistory = [];
-        appendMessage(chatLocales[currentLang].greeting, 'ai');
-        chatHistory.push({ role: "model", parts: [{ text: chatLocales[currentLang].greeting }] });
-      }
-    }
 
     function clamp(value, min, max) {
       return Math.min(Math.max(value, min), max);
@@ -2979,9 +2531,6 @@
     const chatLocales = {
       en: {
         greeting: "Hey! I'm the tanev.design virtual assistant. Ask me anything — pricing, timelines, what's included, or just tell me about your project and I'll point you in the right direction."
-      },
-      bg: {
-        greeting: "Здравей! Аз съм виртуалният асистент на tanev.design. Питай ме каквото искаш — цени, срокове, какво включва всеки пакет, или просто ми разкажи за проекта си и ще те насоча."
       }
     };
 
@@ -3001,9 +2550,9 @@
         chatBotBox.classList.add('show');
         chatToggleIcon.className = 'fas fa-chevron-down text-xl';
         if (!chatInitialized) {
-          appendMessage(chatLocales[currentLang].greeting, 'ai');
+          appendMessage(chatLocales.en.greeting, 'ai');
           // Start tracking history so the model knows what it said first
-          chatHistory.push({ role: "model", parts: [{ text: chatLocales[currentLang].greeting }] });
+          chatHistory.push({ role: "model", parts: [{ text: chatLocales.en.greeting }] });
           chatInitialized = true;
         }
         setTimeout(() => chatInput.focus(), 300);
@@ -3039,7 +2588,7 @@
       const loadingEl = document.createElement('div');
       loadingEl.id = loadingId;
       loadingEl.className = 'chat-msg max-w-[85%] rounded-2xl px-4 py-2.5 text-[13px] leading-relaxed shadow-sm card-bg self-start rounded-tl-none border neon-border text-gray-500 italic';
-      loadingEl.textContent = currentLang === 'en' ? 'Thinking...' : 'Мисля...';
+      loadingEl.textContent = 'Thinking...';
       chatMsgs.appendChild(loadingEl);
       chatMsgs.scrollTop = chatMsgs.scrollHeight;
 
@@ -3058,7 +2607,7 @@
 
         if (data.error) {
           console.error("Gemini API Error:", data.error);
-          appendMessage(currentLang === 'en' ? "Oops, I'm having trouble connecting right now." : "Опа, възникна проблем с връзката.", 'ai');
+          appendMessage("Oops, I'm having trouble connecting right now.", 'ai');
           chatHistory.pop();
           isChatLoading = false;
           return;
@@ -3071,7 +2620,7 @@
       } catch (err) {
         console.error(err);
         document.getElementById(loadingId).remove();
-        appendMessage(currentLang === 'en' ? "Network error. Please try again." : "Мрежова грешка. Опитайте отново.", 'ai');
+        appendMessage("Network error. Please try again.", 'ai');
         chatHistory.pop();
       }
       isChatLoading = false;
@@ -3110,14 +2659,14 @@
   "@type": "Person",
   "name": "Stoyan Tanev",
   "jobTitle": "Freelance Web Designer and Developer",
-  "description": "Freelance web designer and developer from Plovdiv, Bulgaria focused on fast, affordable websites, UI/UX, and AI-assisted workflows.",
+  "description": "Freelance web designer and developer focused on fast, affordable websites, UI/UX, and AI-assisted workflows.",
   "url": "https://tanev.design",
   "telephone": "+359895469386",
   "email": "stoyanbtanev@gmail.com",
   "address": { "@type": "PostalAddress", "addressLocality": "Plovdiv", "addressCountry": "BG" },
   "sameAs": ["https://www.linkedin.com/in/stoyan-tanev-a732603b8/"],
   "knowsAbout": ["Web Design", "Web Development", "UI/UX", "AI Workflows", "Landing Pages", "Website Redesign"],
-  "areaServed": ["Bulgaria", "Worldwide"]
+  "areaServed": ["Worldwide"]
 }
 </script>
 
