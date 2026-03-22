@@ -1880,9 +1880,9 @@
         <div class="flex items-center gap-2.5">
           <div
             class="w-8 h-8 bg-black dark:bg-white text-white dark:text-black flex items-center justify-center font-display font-700 text-xs">
-            AI</div>
+            <i class="fas fa-bolt"></i></div>
           <div>
-            <p class="font-display font-700 text-sm leading-none dark:text-white text-gray-900">tanev.design <span class="creative-gradient font-700">AI</span></p>
+            <p class="font-display font-700 text-sm leading-none dark:text-white text-gray-900">Pulse <span class="crimson font-700">AI</span></p>
             <p class="text-[10px] text-green-500 font-medium mt-1 flex items-center gap-1.5"><span
                 class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span><span>Online</span></p>
           </div>
@@ -1952,7 +1952,6 @@
     document.getElementById('year').textContent = new Date().getFullYear();
     const SCORE_TEXT_CLASSES = ['text-red-400', 'text-yellow-400', 'text-green-400', 'neon-text'];
     const BAR_FILL_CLASSES = ['progress-fill-red', 'progress-fill-yellow', 'progress-fill-blue', 'progress-fill-green'];
-    let currentLang = 'en';
     let lastAuditState = null;
     let auditInFlight = false;
 
@@ -2026,11 +2025,12 @@
       }
     };
 
-    /* ── Force dark-mode & english on reload ── */
+    /* ── Force dark-mode on reload ── */
     (function () {
       document.documentElement.classList.add('dark');
-      currentLang = 'en';
     })();
+
+    function getCopy() { return copy.en; }
 
 
 
@@ -2168,7 +2168,7 @@
       button.disabled = isBusy;
       button.classList.toggle('opacity-70', isBusy);
       button.classList.toggle('pointer-events-none', isBusy);
-      label.textContent = isBusy ? getCopy().buttonRunning : label.getAttribute(`data-${currentLang}`);
+      label.textContent = isBusy ? getCopy().buttonRunning : 'Run Free Audit';
     }
 
     function scoreFromCategory(value) {
@@ -2599,7 +2599,7 @@
 
     const chatLocales = {
       en: {
-        greeting: "Hey! I'm the tanev.design virtual assistant. Ask me anything — pricing, timelines, what's included, or just tell me about your project and I'll point you in the right direction."
+        greeting: "Hey! I'm Pulse — the tanev.design AI assistant. Ask me anything about pricing, timelines, or what's included. Or just tell me about your project and I'll point you in the right direction."
       }
     };
 
