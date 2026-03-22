@@ -845,6 +845,14 @@
       }
     }
 
+    /* ── Hero background clip wrapper (keeps overflow off the section to preserve iOS scroll) ── */
+    .hero-bg-clip {
+      position: absolute; inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
     /* ── Hero dot grid ── */
     .hero-grid {
       position: absolute; inset: 0;
@@ -889,10 +897,18 @@
       from { opacity: 0; transform: translateY(28px); }
       to   { opacity: 1; transform: translateY(0);    }
     }
-    .hero-line-1 { animation: heroIn 0.8s cubic-bezier(0.22,1,0.36,1) 0.05s both; }
-    .hero-line-2 { animation: heroIn 0.8s cubic-bezier(0.22,1,0.36,1) 0.30s both; }
-    .hero-sub    { animation: heroIn 0.8s cubic-bezier(0.22,1,0.36,1) 0.50s both; }
-    .hero-audit  { animation: heroIn 0.8s cubic-bezier(0.22,1,0.36,1) 0.68s both; }
+    /* Audit box: opacity-only fade so hit-test area is never displaced */
+    @keyframes heroInFade {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .hero-line-1 { animation: heroIn     0.8s cubic-bezier(0.22,1,0.36,1) 0.05s both; }
+    .hero-line-2 { animation: heroIn     0.8s cubic-bezier(0.22,1,0.36,1) 0.30s both; }
+    .hero-sub    { animation: heroIn     0.8s cubic-bezier(0.22,1,0.36,1) 0.50s both; }
+    .hero-audit  { animation: heroInFade 0.8s cubic-bezier(0.22,1,0.36,1) 0.55s both; }
+
+    /* Prevent 300ms tap delay on the audit tool */
+    #urlInput, #auditButton { touch-action: manipulation; }
 
     /* ── Icon accent wrappers ── */
     .icon-wrap-red    { background: rgba(220,20,60,0.1);  }
@@ -987,10 +1003,12 @@
   </nav>
 
   <!-- ═══ HERO ═══ -->
-  <section id="hero" class="relative min-h-screen flex flex-col items-center justify-center pt-20 pb-16 px-5 overflow-hidden">
-    <div class="hero-grid" aria-hidden="true"></div>
-    <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
-    <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
+  <section id="hero" class="relative min-h-screen flex flex-col items-center justify-center pt-20 pb-16 px-5">
+    <div class="hero-bg-clip" aria-hidden="true">
+      <div class="hero-grid"></div>
+      <div class="hero-orb hero-orb-1"></div>
+      <div class="hero-orb hero-orb-2"></div>
+    </div>
 
     <div class="relative z-10 max-w-4xl mx-auto text-center">
       <!-- Headline -->
