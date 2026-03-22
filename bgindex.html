@@ -516,14 +516,21 @@
       <span class="font-mono-label font-bold text-xs uppercase tracking-widest">tanev<span style="color:#000">.design</span></span>
     </a>
     <!-- Desktop nav -->
-    <div class="hidden md:flex items-center gap-8">
-      <a href="#services" class="font-mono-label text-[10px] font-bold uppercase tracking-widest text-gray-500 hover:text-black transition-colors">За Мен</a>
-      <a href="#templates" class="font-mono-label text-[10px] font-bold uppercase tracking-widest text-gray-500 hover:text-black transition-colors">Шаблони</a>
-      <a href="#pricing" class="font-mono-label text-[10px] font-bold uppercase tracking-widest text-gray-500 hover:text-black transition-colors">Цени</a>
-      <a href="#contact" class="font-mono-label text-[10px] font-bold uppercase tracking-widest text-gray-500 hover:text-black transition-colors">Контакт</a>
+    <div class="hidden lg:flex items-center gap-8">
+      <a href="index.html" class="font-mono-label text-[10px] font-bold uppercase tracking-widest text-black hover:opacity-70 transition-opacity flex items-center gap-2">
+        <i class="fas fa-hand-holding-heart text-[9px]"></i> Добре дошли
+      </a>
+      <a href="#services" class="font-mono-label text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-black transition-colors">За Мен</a>
+      <a href="#templates" class="font-mono-label text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-black transition-colors">Шаблони</a>
+      <a href="#pricing" class="font-mono-label text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-black transition-colors">Цени</a>
+      <a href="#contact" class="font-mono-label text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-black transition-colors">Контакт</a>
     </div>
     <!-- CTA + mobile toggle -->
     <div class="flex items-center gap-3">
+      <!-- Lang Switch -->
+      <a href="enindex.html" title="English" class="hidden sm:flex items-center justify-center w-8 h-8 border-2 border-black hover:bg-black hover:text-white text-[10px] font-bold transition-all duration-200">
+        EN
+      </a>
       <a href="#contact" class="hidden md:flex btn-primary text-[10px] py-2.5 px-5">Заяви Проект</a>
       <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="md:hidden p-2" aria-label="Меню">
         <i class="fas fa-bars text-lg"></i>
@@ -531,11 +538,13 @@
     </div>
   </div>
   <!-- Mobile menu -->
-  <div id="mobileMenu" class="hidden md:hidden px-6 pb-4 flex flex-col gap-0">
-    <a href="#services"  class="py-3 font-mono-label text-[11px] font-bold uppercase tracking-widest border-b border-gray-200">За Мен</a>
-    <a href="#templates" class="py-3 font-mono-label text-[11px] font-bold uppercase tracking-widest border-b border-gray-200">Шаблони</a>
-    <a href="#pricing"   class="py-3 font-mono-label text-[11px] font-bold uppercase tracking-widest border-b border-gray-200">Цени</a>
-    <a href="#contact"   class="py-3 font-mono-label text-[11px] font-bold uppercase tracking-widest">Контакт</a>
+  <div id="mobileMenu" class="hidden md:hidden px-6 pb-4 flex flex-col gap-0 border-t border-gray-100">
+    <a href="index.html" class="py-3 font-mono-label text-[11px] font-bold uppercase tracking-widest border-b border-gray-100 text-black">Добре дошли</a>
+    <a href="enindex.html" class="py-3 font-mono-label text-[11px] font-bold uppercase tracking-widest border-b border-gray-100 text-gray-400">English Version (EN)</a>
+    <a href="#services"  class="py-3 font-mono-label text-[11px] font-bold uppercase tracking-widest border-b border-gray-100 text-gray-400">За Мен</a>
+    <a href="#templates" class="py-3 font-mono-label text-[11px] font-bold uppercase tracking-widest border-b border-gray-100 text-gray-400">Шаблони</a>
+    <a href="#pricing"   class="py-3 font-mono-label text-[11px] font-bold uppercase tracking-widest border-b border-gray-100 text-gray-400">Цени</a>
+    <a href="#contact"   class="py-3 font-mono-label text-[11px] font-bold uppercase tracking-widest text-gray-400">Контакт</a>
   </div>
 </nav>
 
