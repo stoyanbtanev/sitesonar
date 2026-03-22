@@ -951,16 +951,19 @@
         <a href="#contact" class="text-[11px] font-700 uppercase tracking-widest muted hover:neon-text transition-colors duration-200">Contact</a>
       </div>
       <div class="flex items-center gap-3">
-        <!-- Language Switcher -->
         <a href="bgindex.html" title="Bulgarian" class="hidden sm:flex items-center justify-center w-8 h-8 border-2 border-[#3F3F46] hover:border-[#DFE104] text-[10px] font-700 text-white hover:text-[#DFE104] transition-all duration-200">
           BG
         </a>
-        <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="md:hidden p-2 neon-text" aria-label="Toggle menu">
+        <a href="#contact" class="hidden md:flex cta-primary text-[10px] py-2.5 px-5 font-700 tracking-widest transition-colors duration-200" style="border-radius: 0;">Start Project</a>
+        <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="lg:hidden p-2 neon-text" aria-label="Toggle menu">
           <i class="fas fa-bars text-lg"></i>
         </button>
       </div>
     </div>
-    <div id="mobileMenu" class="hidden md:hidden px-5 pb-4 flex flex-col gap-1 border-t divider">
+    <div id="mobileMenu" class="hidden lg:hidden px-5 pb-4 flex flex-col gap-1 border-t divider">
+      <a href="index.html" class="py-2.5 text-[11px] font-700 uppercase tracking-widest text-[#DFE104] border-b divider">Welcome</a>
+      <a href="bgindex.html" class="py-2.5 text-[11px] font-700 uppercase tracking-widest text-[#FAFAFA] border-b divider">Switch to Bulgarian (BG)</a>
+      <a href="#contact" class="py-2.5 text-[11px] font-700 uppercase tracking-widest text-[#DFE104] border-b divider font-800">Start Project</a>
       <a href="#services" class="py-2.5 text-[11px] font-700 uppercase tracking-widest muted border-b divider">About Me</a>
       <a href="#templates" class="py-2.5 text-[11px] font-700 uppercase tracking-widest muted border-b divider">Templates</a>
       <a href="#pricing" class="py-2.5 text-[11px] font-700 uppercase tracking-widest muted border-b divider">Pricing</a>
