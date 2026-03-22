@@ -1,826 +1,1289 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>tanev.design — Choose Your Language</title>
-  <meta name="description" content="Fast, affordable websites with sharp UI/UX, AI-assisted workflow, and quick delivery. Choose your language to continue." />
+  <title>tanev.design — Choose Your Edition</title>
+  <meta name="description"
+    content="Fast, affordable websites with sharp UI/UX, AI-assisted workflow, and quick delivery. Choose your edition." />
   <meta name="author" content="Stoyan Tanev" />
   <meta name="robots" content="index, follow" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="tanev.design — Fast Websites That Launch in Days" />
+  <meta property="og:title" content="tanev.design — Kinetic or Monochrome" />
   <meta property="og:url" content="https://tanev.design" />
   <meta property="og:image" content="https://tanev.design/ogpreview.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="canonical" href="https://tanev.design" />
   <link rel="icon" type="image/svg+xml"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23000'/><text x='50' y='72' font-family='Arial,sans-serif' font-size='62' font-weight='700' fill='white' text-anchor='middle'>t</text></svg>" />
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='0' fill='%23000'/><rect x='20' y='20' width='60' height='60' fill='%23FFD700'/><text x='50' y='72' font-family='Arial,sans-serif' font-size='48' font-weight='900' fill='%23000' text-anchor='middle'>t</text></svg>" />
 
+  <!-- ═══════════════════════════════════════════
+       FONTS — Anton (brutalist display) + Space Grotesk (body)
+  ═══════════════════════════════════════════ -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@300;400;500;700&family=Bebas+Neue&display=swap"
+    rel="stylesheet" />
+
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 
   <style>
-    /* ══════════════════════════════════════
-       RESET + ROOT TOKENS
-    ══════════════════════════════════════ */
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    /* ══════════════════════════════════════════════════
+       RESET + CSS VARIABLES
+    ══════════════════════════════════════════════════ */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     :root {
-      --ink:      #060609;
-      --snow:     #F2F4FA;
-      --gold:     #DFE104;
-      --crimson:  #DC2626; /* Crimson Red consistency */
-      --cyan:     #00EEFF;
-      --magenta:  #FF3FD4;
-      --dim:      rgba(242,244,250,0.12);
-      --ease:     cubic-bezier(0.22, 1, 0.36, 1);
-      --snap:     cubic-bezier(0.16, 1, 0.3, 1);
+      --yellow: #FFD700;
+      --yellow-hot: #FFEC00;
+      --black: #050505;
+      --black-soft: #0a0a0a;
+      --white: #F5F5F5;
+      --white-dim: rgba(245, 245, 245, 0.55);
+      --white-faint: rgba(245, 245, 245, 0.18);
+      --grid-line: rgba(255, 255, 255, 0.032);
+      --divider-w: 3px;
+      --ease-brutal: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-snap: cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    html, body {
+    html,
+    body {
+      width: 100%;
       height: 100%;
-      font-family: 'Space Grotesk', system-ui, sans-serif;
-      background: var(--ink);
-      color: var(--snow);
       overflow: hidden;
+      background: var(--black);
+      color: var(--white);
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-family: 'Space Grotesk', system-ui, sans-serif;
     }
 
-    /* ══════════════════════════════════════
-       ATMOSPHERIC LAYERS (z 0–5)
-    ══════════════════════════════════════ */
-    #particle-canvas {
-      position: fixed; inset: 0;
-      z-index: 0;
+    /* ══════════════════════════════════════════════════
+       CURSOR — custom yellow square
+    ══════════════════════════════════════════════════ */
+    html {
+      cursor: none;
+    }
+
+    a,
+    button,
+    [role=link],
+    [tabindex="0"] {
+      cursor: none;
+    }
+
+    #cursor {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: var(--yellow);
       pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: difference;
+      transition: width .15s var(--ease-brutal),
+        height .15s var(--ease-brutal),
+        background .15s;
+      will-change: left, top;
     }
 
-    #grain {
-      position: fixed; inset: 0;
+    #cursor.on-kinetic {
+      width: 18px;
+      height: 18px;
+      background: var(--yellow-hot);
+    }
+
+    #cursor.on-mono {
+      width: 14px;
+      height: 14px;
+      background: var(--white);
+    }
+
+    .cursor-trail {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99998;
+      transform: translate(-50%, -50%);
+      will-change: left, top;
+    }
+
+    #trail1 {
+      width: 28px;
+      height: 28px;
+      background: radial-gradient(circle, rgba(255, 215, 0, 0.18) 0%, transparent 70%);
+    }
+
+    #trail2 {
+      width: 52px;
+      height: 52px;
+      background: radial-gradient(circle, rgba(255, 215, 0, 0.07) 0%, transparent 70%);
+    }
+
+    /* ══════════════════════════════════════════════════
+       BACKGROUND LAYERS
+    ══════════════════════════════════════════════════ */
+
+    /* Grid overlay */
+    #grid-overlay {
+      position: fixed;
+      inset: 0;
       z-index: 1;
       pointer-events: none;
-      opacity: 0.05;
-      background-size: 256px 256px;
-      animation: grain-drift 0.45s steps(1) infinite;
-    }
-    @keyframes grain-drift {
-      0%   { background-position:  0%   0%;  }
-      15%  { background-position: -4%  -8%;  }
-      30%  { background-position:  9%  -3%;  }
-      50%  { background-position: -2%  12%;  }
-      70%  { background-position:  7%   5%;  }
-      85%  { background-position: -9%   2%;  }
-      100% { background-position:  0%   0%;  }
+      background-image:
+        linear-gradient(var(--grid-line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+      background-size: 100px 100px;
     }
 
-    .vignette {
-      position: fixed; inset: 0;
-      background: radial-gradient(ellipse 85% 85% at 50% 48%, transparent 35%, rgba(0,0,0,0.82) 100%);
-      pointer-events: none; z-index: 2;
-    }
-
-    .scanline {
-      position: fixed; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg,
-        transparent 0%,
-        rgba(0,238,255,0.15) 25%,
-        rgba(0,238,255,0.45) 50%,
-        rgba(0,238,255,0.15) 75%,
-        transparent 100%);
-      pointer-events: none; z-index: 3;
-      animation: scanline-pass 14s linear infinite;
-    }
-    @keyframes scanline-pass {
-      0%   { top: 0;    opacity: 0; }
-      3%   { opacity: 1; }
-      97%  { opacity: 0.2; }
-      100% { top: 100vh; opacity: 0; }
-    }
-
-    /* ══════════════════════════════════════
-       CUSTOM CURSOR  (z 9998–9999)
-    ══════════════════════════════════════ */
-    html { cursor: none; }
-    a, button, [role=link], [tabindex="0"] { cursor: none; }
-
-    #cursor-dot {
+    /* Grain texture */
+    #grain {
       position: fixed;
-      width: 6px; height: 6px;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0.055;
+      background-size: 200px 200px;
+      animation: grain-shift 0.3s steps(1) infinite;
+    }
+
+    @keyframes grain-shift {
+      0% {
+        background-position: 0% 0%;
+      }
+
+      20% {
+        background-position: -5% -10%;
+      }
+
+      40% {
+        background-position: 8% -4%;
+      }
+
+      60% {
+        background-position: -3% 13%;
+      }
+
+      80% {
+        background-position: 6% 4%;
+      }
+
+      100% {
+        background-position: 0% 0%;
+      }
+    }
+
+    /* Cursor glow — follows mouse on kinetic side */
+    #kinetic-glow {
+      position: fixed;
+      width: 600px;
+      height: 600px;
       border-radius: 50%;
-      background: var(--snow);
-      pointer-events: none; z-index: 9999;
-      transform: translate(-50%,-50%);
-      mix-blend-mode: difference;
-      transition: width .18s var(--ease), height .18s var(--ease), background .18s;
+      pointer-events: none;
+      z-index: 3;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(255, 215, 0, 0.055) 0%, transparent 65%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
       will-change: left, top;
     }
-    #cursor-dot.on-card {
-      width: 14px; height: 14px;
-      background: var(--gold);
+
+    #kinetic-glow.visible {
+      opacity: 1;
     }
 
-    .c-orb {
+    /* Scanlines on glitch */
+    #scanlines {
       position: fixed;
-      border-radius: 50%;
-      pointer-events: none; z-index: 9998;
-      transform: translate(-50%,-50%);
-      will-change: left, top;
-    }
-    #orb1 { width: 22px; height: 22px;
-      background: radial-gradient(circle, rgba(0,238,255,.75) 0%, transparent 68%); }
-    #orb2 { width: 38px; height: 38px;
-      background: radial-gradient(circle, rgba(239, 68, 68, .45) 0%, transparent 68%); }
-    #orb3 { width: 60px; height: 60px;
-      background: radial-gradient(circle, rgba(223,225,4,.22) 0%, transparent 68%); }
-
-    /* ══════════════════════════════════════
-       PAGE GRID  (z 10)
-    ══════════════════════════════════════ */
-    .page {
-      position: relative; z-index: 10;
-      height: 100vh;
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-    }
-
-    nav {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1.75rem 3rem;
-      opacity: 0;
-      animation: fadeIn 1s var(--ease) .1s forwards;
-    }
-    .nav-wm {
-      font-weight: 700; font-size: 13px;
-      text-transform: uppercase; letter-spacing: .22em;
-      color: rgba(242,244,250,.5);
-    }
-    .nav-wm em { color: var(--crimson); font-style: normal; transition: color .3s; }
-    .nav-wm:hover em { color: var(--gold); }
-    .nav-meta {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic; font-weight: 300;
-      font-size: 13px; letter-spacing: .08em;
-      color: rgba(242,244,250,.18);
-    }
-
-    .hero {
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center;
-      padding: 0 2rem;
-      gap: 0;
-    }
-
-    .eyebrow {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic; font-weight: 300;
-      font-size: clamp(12px, 1.3vw, 16px);
-      letter-spacing: .42em;
-      text-transform: uppercase;
-      color: rgba(242,244,250,.28);
-      margin-bottom: 1rem;
-      opacity: 0; transform: translateY(12px);
-      animation: fadeUp .9s var(--ease) .3s forwards;
-    }
-
-    .headline {
-      font-weight: 700;
-      font-size: clamp(3.8rem, 11.5vw, 15rem);
-      line-height: .9;
-      letter-spacing: -.04em;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-      text-shadow:
-        -2px 0 rgba(0,238,255,.2),
-         2px 0 rgba(220,38,38,.2); /* Crimson shadow offset */
-      animation: hl-breathe 5s ease-in-out 3.2s infinite;
-      will-change: transform;
-    }
-    @keyframes hl-breathe {
-      0%, 100% { transform: scale(1); }
-      50%       { transform: scale(1.007); }
-    }
-
-    .hl-row { display: block; }
-    .hl-row + .hl-row { margin-top: -.06em; }
-
-    .hl-char, .hl-dot {
-      display: inline-block;
-      opacity: 0;
-      transform: translateY(68%) rotateX(-22deg);
-      animation: char-snap .88s var(--ease) forwards;
-      will-change: transform, opacity;
-    }
-    .hl-dot { color: var(--crimson); } /* Dot in crimson */
-
-    @keyframes char-snap {
-      to { opacity: 1; transform: translateY(0) rotateX(0deg); }
-    }
-
-    .subheadline {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic; font-weight: 300;
-      font-size: clamp(13px, 1.6vw, 19px);
-      letter-spacing: .12em;
-      color: rgba(242,244,250,.38);
-      margin-bottom: 3rem;
-      min-height: 1.5em;
-      opacity: 0;
-      animation: fadeIn .5s ease 2s forwards;
-    }
-    #tw-cursor {
-      color: var(--gold);
-      animation: blink 1.05s step-end infinite;
-    }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-
-    /* ══════════════════════════════════════
-       LANGUAGE CARDS
-    ══════════════════════════════════════ */
-    .cards-wrap {
-      opacity: 0;
-      animation: fadeUp 1s var(--snap) 2.3s forwards;
-    }
-    .cards {
-      display: flex;
-      align-items: stretch;
-    }
-
-    .card {
-      position: relative;
-      width: clamp(175px, 23vw, 310px);
-      padding: clamp(1.4rem, 2.2vw, 2.2rem);
-      background: rgba(242,244,250,.025);
-      backdrop-filter: blur(28px);
-      -webkit-backdrop-filter: blur(28px);
-      border: 1px solid rgba(242,244,250,.07);
-      overflow: hidden;
-      transition: border-color .35s ease, box-shadow .35s ease;
-    }
-    .card:focus-visible {
-      outline: 2px solid var(--gold);
-      outline-offset: 3px;
-    }
-
-    .card-en { border-right: none; }
-    .card-en:hover {
-      border-color: rgba(0,238,255,.3);
-      box-shadow: 0 0 55px rgba(0,238,255,.06),
-                  inset 0 0 35px rgba(0,238,255,.025);
-    }
-    .card-bg:hover {
-      border-color: rgba(223,225,4,.3);
-      box-shadow: 0 0 55px rgba(223,225,4,.06),
-                  inset 0 0 35px rgba(223,225,4,.025);
-    }
-
-    .card-glow {
-      position: absolute; inset: 0;
-      background: radial-gradient(
-        circle 170px at var(--mx,50%) var(--my,50%),
-        rgba(255,255,255,.045), transparent 65%);
-      opacity: 0;
-      transition: opacity .3s ease;
+      inset: 0;
+      z-index: 100;
       pointer-events: none;
+      opacity: 0;
+      background: repeating-linear-gradient(to bottom,
+          transparent 0px,
+          transparent 3px,
+          rgba(0, 0, 0, 0.25) 3px,
+          rgba(0, 0, 0, 0.25) 4px);
     }
-    .card:hover .card-glow { opacity: 1; }
 
-    .reticle {
-      position: absolute;
-      width: 22px; height: 22px;
-      border-color: transparent;
-      border-style: solid;
-      border-width: 0;
-      opacity: .35;
+    /* ══════════════════════════════════════════════════
+       GLITCH LAYER
+    ══════════════════════════════════════════════════ */
+    #glitch-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 99;
       pointer-events: none;
-    }
-    .r-tl { top:0; left:0;  border-top-width:1px;  border-left-width:1px;  }
-    .r-br { bottom:0; right:0; border-bottom-width:1px; border-right-width:1px; }
-    .card-en .reticle { border-color: var(--cyan); }
-    .card-bg .reticle { border-color: var(--gold); }
-
-    .card-tag {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 9px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: .22em;
-      margin-bottom: 1.4rem;
-    }
-    .card-tag::before {
-      content:''; width:14px; height:1px;
-      background: currentColor; flex-shrink:0;
-    }
-    .card-en .card-tag { color: var(--cyan); }
-    .card-bg .card-tag { color: var(--gold); }
-
-    .card-title {
-      font-weight: 700;
-      font-size: clamp(1.7rem, 4vw, 3rem);
-      letter-spacing: -.03em; line-height: 1;
-      margin-bottom: .55rem;
-    }
-
-    .card-edition {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic; font-weight: 300;
-      font-size: 12px; letter-spacing: .1em;
-      color: rgba(242,244,250,.3);
-      margin-bottom: 1.1rem;
-    }
-
-    .card-desc {
-      font-size: 11.5px; line-height: 1.65;
-      color: rgba(242,244,250,.26);
-      margin-bottom: 1.8rem;
-    }
-
-    .card-cta {
-      display: flex; align-items: center; gap: 7px;
-      font-size: 10px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: .2em;
-      transition: gap .3s ease;
-    }
-    .card-en .card-cta { color: var(--cyan); }
-    .card-bg .card-cta { color: var(--gold); }
-    .card:hover .card-cta { gap: 13px; }
-    .card-cta svg { transition: transform .3s ease; }
-    .card:hover .card-cta svg { transform: translateX(3px); }
-
-    .divider {
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      width: 50px; flex-shrink: 0; position: relative;
-    }
-    .divider::before {
-      content:''; position: absolute;
-      top: 0; bottom: 0; left: 50%; width: 1px;
-      background: linear-gradient(to bottom,
-        transparent, rgba(242,244,250,.09) 30%,
-        rgba(242,244,250,.09) 70%, transparent);
-    }
-    .div-badge {
-      position: relative; z-index: 1;
-      width: 32px; height: 32px;
-      display: flex; align-items: center; justify-content: center;
-      background: rgba(6,6,9,.85);
-      border: 1px solid rgba(242,244,250,.1);
-      font-size: 9px; font-weight: 700;
-      letter-spacing: .12em; text-transform: uppercase;
-      color: rgba(242,244,250,.32);
-      animation: badge-pulse 3.2s ease-in-out infinite;
-    }
-    @keyframes badge-pulse {
-      0%,100% { box-shadow: 0 0 0 0 rgba(223,225,4,.18); }
-      50%      { box-shadow: 0 0 0 7px rgba(223,225,4,0); }
-    }
-
-    footer {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1.1rem 3rem;
-      border-top: 1px solid rgba(242,244,250,.04);
       opacity: 0;
-      animation: fadeIn .8s ease 2.7s forwards;
-    }
-    .f-copy {
-      font-size: 9px; letter-spacing: .14em;
-      text-transform: uppercase; color: rgba(242,244,250,.11);
-    }
-    .f-tag {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic; font-size: 13px;
-      color: rgba(242,244,250,.16);
+      mix-blend-mode: screen;
     }
 
-    .cm {
-      position: fixed; font-size: 9px;
-      letter-spacing: .18em; text-transform: uppercase;
-      color: rgba(242,244,250,.07);
-      pointer-events: none; z-index: 50;
-      opacity: 0;
-      animation: fadeIn .9s ease 2.9s forwards;
+    #glitch-overlay.glitch-active {
+      animation: glitch-flicker 0.42s steps(1) forwards;
     }
-    .cm-tl { top: 1.6rem; left: 3rem; }
-    .cm-tr { top: 1.6rem; right: 3rem; text-align: right; }
-    .cm-bl { bottom: 1.6rem; left: 3rem; }
-    .cm-br { bottom: 1.6rem; right: 3rem; text-align: right; }
 
+    @keyframes glitch-flicker {
+      0% {
+        opacity: 0;
+      }
+
+      8% {
+        opacity: 1;
+        background: linear-gradient(90deg, rgba(255, 0, 60, 0.08) 0%, transparent 40%);
+        clip-path: inset(15% 0 70% 0);
+        transform: translateX(-3px);
+      }
+
+      16% {
+        opacity: 1;
+        background: linear-gradient(90deg, transparent 60%, rgba(0, 255, 200, 0.06) 100%);
+        clip-path: inset(60% 0 10% 0);
+        transform: translateX(4px);
+      }
+
+      24% {
+        opacity: 0;
+      }
+
+      35% {
+        opacity: 1;
+        clip-path: inset(40% 0 35% 0);
+        transform: translateX(-2px) scaleY(1.01);
+        background: rgba(255, 215, 0, 0.04);
+      }
+
+      45% {
+        opacity: 0;
+      }
+
+      60% {
+        opacity: 1;
+        clip-path: inset(78% 0 5% 0);
+        transform: translateX(5px);
+        background: rgba(255, 0, 80, 0.05);
+      }
+
+      75% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 0;
+        transform: none;
+        clip-path: none;
+      }
+    }
+
+    /* ══════════════════════════════════════════════════
+       TRANSITION OVERLAYS
+    ══════════════════════════════════════════════════ */
     .t-overlay {
-      position: fixed; inset: 0; z-index: 1000;
-      display: flex; align-items: center; justify-content: center;
-      transform: scaleY(0) skewX(-1.5deg);
-      transform-origin: top center;
-      transition: transform .6s cubic-bezier(.76,0,.24,1);
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--black);
+      transform: scaleY(0);
+      transform-origin: bottom center;
+      transition: transform 0.65s cubic-bezier(0.76, 0, 0.24, 1);
       pointer-events: none;
     }
+
     .t-overlay.active {
-      transform: scaleY(1) skewX(0deg);
+      transform: scaleY(1);
       pointer-events: auto;
     }
-    .t-wm {
-      font-weight: 700; font-size: 16px;
-      letter-spacing: .28em; text-transform: uppercase;
+
+    .t-overlay-label {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(1.5rem, 4vw, 3rem);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--yellow);
       opacity: 0;
-      transition: opacity .32s ease .28s;
+      transition: opacity 0.3s ease 0.3s;
     }
-    .t-overlay.active .t-wm { opacity: 1; }
 
-    @media (max-width: 767px) {
-      html { cursor: auto; }
-      a, button, [role=link], [tabindex="0"] { cursor: auto; }
-      #cursor-dot, .c-orb { display: none !important; }
+    .t-overlay.active .t-overlay-label {
+      opacity: 1;
+    }
 
-      nav, footer { padding: 1.2rem 1.5rem; }
-      .nav-meta { display: none; }
-      .cm { display: none; }
+    /* ══════════════════════════════════════════════════
+       MAIN LAYOUT — SPLIT SCREEN
+    ══════════════════════════════════════════════════ */
+    .stage {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      z-index: 10;
+      overflow: hidden;
+    }
 
-      .cards { flex-direction: column; align-items: center; }
-      .card  { width: min(84vw, 300px); }
-      .card-en { border-right: 1px solid rgba(242,244,250,.07); border-bottom: none; }
+    /* ── LEFT SIDE: KINETIC ── */
+    .side {
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: clamp(1.8rem, 3vw, 3rem);
+      overflow: hidden;
+    }
+
+    .side-kinetic {
+      background: var(--black);
+    }
+
+    /* ── RIGHT SIDE: MONOCHROME ── */
+    .side-mono {
+      background: var(--black-soft);
+      align-items: flex-end;
+      text-align: right;
+    }
+
+    /* ══════════════════════════════════════════════════
+       DIVIDER — vertical yellow line + OR badge
+    ══════════════════════════════════════════════════ */
+    .divider {
+      position: relative;
+      flex: 0 0 var(--divider-w);
+      background: var(--yellow);
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: flex-basis 0.3s var(--ease-brutal);
+      box-shadow: 0 0 18px rgba(255, 215, 0, 0.25), 0 0 40px rgba(255, 215, 0, 0.08);
+    }
+
+    .divider:hover,
+    .stage:hover .divider {
+      flex-basis: 5px;
+      box-shadow: 0 0 30px rgba(255, 215, 0, 0.5), 0 0 80px rgba(255, 215, 0, 0.15);
+    }
+
+    .or-badge {
+      position: absolute;
+      width: 36px;
+      height: 36px;
+      border-radius: 5px;
+      background: var(--yellow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 21;
+      animation: badge-pulse 3s ease-in-out infinite;
+    }
+
+    .or-badge span {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--black);
+    }
+
+    @keyframes badge-pulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4);
+      }
+
+      50% {
+        box-shadow: 0 0 0 8px rgba(255, 215, 0, 0);
+      }
+    }
+
+    /* ══════════════════════════════════════════════════
+       CORNER LABELS
+    ══════════════════════════════════════════════════ */
+    .corner-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      opacity: 0;
+      /* revealed by GSAP */
+    }
+
+    .corner-label-kinetic {
+      color: var(--yellow);
+    }
+
+    .corner-label-mono {
+      color: var(--white-dim);
+    }
+
+    /* ══════════════════════════════════════════════════
+       HEADLINE BLOCK
+    ══════════════════════════════════════════════════ */
+    .headline-block {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* The massive headline */
+    .headline {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(4rem, 10vw, 13.5rem);
+      line-height: 0.88;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      display: block;
+      overflow: visible;
+      user-select: none;
+    }
+
+    .headline-kinetic {
+      color: var(--white);
+      text-shadow: none;
+    }
+
+    .headline-mono {
+      color: var(--white);
+    }
+
+    /* Individual split characters */
+    .char {
+      display: inline-block;
+      will-change: transform, opacity;
+      opacity: 0;
+    }
+
+    /* Tanev.design sub-label */
+    .brand-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(9px, 1vw, 13px);
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-top: 0.6rem;
+      margin-bottom: 1.4rem;
+      opacity: 0;
+    }
+
+    .brand-label-kinetic {
+      color: var(--yellow);
+    }
+
+    .brand-label-mono {
+      color: var(--white-dim);
+    }
+
+    /* Edition badge/box */
+    .edition-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 14px;
+      border: 1.5px solid var(--yellow);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 1.4rem;
+      opacity: 0;
+      position: relative;
+      overflow: hidden;
+      cursor: none;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .edition-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--yellow);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s var(--ease-brutal);
+      z-index: -1;
+    }
+
+    .edition-box:hover::before {
+      transform: scaleX(1);
+    }
+
+    .edition-box:hover {
+      color: var(--black);
+    }
+
+    .edition-box-mono {
+      border-color: rgba(245, 245, 245, 0.35);
+      color: var(--white-dim);
+    }
+
+    .edition-box-mono::before {
+      background: rgba(245, 245, 245, 0.1);
+    }
+
+    .edition-box-mono:hover {
+      color: var(--white);
+    }
+
+    /* Edition dot */
+    .edition-dot {
+      width: 5px;
+      height: 5px;
+      background: currentColor;
+      flex-shrink: 0;
+    }
+
+    /* Description text */
+    .desc {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(9.5px, 0.9vw, 12px);
+      line-height: 1.7;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      max-width: 28ch;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+    }
+
+    .desc-kinetic {
+      color: rgba(245, 245, 245, 0.38);
+    }
+
+    .desc-mono {
+      color: rgba(245, 245, 245, 0.28);
+      text-align: right;
+      max-width: 32ch;
+    }
+
+    /* ══════════════════════════════════════════════════
+       CTA — ENTER / ВЛЕЗ
+    ══════════════════════════════════════════════════ */
+    .cta-wrap {
+      display: flex;
+      align-items: center;
+      opacity: 0;
+    }
+
+    .side-mono .cta-wrap {
+      justify-content: flex-end;
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      text-decoration: none;
+      position: relative;
+      transition: gap 0.3s var(--ease-brutal), letter-spacing 0.35s ease;
+    }
+
+    .cta-kinetic {
+      color: var(--yellow);
+    }
+
+    .cta-kinetic::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--yellow);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s var(--ease-brutal);
+    }
+
+    .cta-kinetic:hover::after {
+      transform: scaleX(1);
+    }
+
+    .cta-kinetic:hover {
+      gap: 18px;
+    }
+
+    .cta-mono {
+      color: var(--white-dim);
+    }
+
+    .cta-mono::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--white-dim);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .cta-mono:hover::after {
+      transform: scaleX(1);
+    }
+
+    .cta-mono:hover {
+      color: var(--white);
+      letter-spacing: 0.36em;
+    }
+
+    .cta-arrow {
+      display: inline-block;
+      font-size: 1.1em;
+      line-height: 1;
+    }
+
+    /* ══════════════════════════════════════════════════
+       CHROMATIC ABERRATION on kinetic headline hover
+    ══════════════════════════════════════════════════ */
+    .headline-kinetic.chroma-active {
+      text-shadow:
+        -3px 0 rgba(255, 0, 80, 0.5),
+        3px 0 rgba(0, 255, 200, 0.5);
+      transition: text-shadow 0.1s;
+    }
+
+    /* Kinetic side hover glow */
+    .side-kinetic::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 50% 60% at var(--mx, 50%) var(--my, 50%),
+          rgba(255, 215, 0, 0.04) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .side-kinetic:hover::before {
+      opacity: 1;
+    }
+
+    /* Ensure content is above pseudo */
+    .side>* {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ══════════════════════════════════════════════════
+       MONO SIDE SUBTLE TEXTURE — very faint vertical lines
+    ══════════════════════════════════════════════════ */
+    .side-mono::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(90deg,
+          transparent 0px,
+          transparent 40px,
+          rgba(255, 255, 255, 0.008) 40px,
+          rgba(255, 255, 255, 0.008) 41px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ══════════════════════════════════════════════════
+       CORNER MARKS (decorative)
+    ══════════════════════════════════════════════════ */
+    .corner-mark {
+      position: fixed;
+      font-size: 8px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(245, 245, 245, 0.06);
+      pointer-events: none;
+      z-index: 50;
+      font-family: 'Space Grotesk', sans-serif;
+      opacity: 0;
+    }
+
+    .cm-tl {
+      top: 1.5rem;
+      left: 1.8rem;
+    }
+
+    .cm-tr {
+      top: 1.5rem;
+      right: 1.8rem;
+      text-align: right;
+    }
+
+    .cm-bl {
+      bottom: 1.5rem;
+      left: 1.8rem;
+    }
+
+    .cm-br {
+      bottom: 1.5rem;
+      right: 1.8rem;
+      text-align: right;
+    }
+
+    /* ══════════════════════════════════════════════════
+       MOBILE — stacked vertical
+    ══════════════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      html {
+        cursor: auto;
+      }
+
+      a,
+      button,
+      [role=link],
+      [tabindex="0"] {
+        cursor: pointer;
+      }
+
+      #cursor,
+      .cursor-trail {
+        display: none !important;
+      }
+
+      #kinetic-glow {
+        display: none;
+      }
+
+      .stage {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+
+      .side {
+        flex: none;
+        width: 100%;
+        padding: 3rem 1.8rem;
+        text-align: left !important;
+        align-items: flex-start !important;
+      }
+
+      .side-mono {
+        text-align: left !important;
+        align-items: flex-start !important;
+      }
+
+      .desc-mono {
+        text-align: left;
+      }
+
+      .side-mono .cta-wrap {
+        justify-content: flex-start;
+      }
 
       .divider {
+        flex: none;
+        width: 100%;
+        height: 3px;
         flex-direction: row;
-        width: min(84vw, 300px);
-        height: 44px;
       }
-      .divider::before {
-        top: 50%; bottom: auto;
-        left: 0; right: 0;
-        width: 100%; height: 1px;
+
+      .headline {
+        font-size: clamp(3.2rem, 15vw, 7rem);
       }
-      .f-tag { display: none; }
+
+      .corner-mark {
+        display: none;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: .01ms !important;
-        animation-delay: 0ms !important;
-        transition-duration: .01ms !important;
-      }
-      .hl-char, .hl-dot, .eyebrow, .subheadline,
-      .cards-wrap, nav, footer, .cm {
-        opacity: 1 !important; transform: none !important;
-      }
-    }
 
-    @keyframes fadeUp {
-      to { opacity:1; transform:translateY(0); }
-    }
-    @keyframes fadeIn {
-      to { opacity:1; }
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-delay: 0ms !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .char {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+
+      .corner-label,
+      .brand-label,
+      .edition-box,
+      .desc,
+      .cta-wrap {
+        opacity: 1 !important;
+      }
     }
   </style>
 </head>
+
 <body>
 
-  <!-- ─ Atmospheric layers ─────────────────── -->
-  <canvas id="particle-canvas"></canvas>
-  <div id="grain"></div>
-  <div class="vignette"></div>
-  <div class="scanline"></div>
+  <!-- ── Atmosphere ─────────────────────────────── -->
+  <div id="grid-overlay" aria-hidden="true"></div>
+  <div id="grain" aria-hidden="true"></div>
+  <div id="scanlines" aria-hidden="true"></div>
+  <div id="glitch-overlay" aria-hidden="true"></div>
+  <div id="kinetic-glow" aria-hidden="true"></div>
 
-  <!-- ─ Custom cursor ──────────────────────── -->
-  <div id="cursor-dot"></div>
-  <div id="orb1" class="c-orb"></div>
-  <div id="orb2" class="c-orb"></div>
-  <div id="orb3" class="c-orb"></div>
+  <!-- ── Custom Cursor ──────────────────────────── -->
+  <div id="cursor" aria-hidden="true"></div>
+  <div id="trail1" class="cursor-trail" aria-hidden="true"></div>
+  <div id="trail2" class="cursor-trail" aria-hidden="true"></div>
 
-  <!-- ─ Corner marks ───────────────────────── -->
-  <span class="cm cm-tl">001 — EN / BG</span>
-  <span class="cm cm-tr">Stoyan Tanev</span>
-  <span class="cm cm-bl">tanev.design</span>
-  <span class="cm cm-br">2026</span>
+  <!-- ── Corner Marks ───────────────────────────── -->
+  <span class="corner-mark cm-tl" aria-hidden="true">tanev.design</span>
+  <span class="corner-mark cm-tr" aria-hidden="true">2026</span>
+  <span class="corner-mark cm-bl" aria-hidden="true">001 — EN / 002 — BG</span>
+  <span class="corner-mark cm-br" aria-hidden="true">Stoyan Tanev</span>
 
-  <!-- ─ Transition overlays ────────────────── -->
-  <div id="t-en" class="t-overlay" style="background:var(--ink);">
-    <span class="t-wm" style="color:var(--gold);">tanev.design</span>
-  </div>
-  <div id="t-bg" class="t-overlay" style="background:var(--ink);">
-    <span class="t-wm" style="color:var(--gold);">tanev.design</span>
-  </div>
+  <!-- ── Transition Overlays ────────────────────── -->
+  <div id="t-en" class="t-overlay"><span class="t-overlay-label">tanev.design — kinetic</span></div>
+  <div id="t-bg" class="t-overlay"><span class="t-overlay-label">tanev.design — monochrome</span></div>
 
-  <!-- ─ Page ───────────────────────────────── -->
-  <div class="page">
+  <!-- ══════════════════════════════════════════════
+       MAIN STAGE
+  ══════════════════════════════════════════════ -->
+  <div class="stage" id="stage">
 
-    <nav>
-      <div class="nav-wm">tanev<em>.design</em></div>
-      <div class="nav-meta">Creative Studio — 2026</div>
-    </nav>
+    <!-- ── LEFT: KINETIC (English) ────────────────── -->
+    <section class="side side-kinetic" id="side-kinetic" aria-label="English — Kinetic Edition">
 
-    <main class="hero">
-
-      <div class="eyebrow">Creative Studio</div>
-
-      <h1 class="headline" aria-label="tanev.design">
-        <span class="hl-row">
-          <span class="hl-char">T</span><span class="hl-char">A</span><span class="hl-char">N</span><span class="hl-char">E</span><span class="hl-char">V</span>
-        </span>
-        <span class="hl-row">
-          <span class="hl-dot">.</span><span class="hl-char">D</span><span class="hl-char">E</span><span class="hl-char">S</span><span class="hl-char">I</span><span class="hl-char">G</span><span class="hl-char">N</span>
-        </span>
-      </h1>
-
-      <p class="subheadline" aria-live="polite">
-        <span id="tw"></span><span id="tw-cursor" aria-hidden="true">|</span>
-      </p>
-
-      <!-- Language cards -->
-      <div class="cards-wrap">
-        <div class="cards" role="list">
-
-          <!-- EN -->
-          <div class="card card-en"
-               onclick="navigateTo('en')"
-               role="link" tabindex="0"
-               aria-label="Enter English version">
-            <div class="card-glow"></div>
-            <div class="reticle r-tl"></div>
-            <div class="reticle r-br"></div>
-            <div class="card-tag">001 — English</div>
-            <div class="card-title">English</div>
-            <div class="card-edition">Kinetic Edition</div>
-            <p class="card-desc">Bold brutalist design with aggressive motion, acid yellow accents, and sharp kinetic typography.</p>
-            <div class="card-cta">
-              Enter
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="2.5" stroke-linecap="square">
-                <path d="M5 12h14M13 6l6 6-6 6"/>
-              </svg>
-            </div>
-          </div>
-
-          <!-- Divider -->
-          <div class="divider" aria-hidden="true">
-            <div class="div-badge">or</div>
-          </div>
-
-          <!-- BG -->
-          <div class="card card-bg"
-               onclick="navigateTo('bg')"
-               role="link" tabindex="0"
-               aria-label="Влезте в Българската версия">
-            <div class="card-glow"></div>
-            <div class="reticle r-tl"></div>
-            <div class="reticle r-br"></div>
-            <div class="card-tag">002 — Български</div>
-            <div class="card-title">Български</div>
-            <div class="card-edition">Monochrome Edition</div>
-            <p class="card-desc">Чист монохромен дизайн с елегантна типография и минималистична естетика.</p>
-            <div class="card-cta">
-              Влез
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="2.5" stroke-linecap="square">
-                <path d="M5 12h14M13 6l6 6-6 6"/>
-              </svg>
-            </div>
-          </div>
-
-        </div>
+      <!-- Top label -->
+      <div class="corner-label corner-label-kinetic" id="lbl-en">
+        001 — ENGLISH
       </div>
-    </main>
 
-    <footer>
-      <span class="f-copy">© 2026 tanev.design</span>
-      <span class="f-tag">Fast. Sharp. Delivered.</span>
-    </footer>
+      <!-- Headline block -->
+      <div class="headline-block">
 
-  </div><!-- /.page -->
+        <h1 class="headline headline-kinetic" id="headline-en" aria-label="English">
+          <!-- Split by JS -->
+        </h1>
 
+        <p class="brand-label brand-label-kinetic" id="brand-en">
+          TANEV.DESIGN
+        </p>
+
+        <div class="edition-box" id="edition-en" aria-hidden="true">
+          <span class="edition-dot"></span>
+          KINETIC EDITION
+        </div>
+
+        <p class="desc desc-kinetic" id="desc-en">
+          Sharp brutalist design with aggressive motion, acid yellow accents,
+          and bold kinetic typography.
+        </p>
+
+        <!-- CTA -->
+        <div class="cta-wrap" id="cta-en">
+          <a href="/kinetic" class="cta cta-kinetic" id="enter-en" onclick="handleNav(event,'en')"
+            aria-label="Enter English Kinetic Edition">
+            ENTER
+            <span class="cta-arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+
+      </div><!-- /headline-block -->
+
+    </section>
+
+    <!-- ── DIVIDER ─────────────────────────────────── -->
+    <div class="divider" aria-hidden="true">
+      <div class="or-badge"><span>OR</span></div>
+    </div>
+
+    <!-- ── RIGHT: MONOCHROME (Bulgarian) ──────────── -->
+    <section class="side side-mono" id="side-mono" aria-label="Български — Monochrome Edition">
+
+      <!-- Top label -->
+      <div class="corner-label corner-label-mono" id="lbl-bg">
+        002 — БЪЛГАРСКИ
+      </div>
+
+      <!-- Headline block -->
+      <div class="headline-block">
+
+        <h2 class="headline headline-mono" id="headline-bg" aria-label="Български">
+          <!-- Split by JS -->
+        </h2>
+
+        <p class="brand-label brand-label-mono" id="brand-bg">
+          TANEV.DESIGN
+        </p>
+
+        <div class="edition-box edition-box-mono" id="edition-bg" aria-hidden="true">
+          <span class="edition-dot"></span>
+          MONOCHROME EDITION
+        </div>
+
+        <p class="desc desc-mono" id="desc-bg">
+          Чист монохромен дизайн с елегантна типография и минималистична естетика.
+        </p>
+
+        <!-- CTA -->
+        <div class="cta-wrap" id="cta-bg">
+          <a href="/monochrome" class="cta cta-mono" id="enter-bg" onclick="handleNav(event,'bg')"
+            aria-label="Влезте в Българската версия — Monochrome Edition">
+            ВЛЕЗ
+            <span class="cta-arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+
+      </div><!-- /headline-block -->
+
+    </section>
+
+  </div><!-- /.stage -->
+
+
+  <!-- ════════════════════════════════════════════════
+       JAVASCRIPT
+  ════════════════════════════════════════════════ -->
   <script>
-  /* 1. GRAIN TEXTURE */
-  (function () {
-    const gc = document.createElement('canvas');
-    gc.width = gc.height = 256;
-    const gx = gc.getContext('2d');
-    const id = gx.createImageData(256, 256);
-    for (let i = 0; i < id.data.length; i += 4) {
-      const v = Math.random() * 255;
-      id.data[i] = id.data[i+1] = id.data[i+2] = v;
-      id.data[i+3] = Math.random() * 60 + 8;
-    }
-    gx.putImageData(id, 0, 0);
-    document.getElementById('grain').style.backgroundImage = `url(${gc.toDataURL()})`;
-  })();
-
-  /* 2. PARTICLE SYSTEM */
-  const canvas = document.getElementById('particle-canvas');
-  const ctx    = canvas.getContext('2d');
-  let W, H;
-  const MOUSE  = { x: -9999, y: -9999 };
-
-  function resize() {
-    W = canvas.width  = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  const PAL = [
-    'rgba(0,238,255,',
-    'rgba(220,38,38,', // Crimson red particles
-    'rgba(223,225,4,',
-    'rgba(242,244,250,'
-  ];
-
-  class Star {
-    constructor() { this.reset(); }
-    reset() {
-      this.x  = Math.random() * W;
-      this.y  = Math.random() * H;
-      this.vx = (Math.random() - .5) * .22;
-      this.vy = (Math.random() - .5) * .22;
-      this.r  = Math.random() * 1.1 + .2;
-      this.ba = Math.random() * .5 + .12;
-      this.a  = this.ba;
-      this.ph = Math.random() * Math.PI * 2;
-      this.ps = Math.random() * .022 + .007;
-      this.c  = PAL[Math.floor(Math.random() * PAL.length)];
-    }
-    tick() {
-      const dx   = MOUSE.x - this.x;
-      const dy   = MOUSE.y - this.y;
-      const dist = Math.hypot(dx, dy);
-      if (dist > 0 && dist < 170) {
-        this.vx += (dx / dist) * .0022;
-        this.vy += (dy / dist) * .0022;
+    /* ─── 0. GRAIN TEXTURE ──────────────────────────── */
+    (function generateGrain() {
+      const gc = document.createElement('canvas');
+      gc.width = gc.height = 200;
+      const gx = gc.getContext('2d');
+      const id = gx.createImageData(200, 200);
+      for (let i = 0; i < id.data.length; i += 4) {
+        const v = Math.random() * 255;
+        id.data[i] = id.data[i + 1] = id.data[i + 2] = v;
+        id.data[i + 3] = Math.random() * 55 + 5;
       }
-      this.vx *= .987; this.vy *= .987;
-      this.x  += this.vx; this.y += this.vy;
-      this.ph += this.ps;
-      this.a   = this.ba * (.5 + .5 * Math.sin(this.ph));
-      if (this.x < 0) this.x = W; else if (this.x > W) this.x = 0;
-      if (this.y < 0) this.y = H; else if (this.y > H) this.y = 0;
+      gx.putImageData(id, 0, 0);
+      document.getElementById('grain').style.backgroundImage = `url(${gc.toDataURL()})`;
+    })();
+
+    /* ─── 1. SPLIT TEXT HELPER ──────────────────────── */
+    function splitText(el, text) {
+      el.innerHTML = '';
+      [...text].forEach(ch => {
+        const span = document.createElement('span');
+        span.className = 'char';
+        span.textContent = ch === ' ' ? '\u00A0' : ch;
+        el.appendChild(span);
+      });
+      return el.querySelectorAll('.char');
     }
-    draw() {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-      ctx.fillStyle = this.c + this.a.toFixed(3) + ')';
-      ctx.fill();
-    }
-  }
 
-  class Wisp {
-    constructor() { this.reset(); }
-    reset() {
-      this.x  = Math.random() * W;
-      this.y  = Math.random() * H;
-      this.r  = Math.random() * 200 + 90;
-      this.a  = Math.random() * .038 + .008;
-      this.vx = (Math.random() - .5) * .055;
-      this.vy = (Math.random() - .5) * .055;
-      const wc = ['rgba(0,238,255,', 'rgba(220,38,38,', 'rgba(48,8,96,'];
-      this.c  = wc[Math.floor(Math.random() * wc.length)];
-    }
-    tick() {
-      this.x += this.vx; this.y += this.vy;
-      const p = this.r;
-      if (this.x < -p) this.x = W+p; else if (this.x > W+p) this.x = -p;
-      if (this.y < -p) this.y = H+p; else if (this.y > H+p) this.y = -p;
-    }
-    draw() {
-      const g = ctx.createRadialGradient(this.x,this.y,0, this.x,this.y,this.r);
-      g.addColorStop(0, this.c + this.a + ')');
-      g.addColorStop(1, this.c + '0)');
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-      ctx.fillStyle = g;
-      ctx.fill();
-    }
-  }
+    /* ─── 2. INIT HEADLINES ─────────────────────────── */
+    const enChars = splitText(document.getElementById('headline-en'), 'ENGLISH');
+    const bgChars = splitText(document.getElementById('headline-bg'), 'БЪЛГАРСКИ');
 
-  const stars = Array.from({ length: 95 }, () => new Star());
-  const wisps = Array.from({ length: 6  }, () => new Wisp());
+    /* ─── 3. MASTER GSAP TIMELINE ───────────────────── */
+    const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
 
-  (function canvasLoop() {
-    ctx.clearRect(0, 0, W, H);
-    wisps.forEach(w => { w.tick(); w.draw(); });
-    stars.forEach(s => { s.tick(); s.draw(); });
-    requestAnimationFrame(canvasLoop);
-  })();
+    // Stage fades in from black
+    tl.from('.stage', { opacity: 0, duration: 0.6 });
 
-  /* 3. MOUSE TRACKING */
-  document.addEventListener('mousemove', e => {
-    MOUSE.x = e.clientX;
-    MOUSE.y = e.clientY;
-  });
+    // Corner labels
+    tl.to(['#lbl-en', '#lbl-bg'], {
+      opacity: 1,
+      y: 0,
+      duration: 0.7,
+      stagger: 0.15
+    }, '-=0.2');
 
-  /* 4. CURSOR TRAIL */
-  const dot   = document.getElementById('cursor-dot');
-  const ORBS  = [
-    { el: document.getElementById('orb1'), x:0, y:0, lag:.16 },
-    { el: document.getElementById('orb2'), x:0, y:0, lag:.10 },
-    { el: document.getElementById('orb3'), x:0, y:0, lag:.07 },
-  ];
-  let cx = innerWidth/2, cy = innerHeight/2;
+    // EN headline — kinetic entrance: scattered, rotated, snap into place
+    tl.fromTo(enChars,
+      {
+        opacity: 0,
+        y: () => gsap.utils.random(40, 90),
+        x: () => gsap.utils.random(-20, 20),
+        rotation: () => gsap.utils.random(-8, 8),
+        skewX: () => gsap.utils.random(-6, 6),
+      },
+      {
+        opacity: 1,
+        y: 0, x: 0,
+        rotation: 0, skewX: 0,
+        duration: 0.75,
+        ease: 'elastic.out(1, 0.6)',
+        stagger: { each: 0.055, from: 'random' },
+      },
+      '-=0.3'
+    );
 
-  document.addEventListener('mousemove', e => {
-    cx = e.clientX; cy = e.clientY;
-    dot.style.left = cx + 'px';
-    dot.style.top  = cy + 'px';
-  });
+    // BG headline — staggered but slightly calmer
+    tl.fromTo(bgChars,
+      {
+        opacity: 0,
+        y: () => gsap.utils.random(30, 70),
+        x: () => gsap.utils.random(-10, 10),
+        rotation: () => gsap.utils.random(-5, 5),
+      },
+      {
+        opacity: 1,
+        y: 0, x: 0,
+        rotation: 0,
+        duration: 0.7,
+        ease: 'elastic.out(1, 0.7)',
+        stagger: { each: 0.05, from: 'start' },
+      },
+      '<0.12'
+    );
 
-  (function orbLoop() {
-    ORBS.forEach(o => {
-      o.x += (cx - o.x) * o.lag;
-      o.y += (cy - o.y) * o.lag;
-      o.el.style.left = o.x + 'px';
-      o.el.style.top  = o.y + 'px';
-    });
-    requestAnimationFrame(orbLoop);
-  })();
+    // Brand labels, edition boxes, descs, ctas
+    tl.to(['#brand-en', '#brand-bg'], {
+      opacity: 1, y: 0, duration: 0.5, stagger: 0.1,
+      from: { opacity: 0, y: 10 }
+    }, '-=0.4');
 
-  /* 5. KINETIC HEADLINE */
-  let charIndex = 0;
-  document.querySelectorAll('.hl-char, .hl-dot').forEach(el => {
-    const delay = .52 + charIndex * .062;
-    el.style.animationDelay = delay + 's';
-    charIndex++;
-  });
+    tl.to(['#edition-en', '#edition-bg'], {
+      opacity: 1, duration: 0.5, stagger: 0.12,
+      ease: 'power2.out'
+    }, '-=0.3');
 
-  /* 6. TYPEWRITER */
-  const PHRASES = ['Choose Your Language', 'Изберете Вашия Език'];
-  let pi = 0, ci = 0, erasing = false;
-  const twEl = document.getElementById('tw');
+    tl.to(['#desc-en', '#desc-bg'], {
+      opacity: 1, duration: 0.55, stagger: 0.1,
+    }, '-=0.3');
 
-  function typeStep() {
-    const txt = PHRASES[pi];
-    if (!erasing) {
-      twEl.textContent = txt.slice(0, ++ci);
-      if (ci === txt.length) {
-        erasing = true;
-        return setTimeout(typeStep, 1900);
+    tl.to(['#cta-en', '#cta-bg'], {
+      opacity: 1, duration: 0.5, stagger: 0.12,
+    }, '-=0.3');
+
+    // Yellow elements pulse on load
+    tl.to(['#edition-en', '#brand-en', '#lbl-en'], {
+      scale: 1.04,
+      filter: 'brightness(1.3)',
+      duration: 0.2,
+      stagger: 0.05,
+      yoyo: true, repeat: 1,
+      ease: 'power2.inOut',
+    }, '-=0.1');
+
+    // Corner marks fade in last
+    tl.to('.corner-mark', { opacity: 1, duration: 1 }, '-=0.2');
+
+    /* ─── 4. CURSOR SYSTEM ──────────────────────────── */
+    const cursor = document.getElementById('cursor');
+    const trail1 = document.getElementById('trail1');
+    const trail2 = document.getElementById('trail2');
+    const glow = document.getElementById('kinetic-glow');
+    const kSide = document.getElementById('side-kinetic');
+
+    let mx = window.innerWidth / 2;
+    let my = window.innerHeight / 2;
+    let t1x = mx, t1y = my;
+    let t2x = mx, t2y = my;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top = my + 'px';
+
+      // Kinetic glow follows cursor on left side
+      const kRect = kSide.getBoundingClientRect();
+      if (mx >= kRect.left && mx <= kRect.right) {
+        glow.classList.add('visible');
+        glow.style.left = mx + 'px';
+        glow.style.top = my + 'px';
+        // Set CSS var for pseudo-element radial
+        kSide.style.setProperty('--mx', ((mx - kRect.left) / kRect.width * 100) + '%');
+        kSide.style.setProperty('--my', ((my - kRect.top) / kRect.height * 100) + '%');
+      } else {
+        glow.classList.remove('visible');
       }
-      setTimeout(typeStep, 55 + Math.random() * 38);
-    } else {
-      twEl.textContent = txt.slice(0, --ci);
-      if (ci === 0) {
-        erasing = false;
-        pi = (pi + 1) % PHRASES.length;
-        return setTimeout(typeStep, 440);
-      }
-      setTimeout(typeStep, 30);
+    });
+
+    // Trail lerp loop
+    (function trailLoop() {
+      t1x += (mx - t1x) * 0.14;
+      t1y += (my - t1y) * 0.14;
+      t2x += (mx - t2x) * 0.07;
+      t2y += (my - t2y) * 0.07;
+      trail1.style.left = t1x + 'px'; trail1.style.top = t1y + 'px';
+      trail2.style.left = t2x + 'px'; trail2.style.top = t2y + 'px';
+      requestAnimationFrame(trailLoop);
+    })();
+
+    // Cursor state on sides
+    kSide.addEventListener('mouseenter', () => {
+      cursor.classList.add('on-kinetic');
+      cursor.classList.remove('on-mono');
+    });
+    document.getElementById('side-mono').addEventListener('mouseenter', () => {
+      cursor.classList.add('on-mono');
+      cursor.classList.remove('on-kinetic');
+    });
+    document.getElementById('stage').addEventListener('mouseleave', () => {
+      cursor.classList.remove('on-kinetic', 'on-mono');
+    });
+
+    /* ─── 5. KINETIC — EDITION BOX SHAKE + GLITCH ──── */
+    const editionEn = document.getElementById('edition-en');
+    const glitchEl = document.getElementById('glitch-overlay');
+    const scanlines = document.getElementById('scanlines');
+
+    function triggerGlitch() {
+      glitchEl.classList.remove('glitch-active');
+      void glitchEl.offsetWidth; // reflow
+      glitchEl.classList.add('glitch-active');
+      // Scanlines flash
+      gsap.fromTo(scanlines, { opacity: 0 }, { opacity: 0.4, duration: 0.1, yoyo: true, repeat: 3 });
     }
-  }
-  setTimeout(typeStep, 2200);
 
-  /* 7. CARD FLOAT + MAGNETIC HOVER */
-  const cardStates = new Map();
-  document.querySelectorAll('.card').forEach((card, i) => {
-    cardStates.set(card, {
-      phase:      i * Math.PI,
-      hoverLerp:  0,
-      hoverTgt:   0,
-      mx: 0, my: 0,
+    function shakeElement(el) {
+      gsap.killTweensOf(el);
+      gsap.fromTo(el,
+        { x: 0 },
+        {
+          x: (i) => [6, -7, 5, -4, 3, -2, 1, 0][i % 8],
+          duration: 0.06,
+          ease: 'none',
+          repeat: 7,
+          onComplete: () => gsap.set(el, { x: 0 })
+        }
+      );
+    }
+
+    editionEn.addEventListener('mouseenter', () => {
+      shakeElement(editionEn);
+      triggerGlitch();
+      gsap.to(editionEn, { scale: 1.05, duration: 0.2, ease: 'back.out(2)' });
     });
-  });
-
-  (function floatLoop() {
-    document.querySelectorAll('.card').forEach(card => {
-      const s = cardStates.get(card);
-      s.phase     += .006;
-      s.hoverLerp += (s.hoverTgt - s.hoverLerp) * .11;
-
-      const floatY  = Math.sin(s.phase) * 6  * (1 - s.hoverLerp);
-      const magX    = s.mx * s.hoverLerp;
-      const magY    = s.my * s.hoverLerp;
-
-      card.style.transform = `translate(${magX}px, ${magY + floatY}px)`;
+    editionEn.addEventListener('mouseleave', () => {
+      gsap.to(editionEn, { scale: 1, duration: 0.3, ease: 'power2.out' });
     });
-    requestAnimationFrame(floatLoop);
-  })();
 
-  document.querySelectorAll('.card').forEach(card => {
-    const s = cardStates.get(card);
+    const enterEn = document.getElementById('enter-en');
+    enterEn.addEventListener('mouseenter', () => {
+      shakeElement(enterEn);
+      triggerGlitch();
+      gsap.to(enterEn, {
+        textShadow: '0 0 20px rgba(255,215,0,0.8), 0 0 40px rgba(255,215,0,0.3)',
+        scale: 1.06,
+        duration: 0.2
+      });
+    });
+    enterEn.addEventListener('mouseleave', () => {
+      gsap.to(enterEn, { textShadow: 'none', scale: 1, duration: 0.3 });
+    });
 
-    card.addEventListener('mouseenter', () => {
-      s.hoverTgt = 1;
-      dot.classList.add('on-card');
+    /* ─── 6. KINETIC HEADLINE — CHROMA ABERRATION ───── */
+    const hlEn = document.getElementById('headline-en');
+    kSide.addEventListener('mousemove', () => {
+      if (!hlEn.classList.contains('chroma-active')) {
+        hlEn.classList.add('chroma-active');
+        clearTimeout(kSide._chromaTimer);
+        kSide._chromaTimer = setTimeout(() => {
+          hlEn.classList.remove('chroma-active');
+        }, 300);
+      }
     });
-    card.addEventListener('mouseleave', () => {
-      s.hoverTgt = s.mx = s.my = 0;
-      dot.classList.remove('on-card');
-    });
-    card.addEventListener('mousemove', e => {
-      const r  = card.getBoundingClientRect();
-      const ox = e.clientX - r.left - r.width  / 2;
-      const oy = e.clientY - r.top  - r.height / 2;
-      s.mx = (ox / r.width)  * 10;
-      s.my = (oy / r.height) * 10;
-      card.style.setProperty('--mx', ((e.clientX - r.left) / r.width  * 100).toFixed(1) + '%');
-      card.style.setProperty('--my', ((e.clientY - r.top)  / r.height * 100).toFixed(1) + '%');
-    });
-  });
 
-  /* 8. NAVIGATION */
-  let navigating = false;
-  function navigateTo(lang) {
-    if (navigating) return;
-    navigating = true;
-    const overlay = document.getElementById(lang === 'en' ? 't-en' : 't-bg');
-    overlay.classList.add('active');
-    setTimeout(() => {
-      window.location.href = lang === 'en' ? 'enindex.html' : 'bgindex.html';
-    }, 680);
-  }
+    /* ─── 7. MONOCHROME — elegant hover interactions ── */
+    const enterBg = document.getElementById('enter-bg');
+    const editionBg = document.getElementById('edition-bg');
+
+    editionBg.addEventListener('mouseenter', () => {
+      gsap.to(editionBg, { scale: 1.03, letterSpacing: '0.3em', duration: 0.45, ease: 'power2.out' });
+    });
+    editionBg.addEventListener('mouseleave', () => {
+      gsap.to(editionBg, { scale: 1, letterSpacing: '0.24em', duration: 0.35 });
+    });
+
+    /* ─── 8. DIVIDER PULSE ──────────────────────────── */
+    const divider = document.querySelector('.divider');
+    gsap.to(divider, {
+      boxShadow: '0 0 40px rgba(255,215,0,0.6), 0 0 100px rgba(255,215,0,0.2)',
+      duration: 2.5,
+      ease: 'sine.inOut',
+      yoyo: true,
+      repeat: -1,
+    });
+
+    /* ─── 9. OR BADGE LETTER JITTER (subtle idle) ───── */
+    const orBadge = document.querySelector('.or-badge');
+    gsap.to(orBadge, {
+      y: -2,
+      duration: 1.8,
+      ease: 'sine.inOut',
+      yoyo: true,
+      repeat: -1,
+    });
+
+    /* ─── 10. BG HEADLINE ELEGANT BREATHE ───────────── */
+    gsap.to('#headline-bg', {
+      opacity: 0.88,
+      duration: 3,
+      ease: 'sine.inOut',
+      yoyo: true,
+      repeat: -1,
+      delay: 2,
+    });
+
+    /* ─── 11. EN HEADLINE JITTER (very subtle idle) ─── */
+    let jitterRAF;
+    function startJitter() {
+      const chars = document.querySelectorAll('#headline-en .char');
+      function jitterStep() {
+        chars.forEach(ch => {
+          if (Math.random() < 0.03) {
+            gsap.to(ch, {
+              x: gsap.utils.random(-1.5, 1.5),
+              y: gsap.utils.random(-1, 1),
+              duration: 0.08,
+              onComplete: () => gsap.set(ch, { x: 0, y: 0 })
+            });
+          }
+        });
+        jitterRAF = requestAnimationFrame(jitterStep);
+      }
+      jitterStep();
+    }
+    // Start idle jitter after main timeline
+    gsap.delayedCall(2.5, startJitter);
+
+    /* ─── 12. NAVIGATION ─────────────────────────────── */
+    let navigating = false;
+    function handleNav(e, lang) {
+      e.preventDefault();
+      if (navigating) return;
+      navigating = true;
+      const overlay = document.getElementById(lang === 'en' ? 't-en' : 't-bg');
+      overlay.classList.add('active');
+      setTimeout(() => {
+        window.location.href = lang === 'en' ? '/kinetic' : '/monochrome';
+      }, 700);
+    }
+    window.handleNav = handleNav;
+
+    // Keyboard nav
+    document.getElementById('enter-en').addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') handleNav(e, 'en');
+    });
+    document.getElementById('enter-bg').addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') handleNav(e, 'bg');
+    });
+
+    /* ─── 13. CLEANUP GLITCH CLASS ──────────────────── */
+    glitchEl.addEventListener('animationend', () => {
+      glitchEl.classList.remove('glitch-active');
+    });
   </script>
+
 </body>
+
 </html>
