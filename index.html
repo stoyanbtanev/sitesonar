@@ -109,32 +109,6 @@
       background: var(--white);
     }
 
-    .cursor-trail {
-      position: fixed;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 99998;
-      transform: translate(-50%, -50%);
-      will-change: left, top;
-    }
-
-    #trail1 {
-      width: 28px;
-      height: 28px;
-      background: radial-gradient(circle, rgba(255, 215, 0, 0.18) 0%, transparent 70%);
-    }
-
-    #trail2 {
-      width: 52px;
-      height: 52px;
-      background: radial-gradient(circle, rgba(255, 215, 0, 0.07) 0%, transparent 70%);
-    }
-
-    /* ══════════════════════════════════════════════════
-       BACKGROUND LAYERS
-    ══════════════════════════════════════════════════ */
-
-    /* Grid overlay */
     #grid-overlay {
       position: fixed;
       inset: 0;
@@ -353,6 +327,7 @@
       justify-content: space-between;
       padding: clamp(1.8rem, 3vw, 3rem);
       overflow: hidden;
+      cursor: pointer;
     }
 
     .side-kinetic {
@@ -780,9 +755,12 @@
       .side {
         flex: none;
         width: 100%;
+        min-height: 100vh; /* Ensure each side takes full screen on mobile */
+        min-height: 100svh;
         padding: 3rem 1.8rem;
         text-align: left !important;
         align-items: flex-start !important;
+        cursor: pointer;
       }
 
       .side-mono {
@@ -1048,8 +1026,6 @@
 
   <!-- ── Custom Cursor ──────────────────────────── -->
   <div id="cursor" aria-hidden="true"></div>
-  <div id="trail1" class="cursor-trail" aria-hidden="true"></div>
-  <div id="trail2" class="cursor-trail" aria-hidden="true"></div>
 
   <!-- ── Corner Marks ───────────────────────────── -->
   <span class="corner-mark cm-tl" aria-hidden="true">tanev.design</span>
@@ -1067,7 +1043,7 @@
   <div class="stage" id="stage">
 
     <!-- ── LEFT: KINETIC (English) ────────────────── -->
-    <section class="side side-kinetic" id="side-kinetic" aria-label="English — Kinetic Edition">
+    <section class="side side-kinetic" id="side-kinetic" aria-label="English — Kinetic Edition" onclick="handleNav(event,'en')">
 
       <!-- Top label -->
       <div class="corner-label corner-label-kinetic" id="lbl-en">
@@ -1114,7 +1090,7 @@
     </div>
 
     <!-- ── RIGHT: MONOCHROME (Bulgarian) ──────────── -->
-    <section class="side side-mono" id="side-mono" aria-label="Български — Monochrome Edition">
+    <section class="side side-mono" id="side-mono" aria-label="Български — Monochrome Edition" onclick="handleNav(event,'bg')">
 
       <!-- Top label -->
       <div class="corner-label corner-label-mono" id="lbl-bg">
@@ -1249,8 +1225,8 @@
     }
 
     /* ─── 2. INIT HEADLINES ─────────────────────────── */
-    const enChars = splitText(document.getElementById('headline-en'), 'ENGLISH');
-    const bgChars = splitText(document.getElementById('headline-bg'), 'БЪЛГАРСКИ');
+    const enChars = splitText(document.getElementById('headline-en'), 'ENG.');
+    const bgChars = splitText(document.getElementById('headline-bg'), 'БЪЛ.');
 
     /* ─── 3. MASTER GSAP TIMELINE ───────────────────── */
     const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
@@ -1339,8 +1315,6 @@
 
     /* ─── 4. CURSOR SYSTEM ──────────────────────────── */
     const cursor = document.getElementById('cursor');
-    const trail1 = document.getElementById('trail1');
-    const trail2 = document.getElementById('trail2');
     const kSide = document.getElementById('side-kinetic');
 
     let mx = window.innerWidth / 2;
@@ -1354,16 +1328,12 @@
       cursor.style.top = my + 'px';
     });
 
-    // Trail lerp loop
-    (function trailLoop() {
-      t1x += (mx - t1x) * 0.14;
-      t1y += (my - t1y) * 0.14;
-      t2x += (mx - t2x) * 0.07;
-      t2y += (my - t2y) * 0.07;
-      trail1.style.left = t1x + 'px'; trail1.style.top = t1y + 'px';
-      trail2.style.left = t2x + 'px'; trail2.style.top = t2y + 'px';
-      requestAnimationFrame(trailLoop);
-    })();
+    // Link hover interactions
+    const sides = document.querySelectorAll('.side');
+    sides.forEach(s => {
+      s.addEventListener('mouseenter', () => cursor.classList.add('active'));
+      s.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+    });
 
     // Cursor state on sides
     kSide.addEventListener('mouseenter', () => {
@@ -1509,11 +1479,24 @@
       e.preventDefault();
       if (navigating) return;
       navigating = true;
+
+      const side = e.currentTarget;
       const overlay = document.getElementById(lang === 'en' ? 't-en' : 't-bg');
+      
+      // Cinematic Zoom
+      gsap.to(side, {
+        scale: 1.35,
+        opacity: 0,
+        duration: 1.1,
+        ease: 'power3.inOut'
+      });
+      
+      // Overlay trigger
       overlay.classList.add('active');
+      
       setTimeout(() => {
         window.location.href = lang === 'en' ? 'enindex.html' : 'bgindex.html';
-      }, 700);
+      }, 750);
     }
     window.handleNav = handleNav;
 
