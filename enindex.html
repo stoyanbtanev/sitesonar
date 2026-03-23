@@ -2837,6 +2837,8 @@
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+    let auditInFlight = false;
+    let lastAuditState = null;
     const SCORE_TEXT_CLASSES = ['text-red-400', 'text-yellow-400', 'text-green-400', 'neon-text'];
     const BAR_FILL_CLASSES = ['progress-fill-red', 'progress-fill-yellow', 'progress-fill-blue', 'progress-fill-green'];
 
@@ -3303,7 +3305,7 @@
         endpoint.searchParams.set('url', url);
         endpoint.searchParams.set('strategy', 'mobile');
         ['performance', 'accessibility', 'best-practices', 'seo'].forEach(category => endpoint.searchParams.append('category', category));
-        const livePayload = await fetchJson(endpoint.toString(), {}, 12000);
+        const livePayload = await fetchJson(endpoint.toString(), {}, 30000);
         if (livePayload?.lighthouseResult?.categories) return buildLiveAudit(url, livePayload);
       } catch (error) {
         console.info('Live PageSpeed audit unavailable, falling back to estimate.', error);
@@ -3311,7 +3313,7 @@
 
       try {
         const started = performance.now();
-        const proxyUrl = `https://r.jina.ai/http://${encodeURIComponent(url)}`;
+        const proxyUrl = `https://r.jina.ai/${url}`;
         const crawlPayload = await fetchJson(proxyUrl, { headers: { Accept: 'application/json' } }, 12000);
         if (crawlPayload?.data) return buildEstimatedAudit(url, crawlPayload.data, performance.now() - started);
       } catch (error) {
