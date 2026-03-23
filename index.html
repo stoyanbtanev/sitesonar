@@ -9,11 +9,14 @@
     content="Fast, affordable websites with sharp UI/UX, AI-assisted workflow, and quick delivery. Choose your edition." />
   <meta name="author" content="Stoyan Tanev" />
   <meta name="robots" content="index, follow" />
+  <meta property="og:description" content="Fast, affordable websites with sharp UI/UX, AI-assisted workflow, and quick delivery. Choose your edition." />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="tanev.design — Kinetic or Monochrome" />
   <meta property="og:url" content="https://tanev.design" />
   <meta property="og:image" content="https://tanev.design/ogpreview.png" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="tanev.design — Kinetic or Monochrome" />
+  <meta name="twitter:description" content="Premium web design in Kinetic and Monochrome editions." />
   <link rel="canonical" href="https://tanev.design" />
   <link rel="icon" type="image/svg+xml"
     href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='0' fill='%23000'/><rect x='20' y='20' width='60' height='60' fill='%23FFD700'/><text x='50' y='72' font-family='Arial,sans-serif' font-size='48' font-weight='900' fill='%23000' text-anchor='middle'>t</text></svg>" />
@@ -60,12 +63,16 @@
     body {
       width: 100%;
       height: 100%;
-      overflow: hidden;
       background: var(--black);
       color: var(--white);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       font-family: 'Space Grotesk', system-ui, sans-serif;
+    }
+
+    /* Primary desktop state: full-screen split */
+    @media (min-width: 769px) {
+      body { overflow: hidden; }
     }
 
     /* ══════════════════════════════════════════════════
@@ -748,7 +755,7 @@
         flex-direction: column;
         height: auto;
         min-height: 100vh;
-        overflow-y: auto;
+        overflow-y: visible; /* Use body scroll on mobile */
         overflow-x: hidden;
       }
 
@@ -784,7 +791,8 @@
       }
 
       .headline {
-        font-size: clamp(3.2rem, 15vw, 7rem);
+        font-size: clamp(3.2rem, 25vw, 6.5rem);
+        line-height: .9;
       }
 
       .corner-mark {
@@ -1042,6 +1050,9 @@
   ══════════════════════════════════════════════ -->
   <div class="stage" id="stage">
 
+    <!-- Hidden SEO Anchor -->
+    <h1 class="sr-only">tanev.design — Web Design & Development Excellence</h1>
+
     <!-- ── LEFT: KINETIC (English) ────────────────── -->
     <section class="side side-kinetic" id="side-kinetic" aria-label="English — Kinetic Edition" onclick="handleNav(event,'en')">
 
@@ -1053,9 +1064,9 @@
       <!-- Headline block -->
       <div class="headline-block">
 
-        <h1 class="headline headline-kinetic" id="headline-en" aria-label="English">
+        <h2 class="headline headline-kinetic" id="headline-en" aria-label="English Edition">
           <!-- Split by JS -->
-        </h1>
+        </h2>
 
         <p class="brand-label brand-label-kinetic" id="brand-en">
           TANEV.DESIGN
@@ -1090,7 +1101,7 @@
     </div>
 
     <!-- ── RIGHT: MONOCHROME (Bulgarian) ──────────── -->
-    <section class="side side-mono" id="side-mono" aria-label="Български — Monochrome Edition" onclick="handleNav(event,'bg')">
+    <section class="side side-mono" id="side-mono" lang="bg" aria-label="Български — Monochrome Edition" onclick="handleNav(event,'bg')">
 
       <!-- Top label -->
       <div class="corner-label corner-label-mono" id="lbl-bg">
@@ -1100,7 +1111,7 @@
       <!-- Headline block -->
       <div class="headline-block">
 
-        <h2 class="headline headline-mono" id="headline-bg" aria-label="Български">
+        <h2 class="headline headline-mono" id="headline-bg" aria-label="Bulgarian Edition">
           <!-- Split by JS -->
         </h2>
 
